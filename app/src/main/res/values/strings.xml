@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Shopping Advisor</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_add_shopping_event">AddShoppingEvent</string>
+    <string name="title_activity_show_history">ShowHistory</string>
+    <string name="title_activity_show_predictions">ShowPredictions</string>
 </resources>
