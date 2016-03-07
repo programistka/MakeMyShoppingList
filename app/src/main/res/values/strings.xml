@@ -4,4 +4,6 @@
     <string name="title_activity_add_shopping_event">AddShoppingEvent</string>
     <string name="title_activity_show_history">ShowHistory</string>
     <string name="title_activity_show_predictions">ShowPredictions</string>
+    <string name="title_activity_history_row">HistoryRow</string>
+    <string name="title_activity_row_history">RowHistory</string>
 </resources>

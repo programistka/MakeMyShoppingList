@@ -1,12 +1,13 @@
 package net.programistka.shoppingadvisor;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.ListView;
+
+import java.util.List;
 
 public class ShowHistory extends AppCompatActivity {
 
@@ -16,6 +17,11 @@ public class ShowHistory extends AppCompatActivity {
         setContentView(R.layout.activity_show_history);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-    }
 
+        DbHandler dbHandler = new DbHandler(this);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.history_row, dbHandler.getItems());
+
+        ListView itemsListView = (ListView) findViewById(R.id.lvItems);
+        itemsListView.setAdapter(adapter);
+    }
 }

@@ -12,4 +12,8 @@
     tools:context="net.programistka.shoppingadvisor.ShowHistory"
     tools:showIn="@layout/activity_show_history">
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvItems" />
 </RelativeLayout>
