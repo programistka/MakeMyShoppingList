@@ -24,8 +24,8 @@ public class DbHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE " +
                 TABLE_ITEMS + "("
-                + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_ITEMNAME
-                + " TEXT)";
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_ITEMNAME + " TEXT)";
         db.execSQL(CREATE_PRODUCTS_TABLE);
     }
 
@@ -37,7 +37,6 @@ public class DbHandler extends SQLiteOpenHelper {
 
     public void addItem(Item item) {
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, 1);
         values.put(COLUMN_ITEMNAME, item.getName());
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_ITEMS, null, values);
