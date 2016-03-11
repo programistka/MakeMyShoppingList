@@ -1,5 +1,6 @@
 package net.programistka.shoppingadvisor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,6 +27,7 @@ public class AddShoppingEvent extends AppCompatActivity {
         Item newItem = new Item();
         newItem.setName(textField.getText().toString());
         dbHandler.addItem(newItem);
-        List<String> items = dbHandler.getItems();
+        Intent historyList = new Intent(getApplicationContext(), ShowHistory.class);
+        startActivity(historyList);
     }
 }
