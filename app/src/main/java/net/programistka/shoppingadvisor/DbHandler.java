@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class DbHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
