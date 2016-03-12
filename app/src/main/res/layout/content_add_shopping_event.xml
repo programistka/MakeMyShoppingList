@@ -12,7 +12,7 @@
     tools:context="net.programistka.shoppingadvisor.AddShoppingEvent"
     tools:showIn="@layout/activity_add_shopping_event">
 
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtItemName"
