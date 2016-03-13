@@ -74,6 +74,7 @@ public class DbHandler extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             do {
                 Item item = new Item();
+                item.setId(cursor.getInt(0));
                 item.setName(cursor.getString(1));
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 item.setDate(new Date(cursor.getLong(3)));

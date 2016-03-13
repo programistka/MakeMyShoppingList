@@ -29,6 +29,16 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
     }
 
     @Override
+    public Item getItem(int position) {
+        return items.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return getItem(position).getId();
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Item item = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view

@@ -21,15 +21,13 @@ public class AddShoppingEvent extends AppCompatActivity {
 
         dbHandler = new DbHandler(this);
 
-        final MyAdapter<Item> adapter = new MyAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, dbHandler.getItems());
+        final ItemsAdapter adapter = new ItemsAdapter(this, dbHandler.getItems());
         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.txtItemName);
         autoCompleteTextView.setAdapter(adapter);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                adapter.getItemId(position);
-//              dbHandler.addShoppingItem(Integer.parseInt(value));
+              dbHandler.addShoppingItem(adapter.getItemId(position));
             }
         });
     }
