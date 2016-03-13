@@ -3,6 +3,7 @@ package net.programistka.shoppingadvisor;
 import java.util.Date;
 
 public class Item {
+
     private int _id;
     private String _name;
     private Date _creationDate;

@@ -51,7 +51,7 @@ public class DbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_ITEMS, null, itemValues);
 
-        String selectQuery = "SELECT  * FROM " + TABLE_ITEMS + " ORDER BY " + COLUMN_ID + " DESC";
+        String selectQuery = "SELECT  * FROM " + TABLE_ITEMS + " ORDER BY " + COLUMN_ID;
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToLast();
         long lastInsertedId = cursor.getLong(0);
@@ -65,8 +65,8 @@ public class DbHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<String> getItems() {
-        ArrayList<String> itemsList = new ArrayList<>();
+    public ArrayList<Item> getItems() {
+        ArrayList<Item> itemsList = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_ITEMS + " LEFT JOIN " + TABLE_HISTORY + " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_HISTORY + "." + COLUMN_ITEMID;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -77,11 +77,20 @@ public class DbHandler extends SQLiteOpenHelper {
                 item.setName(cursor.getString(1));
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 item.setDate(new Date(cursor.getLong(3)));
-                itemsList.add(item.getName() + " " + dateFormat.format(item.getCreationDate()));
+                itemsList.add(item);
             } while (cursor.moveToNext());
             cursor.close();
             db.close();
         }
         return itemsList;
+    }
+
+    public void addShoppingItem(long id) {
+        Date c = new Date(System.currentTimeMillis());
+        ContentValues shoppingValues = new ContentValues();
+        shoppingValues.put(COLUMN_ITEMID, id);
+        shoppingValues.put(COLUMN_CREATIONDATE, c.getTime());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(TABLE_HISTORY, null, shoppingValues);
     }
 }

@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 public class AddShoppingEvent extends AppCompatActivity {
 
+    private DbHandler dbHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,11 +19,19 @@ public class AddShoppingEvent extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DbHandler dbHandler = new DbHandler(this);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        dbHandler = new DbHandler(this);
+
+        final MyAdapter<Item> adapter = new MyAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, dbHandler.getItems());
-        AutoCompleteTextView view = (AutoCompleteTextView) findViewById(R.id.txtItemName);
-        view.setAdapter(adapter);
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.txtItemName);
+        autoCompleteTextView.setAdapter(adapter);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                adapter.getItemId(position);
+//              dbHandler.addShoppingItem(Integer.parseInt(value));
+            }
+        });
     }
 
     public void AddNewItem(View view) {

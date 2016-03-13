@@ -19,7 +19,7 @@ public class ShowHistory extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         DbHandler dbHandler = new DbHandler(this);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.history_row, dbHandler.getItems());
+        ItemsAdapter adapter = new ItemsAdapter(this, dbHandler.getItems());
 
         ListView itemsListView = (ListView) findViewById(R.id.lvItems);
         itemsListView.setAdapter(adapter);
