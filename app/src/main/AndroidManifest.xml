@@ -36,6 +36,10 @@
         <activity
             android:name=".RowHistory"
             android:label="@string/title_activity_row_history"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Test"
+            android:label="@string/title_activity_test"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

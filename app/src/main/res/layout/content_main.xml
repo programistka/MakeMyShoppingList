@@ -47,4 +47,7 @@
         android:layout_alignRight="@+id/btnShowHistory"
         android:layout_alignEnd="@+id/btnShowHistory"
         android:onClick="loadShowPredictions" />
+
+
+
 </RelativeLayout>
