@@ -6,4 +6,9 @@
     <string name="title_activity_show_predictions">ShowPredictions</string>
     <string name="title_activity_history_row">HistoryRow</string>
     <string name="title_activity_row_history">RowHistory</string>
+    <string name="add_shopping_item">Add shopping Item</string>
+    <string name="show_history">Show history</string>
+    <string name="show_predictions">Show Predictions</string>
+    <string name="name">Name</string>
+    <string name="creation_date">CreationDate</string>
 </resources>

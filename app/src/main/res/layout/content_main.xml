@@ -16,9 +16,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add shopping Item"
+        android:text="@string/add_shopping_item"
         android:id="@+id/btnAddShoppingItem"
-        android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="loadAddShoppingEvent"
@@ -28,7 +27,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show history"
+        android:text="@string/show_history"
         android:id="@+id/btnShowHistory"
         android:layout_below="@+id/btnAddShoppingItem"
         android:layout_alignParentLeft="true"
@@ -40,7 +39,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show Predictions"
+        android:text="@string/show_predictions"
         android:id="@+id/btnShowPredictions"
         android:layout_below="@+id/btnShowHistory"
         android:layout_alignParentLeft="true"
