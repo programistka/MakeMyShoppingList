@@ -14,12 +14,12 @@ import java.util.ArrayList;
 /**
  * Created by maga on 13.03.16.
  */
-public class ItemsAdapter extends ArrayAdapter<Item> {
+public class PredictionsAdapter extends ArrayAdapter<Item> {
     private ArrayList<Item> suggestions;
     private ArrayList<Item> items;
     private ArrayList<Item> itemsAll;
 
-    public ItemsAdapter(Context context, ArrayList<Item> items) {
+    public PredictionsAdapter(Context context, ArrayList<Item> items) {
         super(context, 0, items);
 
         this.suggestions = new ArrayList<Item>();
@@ -43,16 +43,15 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
         Item item = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.history_row, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.predictions_row, parent, false);
         }
         // Lookup view for data population
         TextView tvItemName = (TextView) convertView.findViewById(R.id.txtItemName);
-        TextView tvItemCreationDate = (TextView) convertView.findViewById(R.id.txtItemCreationDate);
+        TextView tvItemPredictionDate = (TextView) convertView.findViewById(R.id.txtItemPredictionDate);
         // Populate the data into the template view using the data object
         tvItemName.setText(item.getName());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        tvItemCreationDate.setText(dateFormat.format(item.getCreationDate()));
-
+        tvItemPredictionDate.setText(dateFormat.format(item.getPredictionDate()));
         // Return the completed view to render on screen
         return convertView;
     }

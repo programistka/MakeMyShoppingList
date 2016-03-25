@@ -12,4 +12,5 @@
     <string name="name">Name</string>
     <string name="creation_date">CreationDate</string>
     <string name="title_activity_test">Test</string>
+    <string name="prediction_date">Prediction date</string>
 </resources>

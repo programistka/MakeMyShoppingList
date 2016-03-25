@@ -7,6 +7,7 @@ public class Item {
     private int _id;
     private String _name;
     private Date _creationDate;
+    private Date _predictionDate;
 
     public int getId() {
         return _id;
@@ -31,4 +32,8 @@ public class Item {
     public void setDate(Date creationDate) {
         this._creationDate = creationDate;
     }
+
+    public Date getPredictionDate() { return this._predictionDate; }
+
+    public void setPredictionDate(Date predictionDate) { this._predictionDate = predictionDate; }
 }
