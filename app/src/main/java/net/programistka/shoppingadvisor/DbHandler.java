@@ -146,15 +146,15 @@ public class DbHandler extends SQLiteOpenHelper {
     private Date calculatePredictionForItem(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Long> shoppingTimes = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_ITEMS +
+        String selectQuery = "SELECT DISTINCT(DATE(" + COLUMN_CREATIONDATE + "/1000, 'unixepoch')) FROM " + TABLE_ITEMS +
                 " LEFT JOIN " + TABLE_HISTORY +
                 " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_HISTORY + "." + COLUMN_ITEMID +
-                " WHERE " + TABLE_ITEMS + "." + COLUMN_ID + "=" + id + " ORDER BY " + COLUMN_CREATIONDATE;
+                " WHERE " + TABLE_ITEMS + "." + COLUMN_ID + "=" + id + " ORDER BY DATE(" + COLUMN_CREATIONDATE + "/1000, 'unixepoch')";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
-                shoppingTimes.add(cursor.getLong(3));
+                shoppingTimes.add(cursor.getLong(0));
             } while (cursor.moveToNext());
             cursor.close();
             db.close();
