@@ -41,19 +41,15 @@ public class ItemsAdapter extends ArrayAdapter<Item> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Item item = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.history_row, parent, false);
         }
-        // Lookup view for data population
         TextView tvItemName = (TextView) convertView.findViewById(R.id.txtItemName);
         TextView tvItemCreationDate = (TextView) convertView.findViewById(R.id.txtItemCreationDate);
-        // Populate the data into the template view using the data object
         tvItemName.setText(item.getName());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         tvItemCreationDate.setText(dateFormat.format(item.getCreationDate()));
 
-        // Return the completed view to render on screen
         return convertView;
     }
 

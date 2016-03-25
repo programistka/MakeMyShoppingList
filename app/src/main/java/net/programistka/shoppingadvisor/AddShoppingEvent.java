@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class AddShoppingEvent extends AppCompatActivity {
@@ -21,13 +22,19 @@ public class AddShoppingEvent extends AppCompatActivity {
 
         dbHandler = new DbHandler(this);
 
-        final ItemsAdapter adapter = new ItemsAdapter(this, dbHandler.getItems());
+        final SuggestionsAdapter adapter = new SuggestionsAdapter(this, dbHandler.getSuggestionsItems());
         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.txtItemName);
         autoCompleteTextView.setAdapter(adapter);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-              dbHandler.addShoppingItem(adapter.getItemId(position));
+            public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
+                Button button = (Button) findViewById(R.id.btnAddNewItem);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dbHandler.addShoppingItem(id);
+                    }
+                });
             }
         });
     }

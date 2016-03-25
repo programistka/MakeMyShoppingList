@@ -74,12 +74,31 @@ public class DbHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<Item> getItems() {
+    public ArrayList<Item> getSuggestionsItems() {
         ArrayList<Item> itemsList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_ITEMS + " LEFT JOIN " + TABLE_HISTORY + " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_HISTORY + "." + COLUMN_ITEMID;
+        String selectQuery = "SELECT DISTINCT(" + COLUMN_ID + ")," + COLUMN_ITEMNAME  + " FROM " + TABLE_ITEMS + " LEFT JOIN " + TABLE_HISTORY + " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_HISTORY + "." + COLUMN_ITEMID;
+        System.out.printf(selectQuery);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                Item item = new Item();
+                item.setId(cursor.getInt(0));
+                item.setName(cursor.getString(1));
+                itemsList.add(item);
+            } while (cursor.moveToNext());
+            cursor.close();
+            db.close();
+        }
+        return itemsList;
+    }
 
+    public ArrayList<Item> getItems() {
+        ArrayList<Item> itemsList = new ArrayList<>();
+        String selectQuery = "SELECT *  FROM " + TABLE_ITEMS + " LEFT JOIN " + TABLE_HISTORY + " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_HISTORY + "." + COLUMN_ITEMID;
+        System.out.printf(selectQuery);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
                 Item item = new Item();
@@ -114,7 +133,14 @@ public class DbHandler extends SQLiteOpenHelper {
         predictionValues.put(COLUMN_ITEMID, id);
         predictionValues.put(COLUMN_NEXTDATE, c.getTime());
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(TABLE_PREDICTIONS, null, predictionValues);
+        String selectQuery = "SELECT COUNT(*) FROM " + TABLE_PREDICTIONS + " WHERE " + COLUMN_ITEMID + "=" + id;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor != null && cursor.moveToFirst()) {
+            db.update(TABLE_PREDICTIONS, predictionValues, COLUMN_ITEMID + "=" + id, null);
+        }
+        else {
+            db.insert(TABLE_PREDICTIONS, null, predictionValues);
+        }
     }
 
     private Date calculatePredictionForItem(long id) {
@@ -123,8 +149,7 @@ public class DbHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT * FROM " + TABLE_ITEMS +
                 " LEFT JOIN " + TABLE_HISTORY +
                 " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_HISTORY + "." + COLUMN_ITEMID +
-                " WHERE " + TABLE_ITEMS + "." + COLUMN_ID + "=" + id;
-        System.out.println(selectQuery);
+                " WHERE " + TABLE_ITEMS + "." + COLUMN_ID + "=" + id + " ORDER BY " + COLUMN_CREATIONDATE;
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
