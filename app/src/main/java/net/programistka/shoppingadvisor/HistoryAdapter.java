@@ -1,0 +1,56 @@
+package net.programistka.shoppingadvisor;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+/**
+ * Created by maga on 13.03.16.
+ */
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
+    private ArrayList<Item> items;
+    private Context context;
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView nameTextView;
+        public TextView dateTextView;
+        public ViewHolder(View v) { super(v); }
+    }
+
+    public HistoryAdapter(Context context, ArrayList<Item> items) {
+
+        this.items = items;
+        this.context = context;
+
+    }
+    @Override
+    public HistoryAdapter.ViewHolder
+    onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(
+                parent.getContext()).inflate(
+                R.layout.adapter_main_card_view, parent, false);
+        ViewHolder viewHolder = new ViewHolder(v);
+        viewHolder.nameTextView = (TextView)v.findViewById(R.id.name_textview);
+        viewHolder.dateTextView = (TextView)v.findViewById(R.id.date_textview);
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Item currentItem = items.get(position);
+        holder.nameTextView.setText(currentItem.getName());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy");
+        holder.dateTextView.setText(sdf.format(currentItem.getCreationDate()));
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+}

@@ -25,7 +25,6 @@ public class PredictionsAdapter extends ArrayAdapter<Item> {
         this.suggestions = new ArrayList<Item>();
         this.items = items;
         this.itemsAll = (ArrayList<Item>) items.clone();
-
     }
 
     @Override
