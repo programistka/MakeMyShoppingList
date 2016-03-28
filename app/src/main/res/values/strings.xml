@@ -11,4 +11,7 @@
     <string name="show_predictions">Show Predictions</string>
     <string name="creation_date">Creation Date</string>
     <string name="prediction_date">Prediction date</string>
+    <string name="date">Date</string>
+    <string name="name">Name</string>
+    <string name="item_name">Item name</string>
 </resources>
