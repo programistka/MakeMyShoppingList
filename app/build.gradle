@@ -17,16 +17,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets {
-        main {
-            res.srcDirs =
-                    [
-                            'src/main/res/layout/activities',
-                            'src/main/res/layout',
-                            'src/main/res'
-                    ]
-        }
-    }
 }
 
 dependencies {
@@ -36,4 +26,5 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile 'com.android.support:cardview-v7:23.1.0'
     androidTestCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:2.4.0'
 }
