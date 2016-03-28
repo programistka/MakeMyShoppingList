@@ -18,20 +18,16 @@ import java.util.ArrayList;
  */
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
     private ArrayList<Item> items;
-    private Context context;
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
         public TextView dateTextView;
         public ViewHolder(View v) { super(v); }
     }
 
-    public HistoryAdapter(Context context, ArrayList<Item> items) {
-
+    public HistoryAdapter(ArrayList<Item> items) {
         this.items = items;
-        this.context = context;
-
     }
+
     @Override
     public HistoryAdapter.ViewHolder
     onCreateViewHolder(ViewGroup parent, int viewType) {

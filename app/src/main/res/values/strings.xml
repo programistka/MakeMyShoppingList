@@ -9,8 +9,6 @@
     <string name="add_shopping_item">Add shopping Item</string>
     <string name="show_history">Show history</string>
     <string name="show_predictions">Show Predictions</string>
-    <string name="name">Name</string>
-    <string name="creation_date">CreationDate</string>
+    <string name="creation_date">Creation Date</string>
     <string name="prediction_date">Prediction date</string>
-    <string name="title_activity_test_ac">TestAC</string>
 </resources>

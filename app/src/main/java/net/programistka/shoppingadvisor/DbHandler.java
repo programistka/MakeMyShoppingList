@@ -71,7 +71,7 @@ public class DbHandler extends SQLiteOpenHelper {
         shoppingValues.put(COLUMN_CREATIONDATE, c.getTime());
         db.insert(TABLE_HISTORY, null, shoppingValues);
 
-
+        cursor.close();
         db.close();
     }
 
@@ -142,6 +142,9 @@ public class DbHandler extends SQLiteOpenHelper {
         else {
             db.insert(TABLE_PREDICTIONS, null, predictionValues);
         }
+
+        cursor.close();
+        db.close();
     }
 
     private Date calculatePredictionForItem(long id) {

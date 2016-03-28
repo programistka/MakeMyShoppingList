@@ -22,7 +22,7 @@ public class ShowPredictions extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         DbHandler dbHandler = new DbHandler(this);
-        PredictionsAdapter adapter = new PredictionsAdapter(this, dbHandler.getPredictions());
+        PredictionsAdapter adapter = new PredictionsAdapter(dbHandler.getPredictions());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);
         recyclerView.setAdapter(adapter);

@@ -22,7 +22,7 @@ public class ShowHistory extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         DbHandler dbHandler = new DbHandler(this);
-        HistoryAdapter adapter = new HistoryAdapter(this, dbHandler.getItems());
+        HistoryAdapter adapter = new HistoryAdapter(dbHandler.getItems());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);
         recyclerView.setAdapter(adapter);

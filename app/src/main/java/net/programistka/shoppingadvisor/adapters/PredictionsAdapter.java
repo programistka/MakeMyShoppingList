@@ -18,7 +18,6 @@ import java.util.ArrayList;
  */
 public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.ViewHolder> {
     private ArrayList<Item> items;
-    private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
@@ -26,11 +25,8 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         public ViewHolder(View v) { super(v); }
     }
 
-    public PredictionsAdapter(Context context, ArrayList<Item> items) {
-
+    public PredictionsAdapter(ArrayList<Item> items) {
         this.items = items;
-        this.context = context;
-
     }
     @Override
     public PredictionsAdapter.ViewHolder
