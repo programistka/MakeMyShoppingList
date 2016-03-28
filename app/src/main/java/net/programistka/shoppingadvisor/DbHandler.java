@@ -6,8 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import net.programistka.shoppingadvisor.models.Item;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class DbHandler extends SQLiteOpenHelper {

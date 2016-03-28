@@ -1,4 +1,4 @@
-package net.programistka.shoppingadvisor;
+package net.programistka.shoppingadvisor.acitivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,11 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+
+import net.programistka.shoppingadvisor.DbHandler;
+import net.programistka.shoppingadvisor.models.Item;
+import net.programistka.shoppingadvisor.R;
+import net.programistka.shoppingadvisor.adapters.SuggestionsAdapter;
 
 public class AddShoppingEvent extends AppCompatActivity {
 

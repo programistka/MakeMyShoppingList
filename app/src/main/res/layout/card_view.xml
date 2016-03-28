@@ -21,7 +21,6 @@
             android:layout_marginTop="18dp"
             android:layout_marginLeft="100dp"
             android:textSize="12sp"
-            android:textColor="#C5C3C6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Date" />
@@ -31,7 +30,6 @@
             android:layout_marginLeft="100dp"
             android:maxLines="3"
             android:textSize="16sp"
-            android:textColor="#4C5C68"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Name" />

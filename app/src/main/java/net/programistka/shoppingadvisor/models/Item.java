@@ -1,4 +1,4 @@
-package net.programistka.shoppingadvisor;
+package net.programistka.shoppingadvisor.models;
 
 import java.util.Date;
 

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".acitivities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,25 +22,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddShoppingEvent"
+            android:name=".acitivities.AddShoppingEvent"
             android:label="@string/title_activity_add_shopping_event"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ShowHistory"
+            android:name=".acitivities.ShowHistory"
             android:label="@string/title_activity_show_history"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ShowPredictions"
+            android:name=".acitivities.ShowPredictions"
             android:label="@string/title_activity_show_predictions"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".RowHistory"
-            android:label="@string/title_activity_row_history"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Test"
-            android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
