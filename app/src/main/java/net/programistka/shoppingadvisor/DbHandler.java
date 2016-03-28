@@ -18,11 +18,11 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String TABLE_HISTORY = "history";
     private static final String TABLE_PREDICTIONS = "predictions";
 
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_ITEMNAME = "_name";
-    public static final String COLUMN_ITEMID = "item_id";
-    public static final String COLUMN_CREATIONDATE = "creation_date";
-    public static final String COLUMN_NEXTDATE = "next_date";
+    private static final String COLUMN_ID = "_id";
+    private static final String COLUMN_ITEMNAME = "_name";
+    private static final String COLUMN_ITEMID = "item_id";
+    private static final String COLUMN_CREATIONDATE = "creation_date";
+    private static final String COLUMN_NEXTDATE = "next_date";
 
 
     public DbHandler(Context context) {
@@ -124,7 +124,7 @@ public class DbHandler extends SQLiteOpenHelper {
         addOrUpdatePredictionsForItem(id);
     }
 
-    public void addOrUpdatePredictionsForItem(long id) {
+    private void addOrUpdatePredictionsForItem(long id) {
         Date c = calculatePredictionForItem(id);
         if(c == null)
         {
@@ -138,12 +138,11 @@ public class DbHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor != null && cursor.moveToFirst()) {
             db.update(TABLE_PREDICTIONS, predictionValues, COLUMN_ITEMID + "=" + id, null);
+            cursor.close();
         }
         else {
             db.insert(TABLE_PREDICTIONS, null, predictionValues);
         }
-
-        cursor.close();
         db.close();
     }
 

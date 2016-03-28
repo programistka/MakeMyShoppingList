@@ -24,10 +24,9 @@ public class SuggestionsAdapter extends ArrayAdapter<Item> {
     public SuggestionsAdapter(Context context, ArrayList<Item> items) {
         super(context, 0, items);
 
-        this.suggestions = new ArrayList<Item>();
+        this.suggestions = new ArrayList<>();
         this.items = items;
         this.itemsAll = (ArrayList<Item>) items.clone();
-
     }
 
     @Override
@@ -57,11 +56,10 @@ public class SuggestionsAdapter extends ArrayAdapter<Item> {
         return nameFilter;
     }
 
-    Filter nameFilter = new Filter() {
+    private Filter nameFilter = new Filter() {
         @Override
         public String convertResultToString(Object resultValue) {
-            String str = ((Item)(resultValue)).getName();
-            return str;
+            return ((Item)(resultValue)).getName();
         }
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -83,7 +81,7 @@ public class SuggestionsAdapter extends ArrayAdapter<Item> {
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             ArrayList<Item> filteredList = (ArrayList<Item>) results.values;
-            if(results != null && results.count > 0) {
+            if(results.count > 0) {
                 clear();
                 for (Item c : filteredList) {
                     add(c);

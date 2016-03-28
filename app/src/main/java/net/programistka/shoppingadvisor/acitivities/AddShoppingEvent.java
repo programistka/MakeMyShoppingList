@@ -44,7 +44,7 @@ public class AddShoppingEvent extends AppCompatActivity {
         });
     }
 
-    public void AddNewItem(View view) {
+    public void AddNewItem() {
         DbHandler dbHandler = new DbHandler(this);
         EditText textField = (EditText) findViewById(R.id.txtItemName);
         Item newItem = new Item();
