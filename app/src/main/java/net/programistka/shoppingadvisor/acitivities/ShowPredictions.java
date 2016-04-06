@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import net.programistka.shoppingadvisor.DbHandler;
@@ -14,6 +16,7 @@ import net.programistka.shoppingadvisor.adapters.PredictionsAdapter;
 
 public class ShowPredictions extends AppCompatActivity {
 
+    public static Menu menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,5 +45,17 @@ public class ShowPredictions extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_predictions, menu);
+        this.menu = menu;
+        return true;
+    }
+
+    public void markAsDone(MenuItem item) {
+        DbHandler dbHandler = new DbHandler(this);
+        //dbHandler.addItemToArchive();
     }
 }

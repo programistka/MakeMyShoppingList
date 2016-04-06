@@ -17,6 +17,7 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String TABLE_ITEMS = "items";
     private static final String TABLE_HISTORY = "history";
     private static final String TABLE_PREDICTIONS = "predictions";
+    private static final String TABLE_ARCHIVE = "archive";
 
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_ITEMNAME = "_name";
@@ -46,6 +47,24 @@ public class DbHandler extends SQLiteOpenHelper {
                 + COLUMN_ITEMID + " TEXT,"
                 + COLUMN_NEXTDATE + " DATETIME)";
         db.execSQL(CREATE_PREDICTIONS_TABLE);
+        String CREATE_ARCHIVE_TABLE = "CREATE TABLE IF NOT EXISTS " +
+                TABLE_ARCHIVE + "("
+                + COLUMN_ITEMID + " INTEGER)";
+        db.execSQL(CREATE_ARCHIVE_TABLE);
+        initializeData(db);
+    }
+
+    public void initializeData(SQLiteDatabase db) {
+        String INSERT_PRODUCTS = "INSERT INTO items VALUES(1, 'makaron')";
+        db.execSQL(INSERT_PRODUCTS);
+        String INSERT_HISTORY1 = "INSERT INTO history VALUES(1, 1458428400000)";
+        String INSERT_HISTORY2 = "INSERT INTO history VALUES(1, 1458687600000)";
+        String INSERT_HISTORY3 = "INSERT INTO history VALUES(1, 1458946800000)";
+        db.execSQL(INSERT_HISTORY1);
+        db.execSQL(INSERT_HISTORY2);
+        db.execSQL(INSERT_HISTORY3);
+        String INSERT_PREDICTIONS = "INSERT INTO predictions VALUES(1, 1459202400000)";
+        db.execSQL(INSERT_PREDICTIONS);
     }
 
     @Override
@@ -203,5 +222,12 @@ public class DbHandler extends SQLiteOpenHelper {
             db.close();
         }
         return itemsList;
+    }
+
+    public void addItemToArchive(long id) {
+        ContentValues archiveValues = new ContentValues();
+        archiveValues.put(COLUMN_ITEMID, id);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(TABLE_ARCHIVE, null, archiveValues);
     }
 }
