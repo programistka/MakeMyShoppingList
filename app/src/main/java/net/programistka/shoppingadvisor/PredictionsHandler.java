@@ -1,24 +1,31 @@
 package net.programistka.shoppingadvisor;
 
+import net.programistka.shoppingadvisor.models.Prediction;
+
 import java.util.ArrayList;
 
 /**
  * Created by maga on 28.03.16.
  */
 public class PredictionsHandler {
-    public static long GetPrediction(ArrayList<Long> shoppingTimes) {
+    public static Prediction getPrediction(ArrayList<Long> shoppingTimes) {
         long current = shoppingTimes.get(0);
         long next = shoppingTimes.get(1);
-        long prediction = next - current;
+        long predictionTime = next - current;
+        Prediction prediction = new Prediction();
         if(shoppingTimes.size() == 2) {
-            return next + next - current;
+            prediction.setDays_number((int)(next - current)/ (1000*3600*24));
+            prediction.setTime(next + next - current);
         } else {
             for (int i = 2; i < shoppingTimes.size(); i++) {
                 current = next;
                 next = shoppingTimes.get(i);
-                prediction += next - current;
+                predictionTime += next - current;
             }
+            long time = predictionTime / (shoppingTimes.size() - 1);
+            prediction.setTime(next + time);
+            prediction.setDays_number((int)time/ (1000*3600*24));
         }
-        return next + (prediction / (shoppingTimes.size() - 1)) ;
+        return prediction;
     }
 }

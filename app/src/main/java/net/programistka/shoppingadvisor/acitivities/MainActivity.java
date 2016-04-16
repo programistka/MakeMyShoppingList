@@ -21,17 +21,6 @@ public class MainActivity extends AppCompatActivity {
         attachFabAction();
     }
 
-    private void attachFabAction() {
-        View addButton = findViewById(R.id.fab);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddShoppingEvent.class);
-                startActivity(intent);
-            }
-        });
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -57,5 +46,16 @@ public class MainActivity extends AppCompatActivity {
     public void loadShowPredictions(View view){
         Intent intent = new Intent(this, ShowPredictions.class);
         startActivity(intent);
+    }
+
+    private void attachFabAction() {
+        View addButton = findViewById(R.id.fab);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddShoppingEvent.class);
+                startActivity(intent);
+            }
+        });
     }
 }

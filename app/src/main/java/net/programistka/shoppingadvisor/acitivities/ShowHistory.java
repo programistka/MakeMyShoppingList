@@ -17,20 +17,24 @@ public class ShowHistory extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_history);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        createActivity(this);
+    }
 
-        DbHandler dbHandler = new DbHandler(this);
+    private static void createActivity(ShowHistory showHistory) {
+        showHistory.setContentView(R.layout.activity_show_history);
+        Toolbar toolbar = (Toolbar) showHistory.findViewById(R.id.toolbar);
+        showHistory.setSupportActionBar(toolbar);
+
+        DbHandler dbHandler = new DbHandler(showHistory);
         HistoryAdapter adapter = new HistoryAdapter(dbHandler.getItems());
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);
+        RecyclerView recyclerView = (RecyclerView) showHistory.findViewById(R.id.lvItems);
         recyclerView.setAdapter(adapter);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(showHistory);
         recyclerView.setLayoutManager(layoutManager);
 
-        attachFabAction();
+        showHistory.attachFabAction();
     }
 
     private void attachFabAction() {

@@ -16,7 +16,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_shopping_item"
+        android:text="@string/add_item_which_you_run_out_of"
         android:drawableLeft="@android:drawable/ic_input_add"
         android:id="@+id/btnAddShoppingItem"
         android:layout_alignParentLeft="true"

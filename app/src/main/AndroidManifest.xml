@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".acitivities.AddShoppingEvent"
-            android:label="@string/title_activity_add_shopping_event"
+            android:label="@string/title_activity_add_running_out_of_event"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".acitivities.ShowHistory"
@@ -31,7 +31,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".acitivities.ShowPredictions"
-            android:label="@string/title_activity_show_predictions"
+            android:label="@string/title_activity_show_running_out_of_predictions"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 </manifest>

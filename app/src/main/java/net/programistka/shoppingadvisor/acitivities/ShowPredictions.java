@@ -14,12 +14,20 @@ import net.programistka.shoppingadvisor.DbHandler;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.adapters.PredictionsAdapter;
 
+import java.util.ArrayList;
+
 public class ShowPredictions extends AppCompatActivity {
 
     public static Menu menu;
+    public static ArrayList<Long> selectedItems = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createActivity();
+    }
+
+    private void createActivity() {
         setContentView(R.layout.activity_show_predictions);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -36,17 +44,6 @@ public class ShowPredictions extends AppCompatActivity {
         attachFabAction();
     }
 
-    private void attachFabAction() {
-        View addButton = findViewById(R.id.fab);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ShowPredictions.this, AddShoppingEvent.class);
-                startActivity(intent);
-            }
-        });
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_predictions, menu);
@@ -56,6 +53,19 @@ public class ShowPredictions extends AppCompatActivity {
 
     public void markAsDone(MenuItem item) {
         DbHandler dbHandler = new DbHandler(this);
-        //dbHandler.addItemToArchive();
+        for (Long itemId:selectedItems) {
+            //dbHandler.addItemToBought(itemId);
+        }
+    }
+
+    private void attachFabAction() {
+        View addButton = findViewById(R.id.fab);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShowPredictions.this, AddShoppingEvent.class);
+                startActivity(intent);
+            }
+        });
     }
 }

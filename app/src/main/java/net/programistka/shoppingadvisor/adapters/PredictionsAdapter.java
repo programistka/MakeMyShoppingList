@@ -19,56 +19,54 @@ import java.util.ArrayList;
  */
 public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.ViewHolder> {
     private ArrayList<Item> items;
+    public ArrayList<Long> selectedItems = new ArrayList<>();
+    private int counter = 0;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
         public TextView nameTextView;
         public TextView dateTextView;
         public long id;
         private Boolean toggle = true;
-        private int counter = 0;
-        ArrayList<Long> selectedItems = new ArrayList<>();
+
         public ViewHolder(View v) {
             super(v);
             view = v;
-
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ImageView imageView = (ImageView) v.findViewById(R.id.icon_imageview);
                     if(toggle) {
                         imageView.setImageResource(R.drawable.apply);
+                        selectedItems.add(id);
                         counter++;
                     }
-                    else{
+                    else {
                         imageView.setImageResource(R.drawable.calendar);
+                        selectedItems.remove(id);
                         counter--;
                     }
                     toggle = !toggle;
                     if(counter > 0) {
                         CharSequence counterLabel = Integer.toString(counter);
                         ShowPredictions.menu.getItem(0).setTitle(counterLabel);
-
-                        selectedItems.add(id);
-
                         ShowPredictions.menu.getItem(0).setVisible(true);
                         ShowPredictions.menu.getItem(1).setVisible(true);
                     }
                     else {
-
-                        selectedItems.remove(id);
-
                         ShowPredictions.menu.getItem(0).setVisible(false);
                         ShowPredictions.menu.getItem(1).setVisible(false);
                     }
                 }
             });
+            ShowPredictions.selectedItems = selectedItems;
         }
     }
 
     public PredictionsAdapter(ArrayList<Item> items) {
         this.items = items;
     }
+
     @Override
     public PredictionsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(
@@ -93,5 +91,4 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
     public int getItemCount() {
         return items.size();
     }
-
 }
