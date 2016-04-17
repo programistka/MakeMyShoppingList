@@ -63,7 +63,7 @@ public class ShowPredictions extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShowPredictions.this, AddShoppingEvent.class);
+                Intent intent = new Intent(ShowPredictions.this, AddEmptyItemEvent.class);
                 startActivity(intent);
             }
         });

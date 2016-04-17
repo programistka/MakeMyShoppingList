@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".acitivities.AddShoppingEvent"
+            android:name=".acitivities.AddEmptyItemEvent"
             android:label="@string/title_activity_add_running_out_of_event"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

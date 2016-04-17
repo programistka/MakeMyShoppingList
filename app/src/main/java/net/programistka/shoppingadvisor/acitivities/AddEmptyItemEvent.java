@@ -17,7 +17,7 @@ import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.adapters.SuggestionsAdapter;
 import net.programistka.shoppingadvisor.models.Item;
 
-public class AddShoppingEvent extends AppCompatActivity {
+public class AddEmptyItemEvent extends AppCompatActivity {
 
     private DbHandler dbHandler;
     @Override
@@ -44,14 +44,14 @@ public class AddShoppingEvent extends AppCompatActivity {
                         if(autoCompleteTextView.getText().toString().length() == 0) {
                             toast.show();
                         }
-                        dbHandler.addShoppingItem(id);
+                        dbHandler.addEmptyItem(id);
                     }
                 });
             }
         });
     }
 
-    public void AddNewItem(View view) {
+    public void addEmptyItem(View view) {
         AutoCompleteTextView itemName = (AutoCompleteTextView) findViewById(R.id.txtItemName);
         if(itemName.getText().toString().length() == 0) {
             Toast toast = Toast.makeText(this, "Item name is empty", Toast.LENGTH_LONG);

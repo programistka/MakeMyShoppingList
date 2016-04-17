@@ -16,15 +16,15 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "shopping_advisor.db";
     private static final String TABLE_ITEMS = "items";
-    private static final String TABLE_RUN_OUT_OF_HISTORY = "run_out_of_history";
-    private static final String TABLE_RUN_OUT_OF_PREDICTIONS = "run_out_of_predictions";
+    private static final String TABLE_EMPTY_ITEMS_HISTORY = "empty_items_history";
+    private static final String TABLE_EMPTY_ITEMS_PREDICTIONS = "empty_items_predictions";
     private static final String TABLE_ARCHIVE = "archive";
 
     private static final String COLUMN_ID = "id";
-    private static final String COLUMN_ITEMNAME = "name";
-    private static final String COLUMN_ITEMID = "item_id";
-    private static final String COLUMN_RUN_OUT_OF_DATE = "run_out_of_date";
-    private static final String COLUMN_NEXT_RUN_OUT_OF_DATE = "next_run_out_of_date";
+    private static final String COLUMN_ITEM_NAME = "name";
+    private static final String COLUMN_ITEM_ID = "item_id";
+    private static final String COLUMN_EMPTY_ITEM_DATE = "empty_item_date";
+    private static final String COLUMN_NEXT_EMPTY_ITEM_DATE = "next_empty_item_date";
     private static final String COLUMN_DAYS_TO_RUN_OUT = "days_to_run_out";
 
 
@@ -38,22 +38,22 @@ public class DbHandler extends SQLiteOpenHelper {
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE IF NOT EXISTS " +
                 TABLE_ITEMS + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_ITEMNAME + " TEXT)";
+                + COLUMN_ITEM_NAME + " TEXT)";
         db.execSQL(CREATE_PRODUCTS_TABLE);
         String CREATE_RUN_OUT_OF_HISTORY_TABLE = "CREATE TABLE IF NOT EXISTS " +
-                TABLE_RUN_OUT_OF_HISTORY + "("
-                + COLUMN_ITEMID + " INTEGER,"
-                + COLUMN_RUN_OUT_OF_DATE + " DATETIME)";
+                TABLE_EMPTY_ITEMS_HISTORY + "("
+                + COLUMN_ITEM_ID + " INTEGER,"
+                + COLUMN_EMPTY_ITEM_DATE + " DATETIME)";
         db.execSQL(CREATE_RUN_OUT_OF_HISTORY_TABLE);
         String CREATE_RUN_OUT_OF_PREDICTIONS_TABLE = "CREATE TABLE IF NOT EXISTS " +
-                TABLE_RUN_OUT_OF_PREDICTIONS + "("
-                + COLUMN_ITEMID + " INTEGER,"
-                + COLUMN_NEXT_RUN_OUT_OF_DATE + " DATETIME,"
+                TABLE_EMPTY_ITEMS_PREDICTIONS + "("
+                + COLUMN_ITEM_ID + " INTEGER,"
+                + COLUMN_NEXT_EMPTY_ITEM_DATE + " DATETIME,"
                 + COLUMN_DAYS_TO_RUN_OUT + " INTEGER)";
         db.execSQL(CREATE_RUN_OUT_OF_PREDICTIONS_TABLE);
         String CREATE_ARCHIVE_TABLE = "CREATE TABLE IF NOT EXISTS " +
                 TABLE_ARCHIVE + "("
-                + COLUMN_ITEMID + " INTEGER)";
+                + COLUMN_ITEM_ID + " INTEGER)";
         db.execSQL(CREATE_ARCHIVE_TABLE);
         initializeData(db);
         initializeData2(db);
@@ -93,7 +93,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     public void addItem(Item item) {
         ContentValues itemValues = new ContentValues();
-        itemValues.put(COLUMN_ITEMNAME, item.getName());
+        itemValues.put(COLUMN_ITEM_NAME, item.getName());
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_ITEMS, null, itemValues);
 
@@ -104,9 +104,9 @@ public class DbHandler extends SQLiteOpenHelper {
 
         Date c = new Date(System.currentTimeMillis());
         ContentValues shoppingValues = new ContentValues();
-        shoppingValues.put(COLUMN_ITEMID, lastInsertedId);
-        shoppingValues.put(COLUMN_RUN_OUT_OF_DATE, c.getTime());
-        db.insert(TABLE_RUN_OUT_OF_HISTORY, null, shoppingValues);
+        shoppingValues.put(COLUMN_ITEM_ID, lastInsertedId);
+        shoppingValues.put(COLUMN_EMPTY_ITEM_DATE, c.getTime());
+        db.insert(TABLE_EMPTY_ITEMS_HISTORY, null, shoppingValues);
 
         cursor.close();
         db.close();
@@ -114,7 +114,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     public ArrayList<Item> getSuggestionsItems() {
         ArrayList<Item> itemsList = new ArrayList<>();
-        String selectQuery = "SELECT DISTINCT(" + COLUMN_ID + ")," + COLUMN_ITEMNAME  + " FROM " + TABLE_ITEMS + " LEFT JOIN " + TABLE_RUN_OUT_OF_HISTORY + " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_RUN_OUT_OF_HISTORY + "." + COLUMN_ITEMID;
+        String selectQuery = "SELECT DISTINCT(" + COLUMN_ID + ")," + COLUMN_ITEM_NAME + " FROM " + TABLE_ITEMS + " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY + " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID;
         System.out.printf(selectQuery);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -133,7 +133,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     public ArrayList<Item> getItems() {
         ArrayList<Item> itemsList = new ArrayList<>();
-        String selectQuery = "SELECT *  FROM " + TABLE_ITEMS + " LEFT JOIN " + TABLE_RUN_OUT_OF_HISTORY + " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_RUN_OUT_OF_HISTORY + "." + COLUMN_ITEMID;
+        String selectQuery = "SELECT *  FROM " + TABLE_ITEMS + " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY + " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID;
         System.out.printf(selectQuery);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -151,13 +151,13 @@ public class DbHandler extends SQLiteOpenHelper {
         return itemsList;
     }
 
-    public void addShoppingItem(long id) {
+    public void addEmptyItem(long id) {
         Date c = new Date(System.currentTimeMillis());
         ContentValues shoppingValues = new ContentValues();
-        shoppingValues.put(COLUMN_ITEMID, id);
-        shoppingValues.put(COLUMN_RUN_OUT_OF_DATE, c.getTime());
+        shoppingValues.put(COLUMN_ITEM_ID, id);
+        shoppingValues.put(COLUMN_EMPTY_ITEM_DATE, c.getTime());
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(TABLE_RUN_OUT_OF_HISTORY, null, shoppingValues);
+        db.insert(TABLE_EMPTY_ITEMS_HISTORY, null, shoppingValues);
         addOrUpdatePredictionsForItem(id);
     }
 
@@ -168,17 +168,17 @@ public class DbHandler extends SQLiteOpenHelper {
             return;
         }
         ContentValues predictionValues = new ContentValues();
-        predictionValues.put(COLUMN_ITEMID, id);
-        predictionValues.put(COLUMN_NEXT_RUN_OUT_OF_DATE, c.getTime());
+        predictionValues.put(COLUMN_ITEM_ID, id);
+        predictionValues.put(COLUMN_NEXT_EMPTY_ITEM_DATE, c.getTime());
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT COUNT(*) FROM " + TABLE_RUN_OUT_OF_PREDICTIONS + " WHERE " + COLUMN_ITEMID + "=" + id;
+        String selectQuery = "SELECT COUNT(*) FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS + " WHERE " + COLUMN_ITEM_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor != null && cursor.moveToFirst()) {
-            db.update(TABLE_RUN_OUT_OF_PREDICTIONS, predictionValues, COLUMN_ITEMID + "=" + id, null);
+            db.update(TABLE_EMPTY_ITEMS_PREDICTIONS, predictionValues, COLUMN_ITEM_ID + "=" + id, null);
             cursor.close();
         }
         else {
-            db.insert(TABLE_RUN_OUT_OF_PREDICTIONS, null, predictionValues);
+            db.insert(TABLE_EMPTY_ITEMS_PREDICTIONS, null, predictionValues);
         }
         db.close();
     }
@@ -186,10 +186,10 @@ public class DbHandler extends SQLiteOpenHelper {
     private Date calculatePredictionForItem(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Long> shoppingTimes = new ArrayList<>();
-        String selectQuery = "SELECT DISTINCT(DATE(" + COLUMN_RUN_OUT_OF_DATE + "/1000, 'unixepoch')) FROM " + TABLE_ITEMS +
-                " LEFT JOIN " + TABLE_RUN_OUT_OF_HISTORY +
-                " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_RUN_OUT_OF_HISTORY + "." + COLUMN_ITEMID +
-                " WHERE " + TABLE_ITEMS + "." + COLUMN_ID + "=" + id + " ORDER BY DATE(" + COLUMN_RUN_OUT_OF_DATE + "/1000, 'unixepoch')";
+        String selectQuery = "SELECT DISTINCT(DATE(" + COLUMN_EMPTY_ITEM_DATE + "/1000, 'unixepoch')) FROM " + TABLE_ITEMS +
+                " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
+                " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID +
+                " WHERE " + TABLE_ITEMS + "." + COLUMN_ID + "=" + id + " ORDER BY DATE(" + COLUMN_EMPTY_ITEM_DATE + "/1000, 'unixepoch')";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
@@ -209,7 +209,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     public ArrayList<Item> getPredictions() {
         ArrayList<Item> itemsList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_RUN_OUT_OF_PREDICTIONS + " LEFT JOIN " + TABLE_ITEMS + " ON " + TABLE_RUN_OUT_OF_PREDICTIONS + "." + COLUMN_ITEMID + "="  + TABLE_ITEMS + "." + COLUMN_ID;
+        String selectQuery = "SELECT * FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS + " LEFT JOIN " + TABLE_ITEMS + " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "="  + TABLE_ITEMS + "." + COLUMN_ID;
         System.out.println(selectQuery);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

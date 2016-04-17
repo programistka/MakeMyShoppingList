@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void loadAddShoppingEvent(View view){
-        Intent intent = new Intent(this, AddShoppingEvent.class);
+    public void loadAddEmptyItemEvent(View view){
+        Intent intent = new Intent(this, AddEmptyItemEvent.class);
         startActivity(intent);
     }
 
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddShoppingEvent.class);
+                Intent intent = new Intent(MainActivity.this, AddEmptyItemEvent.class);
                 startActivity(intent);
             }
         });

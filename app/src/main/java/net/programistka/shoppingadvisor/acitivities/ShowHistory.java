@@ -42,7 +42,7 @@ public class ShowHistory extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShowHistory.this, AddShoppingEvent.class);
+                Intent intent = new Intent(ShowHistory.this, AddEmptyItemEvent.class);
                 startActivity(intent);
             }
         });

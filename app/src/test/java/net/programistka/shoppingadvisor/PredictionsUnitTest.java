@@ -23,7 +23,6 @@ public class PredictionsUnitTest {
 
     @Test
     public void when_more_then_two_dates_and_not_in_the_same_month_then_prediction_is_correct() {
-
         //Given
         ArrayList<Long> shoppingHistory = new ArrayList<>();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
@@ -33,7 +32,6 @@ public class PredictionsUnitTest {
         shoppingHistory.add(calendar.getTimeInMillis());
         calendar.set(2016, 2, 25, 0, 0, 0);
         shoppingHistory.add(calendar.getTimeInMillis());
-
         calendar.set(2016, 3, 15, 0, 0, 0);
         shoppingHistory.add(calendar.getTimeInMillis());
 
@@ -53,7 +51,6 @@ public class PredictionsUnitTest {
 
     @Test
     public void when_more_then_two_dates_and_in_the_same_month_then_prediction_is_correct() {
-
         //Given
         ArrayList<Long> shoppingHistory = new ArrayList<>();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
@@ -80,7 +77,7 @@ public class PredictionsUnitTest {
 
     @Test
     public void when_two_dates_then_prediction_is_correct() {
-    //Given
+        //Given
         ArrayList<Long> shoppingHistory = new ArrayList<>();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.set(2016, 2, 19, 0, 0, 0);
