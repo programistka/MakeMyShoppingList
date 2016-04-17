@@ -1,5 +1,6 @@
 package net.programistka.shoppingadvisor.adapters;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import net.programistka.shoppingadvisor.models.Item;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by maga on 13.03.16.
@@ -83,6 +85,10 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         Item currentItem = items.get(position);
         holder.nameTextView.setText(currentItem.getName());
         SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy");
+        if(currentItem.getPredictionDate().compareTo(new Date()) < 0){
+            holder.nameTextView.setTextColor(Color.RED);
+            holder.dateTextView.setTextColor(Color.RED);
+        }
         holder.dateTextView.setText(sdf.format(currentItem.getPredictionDate()));
         holder.id = currentItem.getId();
     }
