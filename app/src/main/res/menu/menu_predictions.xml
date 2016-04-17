@@ -11,7 +11,7 @@
         android:icon="@drawable/apply"
         android:title="@string/done"
         android:visible="false"
-        android:onClick="markAsDone"
+        android:onClick="markAsBought"
         app:showAsAction="ifRoom" />
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"

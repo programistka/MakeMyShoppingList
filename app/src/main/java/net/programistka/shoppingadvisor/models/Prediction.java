@@ -15,7 +15,7 @@ public class Prediction {
         this.time = time;
     }
 
-    public int getDays_number() {
+    public int getDaysNumber() {
         return days_number;
     }
 

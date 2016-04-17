@@ -69,7 +69,7 @@ public class DbHandler extends SQLiteOpenHelper {
         db.execSQL(INSERT_HISTORY1);
         db.execSQL(INSERT_HISTORY2);
         db.execSQL(INSERT_HISTORY3);
-        String INSERT_PREDICTIONS = "INSERT INTO empty_items_predictions VALUES(1, 1459202400000, 3)";
+        String INSERT_PREDICTIONS = "INSERT INTO empty_items_predictions VALUES(1, 1479596400000, 3)";
         db.execSQL(INSERT_PREDICTIONS);
     }
 
@@ -177,12 +177,10 @@ public class DbHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT COUNT(*) FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS + " WHERE " + COLUMN_ITEM_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor != null && cursor.moveToFirst()) {
-            db.update(TABLE_EMPTY_ITEMS_PREDICTIONS, predictionValues, COLUMN_ITEM_ID + "=" + id, null);
+            db.delete(TABLE_EMPTY_ITEMS_PREDICTIONS, COLUMN_ITEM_ID + "=" + id, null);
             cursor.close();
         }
-        else {
-            db.insert(TABLE_EMPTY_ITEMS_PREDICTIONS, null, predictionValues);
-        }
+        db.insert(TABLE_EMPTY_ITEMS_PREDICTIONS, null, predictionValues);
         db.close();
     }
 
@@ -215,7 +213,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     public ArrayList<Item> getPredictions() {
         ArrayList<Item> itemsList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS + " LEFT JOIN " + TABLE_ITEMS + " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "="  + TABLE_ITEMS + "." + COLUMN_ID;
+        String selectQuery = "SELECT DISTINCT(" + COLUMN_ITEM_ID + "),* FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS + " LEFT JOIN " + TABLE_ITEMS + " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "="  + TABLE_ITEMS + "." + COLUMN_ID + " GROUP BY " + COLUMN_ITEM_ID;
         System.out.println(selectQuery);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -234,5 +232,30 @@ public class DbHandler extends SQLiteOpenHelper {
             db.close();
         }
         return itemsList;
+    }
+
+    public void addBoughtPrediction(long itemId) {
+        Prediction prediction = getCurrentPredictionForItem(itemId);
+        ContentValues itemValues = new ContentValues();
+        itemValues.put(COLUMN_ITEM_ID, itemId);
+        itemValues.put(COLUMN_NEXT_EMPTY_ITEM_DATE, prediction.getTime());
+        itemValues.put(COLUMN_DAYS_TO_RUN_OUT, prediction.getDaysNumber());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(TABLE_EMPTY_ITEMS_PREDICTIONS, null, itemValues);
+    }
+
+    public Prediction getCurrentPredictionForItem(long itemId) {
+        String selectQuery = "SELECT * FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS + " WHERE " + COLUMN_ITEM_ID + "=" + itemId;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        Prediction currentPrediction = new Prediction();
+        if(cursor.moveToFirst()){
+            currentPrediction.setTime(cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE)));
+            currentPrediction.setDays_number(cursor.getInt(cursor.getColumnIndex(COLUMN_DAYS_TO_RUN_OUT)));
+        }
+        Prediction newPrediction = new Prediction();
+        newPrediction.setTime(currentPrediction.getTime() + currentPrediction.getDaysNumber()*24*3600*1000);
+        newPrediction.setDays_number(currentPrediction.getDaysNumber());
+        return newPrediction;
     }
 }

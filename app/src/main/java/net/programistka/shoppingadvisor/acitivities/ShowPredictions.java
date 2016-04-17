@@ -51,11 +51,10 @@ public class ShowPredictions extends AppCompatActivity {
         return true;
     }
 
-    public void markAsDone(MenuItem item) {
+    public void markAsBought(MenuItem item) {
         DbHandler dbHandler = new DbHandler(this);
         for (Long itemId:selectedItems) {
-            //TODO: dodać nową predykcję do bazy danych - taką samą jak stara
-            //dbHandler.addItemToBought(itemId);
+            dbHandler.addBoughtPrediction(itemId);
         }
     }
 

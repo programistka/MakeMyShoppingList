@@ -46,7 +46,7 @@ public class PredictionsUnitTest {
         assertEquals(2016, calendarActual.get(Calendar.YEAR));
         assertEquals(3, calendarActual.get(Calendar.MONTH));
         assertEquals(24, calendarActual.get(Calendar.DATE));
-        assertEquals(9, prediction.getDays_number());
+        assertEquals(9, prediction.getDaysNumber());
     }
 
     @Test
@@ -72,7 +72,7 @@ public class PredictionsUnitTest {
         assertEquals(2016, calendarActual.get(Calendar.YEAR));
         assertEquals(2, calendarActual.get(Calendar.MONTH));
         assertEquals(28, calendarActual.get(Calendar.DATE));
-        assertEquals(3, prediction.getDays_number());
+        assertEquals(3, prediction.getDaysNumber());
     }
 
     @Test
@@ -96,6 +96,6 @@ public class PredictionsUnitTest {
         assertEquals(2016, calendarActual.get(Calendar.YEAR));
         assertEquals(2, calendarActual.get(Calendar.MONTH));
         assertEquals(25, calendarActual.get(Calendar.DATE));
-        assertEquals(3, prediction.getDays_number());
+        assertEquals(3, prediction.getDaysNumber());
     }
 }
