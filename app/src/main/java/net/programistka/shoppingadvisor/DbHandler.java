@@ -10,7 +10,9 @@ import net.programistka.shoppingadvisor.models.Item;
 import net.programistka.shoppingadvisor.models.Prediction;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DbHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -26,7 +28,6 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String COLUMN_EMPTY_ITEM_DATE = "empty_item_date";
     private static final String COLUMN_NEXT_EMPTY_ITEM_DATE = "next_empty_item_date";
     private static final String COLUMN_DAYS_TO_RUN_OUT = "days_to_run_out";
-
 
 
     public DbHandler(Context context) {
@@ -62,26 +63,26 @@ public class DbHandler extends SQLiteOpenHelper {
     public void initializeData(SQLiteDatabase db) {
         String INSERT_PRODUCTS = "INSERT INTO items VALUES(1, 'makaron')";
         db.execSQL(INSERT_PRODUCTS);
-        String INSERT_HISTORY1 = "INSERT INTO run_out_of_history VALUES(1, 1458428400000)";
-        String INSERT_HISTORY2 = "INSERT INTO run_out_of_history VALUES(1, 1458687600000)";
-        String INSERT_HISTORY3 = "INSERT INTO run_out_of_history VALUES(1, 1458946800000)";
+        String INSERT_HISTORY1 = "INSERT INTO empty_items_history VALUES(1, 1458428400000)";
+        String INSERT_HISTORY2 = "INSERT INTO empty_items_history VALUES(1, 1458687600000)";
+        String INSERT_HISTORY3 = "INSERT INTO empty_items_history VALUES(1, 1458946800000)";
         db.execSQL(INSERT_HISTORY1);
         db.execSQL(INSERT_HISTORY2);
         db.execSQL(INSERT_HISTORY3);
-        String INSERT_PREDICTIONS = "INSERT INTO run_out_of_predictions VALUES(1, 1459202400000, 3)";
+        String INSERT_PREDICTIONS = "INSERT INTO empty_items_predictions VALUES(1, 1459202400000, 3)";
         db.execSQL(INSERT_PREDICTIONS);
     }
 
     public void initializeData2(SQLiteDatabase db) {
         String INSERT_PRODUCTS = "INSERT INTO items VALUES(2, 'szampon')";
         db.execSQL(INSERT_PRODUCTS);
-        String INSERT_HISTORY1 = "INSERT INTO run_out_of_history VALUES(2, 1457996400000)";
-        String INSERT_HISTORY2 = "INSERT INTO run_out_of_history VALUES(2, 1458860400000)";
-        String INSERT_HISTORY3 = "INSERT INTO run_out_of_history VALUES(2, 1459461600000)";
+        String INSERT_HISTORY1 = "INSERT INTO empty_items_history VALUES(2, 1457996400000)";
+        String INSERT_HISTORY2 = "INSERT INTO empty_items_history VALUES(2, 1458860400000)";
+        String INSERT_HISTORY3 = "INSERT INTO empty_items_history VALUES(2, 1459461600000)";
         db.execSQL(INSERT_HISTORY1);
         db.execSQL(INSERT_HISTORY2);
         db.execSQL(INSERT_HISTORY3);
-        String INSERT_PREDICTIONS = "INSERT INTO run_out_of_predictions VALUES(2, 1459807200000, 3)";
+        String INSERT_PREDICTIONS = "INSERT INTO empty_items_predictions VALUES(2, 1459807200000, 3)";
         db.execSQL(INSERT_PREDICTIONS);
     }
 
@@ -163,6 +164,8 @@ public class DbHandler extends SQLiteOpenHelper {
 
     private void addOrUpdatePredictionsForItem(long id) {
         Date c = calculatePredictionForItem(id);
+        System.out.println("test");
+        System.out.println(c.getTime());
         if(c == null)
         {
             return;
@@ -186,11 +189,12 @@ public class DbHandler extends SQLiteOpenHelper {
     private Date calculatePredictionForItem(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Long> shoppingTimes = new ArrayList<>();
-        String selectQuery = "SELECT DISTINCT(DATE(" + COLUMN_EMPTY_ITEM_DATE + "/1000, 'unixepoch')) FROM " + TABLE_ITEMS +
+        String selectQuery = "SELECT DISTINCT(" + COLUMN_EMPTY_ITEM_DATE +") FROM " + TABLE_ITEMS +
                 " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
                 " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID +
-                " WHERE " + TABLE_ITEMS + "." + COLUMN_ID + "=" + id + " ORDER BY DATE(" + COLUMN_EMPTY_ITEM_DATE + "/1000, 'unixepoch')";
+                " WHERE " + TABLE_ITEMS + "." + COLUMN_ID + "=" + id + " ORDER BY " + COLUMN_EMPTY_ITEM_DATE;
 
+        System.out.println(selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
@@ -202,7 +206,9 @@ public class DbHandler extends SQLiteOpenHelper {
 
         Prediction prediction = PredictionsHandler.getPrediction(shoppingTimes);
         if(shoppingTimes.size() > 1) {
-            return new Date(prediction.getTime());
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            calendar.setTimeInMillis(prediction.getTime());
+            return calendar.getTime();
         }
         return null;
     }
@@ -217,9 +223,11 @@ public class DbHandler extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             do {
                 Item item = new Item();
-                item.setId(cursor.getInt(0));
-                item.setName(cursor.getString(3));
-                item.setPredictionDate(new Date(cursor.getLong(1)));
+                item.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+                item.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
+                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                calendar.setTimeInMillis(cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE)));
+                item.setPredictionDate(calendar.getTime());
                 itemsList.add(item);
             } while (cursor.moveToNext());
             cursor.close();
