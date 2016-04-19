@@ -12,7 +12,14 @@
         android:title="@string/done"
         android:visible="false"
         android:onClick="markAsBought"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_archive"
+        android:icon="@drawable/archive"
+        android:title="@string/archive"
+        android:visible="false"
+        android:onClick="markAsArchived"
+        app:showAsAction="always" />
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"

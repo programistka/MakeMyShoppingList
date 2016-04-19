@@ -34,32 +34,35 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         public ViewHolder(View v) {
             super(v);
             view = v;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ImageView imageView = (ImageView) v.findViewById(R.id.icon_imageview);
-                    if(toggle) {
-                        imageView.setImageResource(R.drawable.apply);
-                        selectedItems.add(id);
-                        counter++;
-                    }
-                    else {
-                        imageView.setImageResource(R.drawable.calendar);
-                        selectedItems.remove(id);
-                        counter--;
-                    }
-                    toggle = !toggle;
-                    if(counter > 0) {
-                        CharSequence counterLabel = Integer.toString(counter);
-                        ShowPredictions.menu.getItem(0).setTitle(counterLabel);
-                        ShowPredictions.menu.getItem(0).setVisible(true);
-                        ShowPredictions.menu.getItem(1).setVisible(true);
-                    }
-                    else {
-                        ShowPredictions.menu.getItem(0).setVisible(false);
-                        ShowPredictions.menu.getItem(1).setVisible(false);
-                    }
-                }
+            ImageView imageView = (ImageView) v.findViewById(R.id.icon_imageview);
+            imageView.setOnClickListener(new ImageView.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            ImageView imageView = (ImageView) v.findViewById(R.id.icon_imageview);
+                                            if(toggle) {
+                                                imageView.setImageResource(R.drawable.apply);
+                                                selectedItems.add(id);
+                                                counter++;
+                                            }
+                                            else {
+                                                imageView.setImageResource(R.drawable.calendar);
+                                                selectedItems.remove(id);
+                                                counter--;
+                                            }
+                                            toggle = !toggle;
+                                            if(counter > 0) {
+                                                CharSequence counterLabel = Integer.toString(counter);
+                                                ShowPredictions.menu.getItem(0).setTitle(counterLabel);
+                                                ShowPredictions.menu.getItem(0).setVisible(true);
+                                                ShowPredictions.menu.getItem(1).setVisible(true);
+                                                ShowPredictions.menu.getItem(2).setVisible(true);
+                                            }
+                                            else {
+                                                ShowPredictions.menu.getItem(0).setVisible(false);
+                                                ShowPredictions.menu.getItem(1).setVisible(false);
+                                                ShowPredictions.menu.getItem(2).setVisible(false);
+                                            }
+                                        }
             });
             ShowPredictions.selectedItems = selectedItems;
         }

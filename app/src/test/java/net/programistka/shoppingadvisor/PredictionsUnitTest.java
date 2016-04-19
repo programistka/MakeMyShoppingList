@@ -22,6 +22,62 @@ public class PredictionsUnitTest {
     }
 
     @Test
+    public void when_more_then_two_dates_and_average_not_integer_and_greater_than_2_5_then_prediction_is_correct() {
+        //Given
+        ArrayList<Long> shoppingHistory = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.set(2016, 2, 19, 0, 0, 0);
+        shoppingHistory.add(calendar.getTimeInMillis());
+        calendar.set(2016, 2, 22, 0, 0, 0);
+        shoppingHistory.add(calendar.getTimeInMillis());
+        calendar.set(2016, 2, 25, 0, 0, 0);
+        shoppingHistory.add(calendar.getTimeInMillis());
+        calendar.set(2016, 2, 27, 0, 0, 0);
+        shoppingHistory.add(calendar.getTimeInMillis());
+
+        //When
+        Calendar calendarActual = Calendar.getInstance();
+        Date dateActual = new Date();
+        Prediction prediction = PredictionsHandler.getPrediction(shoppingHistory);
+        dateActual.setTime(prediction.getTime());
+        calendarActual.setTime(dateActual);
+
+        //Then
+        assertEquals(2016, calendarActual.get(Calendar.YEAR));
+        assertEquals(2, calendarActual.get(Calendar.MONTH));
+        assertEquals(30, calendarActual.get(Calendar.DATE));
+        assertEquals(3, prediction.getDaysNumber());
+    }
+
+    @Test
+    public void when_more_then_two_dates_and_average_not_integer_and_less_than2_5_then_prediction_is_correct() {
+        //Given
+        ArrayList<Long> shoppingHistory = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.set(2016, 2, 19, 0, 0, 0);
+        shoppingHistory.add(calendar.getTimeInMillis());
+        calendar.set(2016, 2, 22, 0, 0, 0);
+        shoppingHistory.add(calendar.getTimeInMillis());
+        calendar.set(2016, 2, 25, 0, 0, 0);
+        shoppingHistory.add(calendar.getTimeInMillis());
+        calendar.set(2016, 2, 26, 0, 0, 0);
+        shoppingHistory.add(calendar.getTimeInMillis());
+
+        //When
+        Calendar calendarActual = Calendar.getInstance();
+        Date dateActual = new Date();
+        Prediction prediction = PredictionsHandler.getPrediction(shoppingHistory);
+        dateActual.setTime(prediction.getTime());
+        calendarActual.setTime(dateActual);
+
+        //Then
+        assertEquals(2016, calendarActual.get(Calendar.YEAR));
+        assertEquals(2, calendarActual.get(Calendar.MONTH));
+        assertEquals(28, calendarActual.get(Calendar.DATE));
+        assertEquals(2, prediction.getDaysNumber());
+    }
+
+    @Test
     public void when_more_then_two_dates_and_not_in_the_same_month_then_prediction_is_correct() {
         //Given
         ArrayList<Long> shoppingHistory = new ArrayList<>();

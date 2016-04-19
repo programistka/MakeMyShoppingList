@@ -26,9 +26,10 @@ public class PredictionsHandler {
                 predictionTime += next - current;
                 System.out.println("item i=" + i + shoppingTimes.get(i));
             }
-            long time = predictionTime / (shoppingTimes.size() - 1);
-            prediction.setTime(next + time);
-            prediction.setDays_number((int)time/ (1000*3600*24));
+            double time = predictionTime / (shoppingTimes.size() - 1);
+            int days = (int) Math.round(time/(1000*3600*24));
+            prediction.setTime(next + days*3600*24*1000);
+            prediction.setDays_number(days);
         }
         return prediction;
     }

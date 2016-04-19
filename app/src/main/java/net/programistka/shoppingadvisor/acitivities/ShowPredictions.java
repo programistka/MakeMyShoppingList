@@ -58,6 +58,13 @@ public class ShowPredictions extends AppCompatActivity {
         }
     }
 
+    public void markAsArchived(MenuItem item) {
+        DbHandler dbHandler = new DbHandler(this);
+        for (Long itemId:selectedItems) {
+            dbHandler.addItemToArchive(itemId);
+        }
+    }
+
     private void attachFabAction() {
         View addButton = findViewById(R.id.fab);
         addButton.setOnClickListener(new View.OnClickListener() {

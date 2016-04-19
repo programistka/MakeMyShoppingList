@@ -179,6 +179,13 @@ public class DbHandler extends SQLiteOpenHelper {
         if(cursor != null && cursor.moveToFirst()) {
             db.delete(TABLE_EMPTY_ITEMS_PREDICTIONS, COLUMN_ITEM_ID + "=" + id, null);
             cursor.close();
+
+            String selectFromArchiveQuery = "SELECT COUNT(*) FROM " + TABLE_ARCHIVE + " WHERE " + COLUMN_ITEM_ID + "=" + id;
+            Cursor cursor2 = db.rawQuery(selectFromArchiveQuery, null);
+            if(cursor2 != null && cursor2.moveToFirst()) {
+                db.delete(TABLE_ARCHIVE, COLUMN_ITEM_ID + "=" + id, null);
+                cursor2.close();
+            }
         }
         db.insert(TABLE_EMPTY_ITEMS_PREDICTIONS, null, predictionValues);
         db.close();
@@ -213,7 +220,14 @@ public class DbHandler extends SQLiteOpenHelper {
 
     public ArrayList<Item> getPredictions() {
         ArrayList<Item> itemsList = new ArrayList<>();
-        String selectQuery = "SELECT DISTINCT(" + COLUMN_ITEM_ID + "),* FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS + " LEFT JOIN " + TABLE_ITEMS + " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "="  + TABLE_ITEMS + "." + COLUMN_ID + " GROUP BY " + COLUMN_ITEM_ID;
+        String selectQuery = "SELECT DISTINCT(" + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "),*" +
+                             " FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS +
+                             " LEFT JOIN " + TABLE_ITEMS +
+                             " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "="  + TABLE_ITEMS + "." + COLUMN_ID +
+                             " LEFT JOIN " + TABLE_ARCHIVE +
+                             " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "="  + TABLE_ARCHIVE + "." + COLUMN_ITEM_ID +
+                             " WHERE " + TABLE_ARCHIVE + "." +COLUMN_ITEM_ID + " ISNULL" +
+                             " GROUP BY " + TABLE_EMPTY_ITEMS_PREDICTIONS +"." + COLUMN_ITEM_ID;
         System.out.println(selectQuery);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -257,5 +271,12 @@ public class DbHandler extends SQLiteOpenHelper {
         newPrediction.setTime(currentPrediction.getTime() + currentPrediction.getDaysNumber()*24*3600*1000);
         newPrediction.setDays_number(currentPrediction.getDaysNumber());
         return newPrediction;
+    }
+
+    public void addItemToArchive(long itemId) {
+        ContentValues itemValues = new ContentValues();
+        itemValues.put(COLUMN_ITEM_ID, itemId);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(TABLE_ARCHIVE, null, itemValues);
     }
 }
