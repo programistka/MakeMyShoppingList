@@ -36,4 +36,11 @@ public class Item {
     public Date getPredictionDate() { return this._predictionDate; }
 
     public void setPredictionDate(Date predictionDate) { this._predictionDate = predictionDate; }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "_name='" + _name + '\'' +
+                '}';
+    }
 }
