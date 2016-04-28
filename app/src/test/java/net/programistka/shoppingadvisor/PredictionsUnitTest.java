@@ -38,7 +38,7 @@ public class PredictionsUnitTest {
         //When
         Calendar calendarActual = Calendar.getInstance();
         Date dateActual = new Date();
-        Prediction prediction = PredictionsHandler.getPrediction(shoppingHistory);
+        Prediction prediction = PredictionsHandler.generatePrediction(shoppingHistory);
         dateActual.setTime(prediction.getTime());
         calendarActual.setTime(dateActual);
 
@@ -66,7 +66,7 @@ public class PredictionsUnitTest {
         //When
         Calendar calendarActual = Calendar.getInstance();
         Date dateActual = new Date();
-        Prediction prediction = PredictionsHandler.getPrediction(shoppingHistory);
+        Prediction prediction = PredictionsHandler.generatePrediction(shoppingHistory);
         dateActual.setTime(prediction.getTime());
         calendarActual.setTime(dateActual);
 
@@ -94,7 +94,7 @@ public class PredictionsUnitTest {
         //When
         Calendar calendarActual = Calendar.getInstance();
         Date dateActual = new Date();
-        Prediction prediction = PredictionsHandler.getPrediction(shoppingHistory);
+        Prediction prediction = PredictionsHandler.generatePrediction(shoppingHistory);
         dateActual.setTime(prediction.getTime());
         calendarActual.setTime(dateActual);
 
@@ -120,7 +120,7 @@ public class PredictionsUnitTest {
         //When
         Calendar calendarActual = Calendar.getInstance();
         Date dateActual = new Date();
-        Prediction prediction = PredictionsHandler.getPrediction(shoppingHistory);
+        Prediction prediction = PredictionsHandler.generatePrediction(shoppingHistory);
         dateActual.setTime(prediction.getTime());
         calendarActual.setTime(dateActual);
 
@@ -144,7 +144,7 @@ public class PredictionsUnitTest {
         //When
         Calendar calendarActual = Calendar.getInstance();
         Date dateActual = new Date();
-        Prediction prediction = PredictionsHandler.getPrediction(shoppingHistory);
+        Prediction prediction = PredictionsHandler.generatePrediction(shoppingHistory);
         dateActual.setTime(prediction.getTime());
         calendarActual.setTime(dateActual);
 

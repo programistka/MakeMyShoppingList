@@ -212,7 +212,7 @@ public class DbHandler extends SQLiteOpenHelper {
             db.close();
         }
         if(shoppingTimes.size() > 1) {
-            Prediction prediction = PredictionsHandler.getPrediction(shoppingTimes);
+            Prediction prediction = PredictionsHandler.generatePrediction(shoppingTimes);
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             calendar.setTimeInMillis(prediction.getTime());
             return calendar.getTime();
