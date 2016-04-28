@@ -33,14 +33,14 @@ public class MainActivity extends ActivityWithFab {
     }
 
     public void loadShowEmptyItemsHistoryView(View view){
-        startActivity(new Intent(this, ShowEmptyItemsHistory.class));
+        startActivity(new Intent(this, ShowEmptyItemsHistoryActivity.class));
     }
 
     public void loadAddEmptyItemView(View view){
-        startActivity(new Intent(this, AddEmptyItem.class));
+        startActivity(new Intent(this, AddEmptyItemActivity.class));
     }
 
     public void loadShowPredictionsView(View view){
-        startActivity(new Intent(this, ShowPredictions.class));
+        startActivity(new Intent(this, ShowPredictionsActivity.class));
     }
 }

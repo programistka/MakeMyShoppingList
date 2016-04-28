@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.programistka.shoppingadvisor.R;
-import net.programistka.shoppingadvisor.acitivities.ShowPredictions;
-import net.programistka.shoppingadvisor.models.Item;
+import net.programistka.shoppingadvisor.acitivities.ShowPredictionsActivity;
+import net.programistka.shoppingadvisor.models.EmptyItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.ViewHolder> {
-    private List<Item> items;
+    private List<EmptyItem> emptyItems;
     public List<Long> selectedItems = new ArrayList<>();
     private int counter = 0;
 
@@ -50,24 +50,24 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
                                             toggle = !toggle;
                                             if(counter > 0) {
                                                 CharSequence counterLabel = Integer.toString(counter);
-                                                ShowPredictions.menu.getItem(0).setTitle(counterLabel);
-                                                ShowPredictions.menu.getItem(0).setVisible(true);
-                                                ShowPredictions.menu.getItem(1).setVisible(true);
-                                                ShowPredictions.menu.getItem(2).setVisible(true);
+                                                ShowPredictionsActivity.menu.getItem(0).setTitle(counterLabel);
+                                                ShowPredictionsActivity.menu.getItem(0).setVisible(true);
+                                                ShowPredictionsActivity.menu.getItem(1).setVisible(true);
+                                                ShowPredictionsActivity.menu.getItem(2).setVisible(true);
                                             }
                                             else {
-                                                ShowPredictions.menu.getItem(0).setVisible(false);
-                                                ShowPredictions.menu.getItem(1).setVisible(false);
-                                                ShowPredictions.menu.getItem(2).setVisible(false);
+                                                ShowPredictionsActivity.menu.getItem(0).setVisible(false);
+                                                ShowPredictionsActivity.menu.getItem(1).setVisible(false);
+                                                ShowPredictionsActivity.menu.getItem(2).setVisible(false);
                                             }
                                         }
             });
-            ShowPredictions.selectedItems = selectedItems;
+            ShowPredictionsActivity.selectedItems = selectedItems;
         }
     }
 
-    public PredictionsAdapter(List<Item> items) {
-        this.items = items;
+    public PredictionsAdapter(List<EmptyItem> emptyItems) {
+        this.emptyItems = emptyItems;
     }
 
     @Override
@@ -83,19 +83,19 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Item currentItem = items.get(position);
-        holder.nameTextView.setText(currentItem.getName());
+        EmptyItem currentEmptyItem = emptyItems.get(position);
+        holder.nameTextView.setText(currentEmptyItem.getName());
         SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy");
-        if(currentItem.getPredictionDate().compareTo(new Date()) < 0){
+        if(currentEmptyItem.getPredictionDate().compareTo(new Date()) < 0){
             holder.nameTextView.setTextColor(Color.RED);
             holder.dateTextView.setTextColor(Color.RED);
         }
-        holder.dateTextView.setText(sdf.format(currentItem.getPredictionDate()));
-        holder.id = currentItem.getId();
+        holder.dateTextView.setText(sdf.format(currentEmptyItem.getPredictionDate()));
+        holder.id = currentEmptyItem.getId();
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return emptyItems.size();
     }
 }

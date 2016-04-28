@@ -1,11 +1,8 @@
 package net.programistka.shoppingadvisor.models;
 
-/**
- * Created by maga on 15.04.16.
- */
 public class Prediction {
     private long time;
-    private int days_number;
+    private int daysNumber;
 
     public long getTime() {
         return time;
@@ -16,10 +13,10 @@ public class Prediction {
     }
 
     public int getDaysNumber() {
-        return days_number;
+        return daysNumber;
     }
 
-    public void setDays_number(int days_number) {
-        this.days_number = days_number;
+    public void setDaysNumber(int daysNumber) {
+        this.daysNumber = daysNumber;
     }
 }

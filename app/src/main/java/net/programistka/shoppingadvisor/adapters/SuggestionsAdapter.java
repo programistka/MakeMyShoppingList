@@ -8,26 +8,26 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
 
-import net.programistka.shoppingadvisor.models.Item;
+import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuggestionsAdapter extends ArrayAdapter<Item> {
-    private List<Item> items = new ArrayList<>();
-    private List<Item> itemsAll = new ArrayList<>();
+public class SuggestionsAdapter extends ArrayAdapter<EmptyItem> {
+    private List<EmptyItem> emptyItems = new ArrayList<>();
+    private List<EmptyItem> itemsAll = new ArrayList<>();
 
-    public SuggestionsAdapter(Context context, List<Item> items) {
-        super(context, 0, items);
+    public SuggestionsAdapter(Context context, List<EmptyItem> emptyItems) {
+        super(context, 0, emptyItems);
 
-        this.items = items;
-        this.itemsAll = new ArrayList<>(items);
+        this.emptyItems = emptyItems;
+        this.itemsAll = new ArrayList<>(emptyItems);
     }
 
     @Override
-    public Item getItem(int position) {
-        return items.get(position);
+    public EmptyItem getItem(int position) {
+        return emptyItems.get(position);
     }
 
     @Override
@@ -37,12 +37,12 @@ public class SuggestionsAdapter extends ArrayAdapter<Item> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Item item = getItem(position);
+        EmptyItem emptyItem = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.suggestion_row, parent, false);
         }
-        TextView tvItemName = (TextView) convertView.findViewById(R.id.txtItemName);
-        tvItemName.setText(item.getName());
+        TextView tvItemName = (TextView) convertView.findViewById(R.id.emptyItemName);
+        tvItemName.setText(emptyItem.getName());
 
         return convertView;
     }
@@ -55,15 +55,15 @@ public class SuggestionsAdapter extends ArrayAdapter<Item> {
     private Filter nameFilter = new Filter() {
         @Override
         public String convertResultToString(Object resultValue) {
-            return ((Item)(resultValue)).getName();
+            return ((EmptyItem)(resultValue)).getName();
         }
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             if(constraint != null) {
-                List<Item> suggestions = new ArrayList<>();
-                for (Item item : itemsAll) {
-                    if(item.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())){
-                        suggestions.add(item);
+                List<EmptyItem> suggestions = new ArrayList<>();
+                for (EmptyItem emptyItem : itemsAll) {
+                    if(emptyItem.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())){
+                        suggestions.add(emptyItem);
                     }
                 }
                 FilterResults filterResults = new FilterResults();
@@ -76,10 +76,10 @@ public class SuggestionsAdapter extends ArrayAdapter<Item> {
         }
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            ArrayList<Item> filteredList = (ArrayList<Item>) results.values;
+            ArrayList<EmptyItem> filteredList = (ArrayList<EmptyItem>) results.values;
             if(results.count > 0) {
                 clear();
-                for (Item c : filteredList) {
+                for (EmptyItem c : filteredList) {
                     add(c);
                 }
                 notifyDataSetChanged();
