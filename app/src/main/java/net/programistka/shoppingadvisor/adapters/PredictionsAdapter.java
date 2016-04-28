@@ -15,13 +15,11 @@ import net.programistka.shoppingadvisor.models.Item;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-/**
- * Created by maga on 13.03.16.
- */
 public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.ViewHolder> {
-    private ArrayList<Item> items;
-    public ArrayList<Long> selectedItems = new ArrayList<>();
+    private List<Item> items;
+    public List<Long> selectedItems = new ArrayList<>();
     private int counter = 0;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,7 +66,7 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         }
     }
 
-    public PredictionsAdapter(ArrayList<Item> items) {
+    public PredictionsAdapter(List<Item> items) {
         this.items = items;
     }
 

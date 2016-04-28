@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".acitivities.AddEmptyItemEvent"
+            android:name=".acitivities.AddEmptyItem"
             android:label="@string/title_activity_add_running_out_of_event"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".acitivities.ShowHistory"
+            android:name=".acitivities.ShowEmptyItemsHistory"
             android:label="@string/title_activity_show_history"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

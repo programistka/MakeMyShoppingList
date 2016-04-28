@@ -2,7 +2,6 @@ package net.programistka.shoppingadvisor.acitivities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -10,7 +9,7 @@ import android.view.MenuItem;
 
 import net.programistka.shoppingadvisor.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ActivityWithFab {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,29 +32,15 @@ public class MainActivity extends AppCompatActivity {
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
-    public void loadShowHistory(View view){
-        Intent intent = new Intent(this, ShowHistory.class);
-        startActivity(intent);
+    public void loadShowEmptyItemsHistoryView(View view){
+        startActivity(new Intent(this, ShowEmptyItemsHistory.class));
     }
 
-    public void loadAddEmptyItemEvent(View view){
-        Intent intent = new Intent(this, AddEmptyItemEvent.class);
-        startActivity(intent);
+    public void loadAddEmptyItemView(View view){
+        startActivity(new Intent(this, AddEmptyItem.class));
     }
 
-    public void loadShowPredictions(View view){
-        Intent intent = new Intent(this, ShowPredictions.class);
-        startActivity(intent);
-    }
-
-    private void attachFabAction() {
-        View addButton = findViewById(R.id.fab);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddEmptyItemEvent.class);
-                startActivity(intent);
-            }
-        });
+    public void loadShowPredictionsView(View view){
+        startActivity(new Intent(this, ShowPredictions.class));
     }
 }
