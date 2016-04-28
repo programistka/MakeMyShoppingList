@@ -12,21 +12,22 @@ import net.programistka.shoppingadvisor.models.Item;
 import net.programistka.shoppingadvisor.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by maga on 13.03.16.
  */
 public class SuggestionsAdapter extends ArrayAdapter<Item> {
     private ArrayList<Item> suggestions;
-    private ArrayList<Item> items;
-    private ArrayList<Item> itemsAll;
+    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<Item> itemsAll = new ArrayList<>();
 
-    public SuggestionsAdapter(Context context, ArrayList<Item> items) {
+    public SuggestionsAdapter(Context context, List<Item> items) {
         super(context, 0, items);
 
         this.suggestions = new ArrayList<>();
-        this.items = items;
-        this.itemsAll = (ArrayList<Item>) items.clone();
+        this.items.addAll(items);
+        this.itemsAll.addAll(items);
     }
 
     @Override
@@ -65,9 +66,9 @@ public class SuggestionsAdapter extends ArrayAdapter<Item> {
         protected FilterResults performFiltering(CharSequence constraint) {
             if(constraint != null) {
                 suggestions.clear();
-                for (Item customer : itemsAll) {
-                    if(customer.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())){
-                        suggestions.add(customer);
+                for (Item item : itemsAll) {
+                    if(item.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())){
+                        suggestions.add(item);
                     }
                 }
                 FilterResults filterResults = new FilterResults();
