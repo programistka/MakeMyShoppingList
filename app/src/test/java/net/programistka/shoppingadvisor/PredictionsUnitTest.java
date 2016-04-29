@@ -1,6 +1,7 @@
 package net.programistka.shoppingadvisor;
 
 import net.programistka.shoppingadvisor.models.Prediction;
+import net.programistka.shoppingadvisor.models.PredictionsHandler;
 
 import org.junit.Test;
 

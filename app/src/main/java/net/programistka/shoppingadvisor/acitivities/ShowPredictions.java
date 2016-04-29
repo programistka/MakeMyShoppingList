@@ -1,25 +1,24 @@
 package net.programistka.shoppingadvisor.acitivities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-import net.programistka.shoppingadvisor.DbHandler;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.adapters.PredictionsAdapter;
+import net.programistka.shoppingadvisor.dbhandlers.ArchiveDbHandler;
+import net.programistka.shoppingadvisor.dbhandlers.PredictionsDbHandler;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ShowPredictions extends AppCompatActivity {
+public class ShowPredictions extends ActivityWithFab {
 
     public static Menu menu;
-    public static ArrayList<Long> selectedItems = new ArrayList<>();
+    public static List<Long> selectedItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class ShowPredictions extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DbHandler dbHandler = new DbHandler(this);
+        PredictionsDbHandler dbHandler = new PredictionsDbHandler(this);
         PredictionsAdapter adapter = new PredictionsAdapter(dbHandler.getPredictions());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);
@@ -47,32 +46,21 @@ public class ShowPredictions extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_predictions, menu);
-        this.menu = menu;
+        ShowPredictions.menu = menu;
         return true;
     }
 
     public void markAsBought(MenuItem item) {
-        DbHandler dbHandler = new DbHandler(this);
+        PredictionsDbHandler dbHandler = new PredictionsDbHandler(this);
         for (Long itemId:selectedItems) {
-            dbHandler.addBoughtPrediction(itemId);
+            dbHandler.insertBoughtPredictionIntoPredictionsTable(itemId);
         }
     }
 
     public void markAsArchived(MenuItem item) {
-        DbHandler dbHandler = new DbHandler(this);
+        ArchiveDbHandler dbHandler = new ArchiveDbHandler(this);
         for (Long itemId:selectedItems) {
-            dbHandler.addItemToArchive(itemId);
+            dbHandler.insertItemToArchiveTable(itemId);
         }
-    }
-
-    private void attachFabAction() {
-        View addButton = findViewById(R.id.fab);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ShowPredictions.this, AddEmptyItemEvent.class);
-                startActivity(intent);
-            }
-        });
     }
 }

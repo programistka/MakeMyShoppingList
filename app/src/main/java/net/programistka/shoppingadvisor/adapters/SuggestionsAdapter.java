@@ -14,9 +14,6 @@ import net.programistka.shoppingadvisor.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by maga on 13.03.16.
- */
 public class SuggestionsAdapter extends ArrayAdapter<Item> {
     private List<Item> items = new ArrayList<>();
     private List<Item> itemsAll = new ArrayList<>();

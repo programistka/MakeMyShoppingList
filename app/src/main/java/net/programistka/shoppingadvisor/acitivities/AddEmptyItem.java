@@ -12,16 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import net.programistka.shoppingadvisor.DbHandler;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.adapters.SuggestionsAdapter;
+import net.programistka.shoppingadvisor.dbhandlers.EmptyItemsDbHandler;
 import net.programistka.shoppingadvisor.models.Item;
 
 import java.util.List;
 
-public class AddEmptyItemEvent extends AppCompatActivity {
+public class AddEmptyItem extends AppCompatActivity {
 
-    private DbHandler dbHandler;
+    private EmptyItemsDbHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class AddEmptyItemEvent extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dbHandler = new DbHandler(this);
+        dbHandler = new EmptyItemsDbHandler(this);
         List<Item> allItems = dbHandler.selectAllItemsFromItemsTable();
 
         final SuggestionsAdapter adapter = new SuggestionsAdapter(this, allItems);
@@ -44,7 +44,7 @@ public class AddEmptyItemEvent extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         dbHandler.insertExistingEmptyItem(id);
-                        redirectToHistoryView();
+                        redirectToEmptyItemsHistoryView();
                     }
                 });
             }
@@ -54,26 +54,25 @@ public class AddEmptyItemEvent extends AppCompatActivity {
     public void btnAddNewItemClick(View view) {
         AutoCompleteTextView itemName = (AutoCompleteTextView) findViewById(R.id.txtItemName);
         if(itemName.getText().toString().length() == 0) {
-            showEmptyNameMessage();
+            showEmptyItemNameMessage();
         }
         else {
             createNewEmptyItem((EditText) findViewById(R.id.txtItemName));
-            redirectToHistoryView();
+            redirectToEmptyItemsHistoryView();
         }
     }
 
     private void createNewEmptyItem(EditText textField) {
-        Item newItem = new Item();
-        newItem.setName(textField.getText().toString());
-        dbHandler.insertNewEmptyItem(newItem);
+        if(textField.getText() != null) {
+            dbHandler.insertNewEmptyItem(textField.getText().toString());
+        }
     }
 
-    private void redirectToHistoryView() {
-        Intent historyList = new Intent(getApplicationContext(), ShowHistory.class);
-        startActivity(historyList);
+    private void redirectToEmptyItemsHistoryView() {
+        startActivity(new Intent(getApplicationContext(), ShowEmptyItemsHistory.class));
     }
 
-    private void showEmptyNameMessage() {
+    private void showEmptyItemNameMessage() {
         Toast toast = Toast.makeText(this, "Item name is empty", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();

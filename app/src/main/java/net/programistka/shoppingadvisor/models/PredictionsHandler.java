@@ -1,13 +1,9 @@
-package net.programistka.shoppingadvisor;
+package net.programistka.shoppingadvisor.models;
 
 import net.programistka.shoppingadvisor.models.Prediction;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by maga on 28.03.16.
- */
 public class PredictionsHandler {
     private static final int FACTOR = 1000*3600*24;
 
@@ -40,6 +36,13 @@ public class PredictionsHandler {
         Prediction prediction = new Prediction();
         prediction.setDays_number((int)(next - current)/FACTOR);
         prediction.setTime(next + next - current);
+        return prediction;
+    }
+
+    public static Prediction generateBoughtPrediction(long nextEmptyItemDate, int daysToRunOut) {
+        Prediction prediction = new Prediction();
+        prediction.setTime(nextEmptyItemDate + daysToRunOut*FACTOR);
+        prediction.setDays_number(daysToRunOut);
         return prediction;
     }
 }
