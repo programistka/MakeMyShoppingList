@@ -1,4 +1,4 @@
-package net.programistka.shoppingadvisor.presenters;
+package net.programistka.shoppingadvisor.showpredictions;
 
 import android.content.Context;
 
@@ -7,10 +7,10 @@ import net.programistka.shoppingadvisor.models.EmptyItem;
 
 import java.util.List;
 
-public class PredictionsPresenter {
+public class ShowPredictionsPresenter {
     private PredictionsDbHandler dbHandler;
 
-    public PredictionsPresenter(Context context) {
+    public ShowPredictionsPresenter(Context context) {
         this.dbHandler = new PredictionsDbHandler(context);
     }
 

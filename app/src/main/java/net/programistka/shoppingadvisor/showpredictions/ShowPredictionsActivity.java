@@ -1,4 +1,4 @@
-package net.programistka.shoppingadvisor.acitivities;
+package net.programistka.shoppingadvisor.showpredictions;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,9 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import net.programistka.shoppingadvisor.R;
+import net.programistka.shoppingadvisor.acitivities.ActivityWithFab;
 import net.programistka.shoppingadvisor.adapters.PredictionsAdapter;
-import net.programistka.shoppingadvisor.dbhandlers.ArchiveDbHandler;
-import net.programistka.shoppingadvisor.dbhandlers.PredictionsDbHandler;
 import net.programistka.shoppingadvisor.presenters.ArchivePresenter;
 import net.programistka.shoppingadvisor.presenters.PredictionsPresenter;
 
