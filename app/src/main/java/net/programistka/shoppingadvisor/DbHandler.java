@@ -236,11 +236,12 @@ public class DbHandler extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()) {
             do {
+                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                calendar.setTimeInMillis(cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE)));
+
                 Item item = new Item();
                 item.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
                 item.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
-                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-                calendar.setTimeInMillis(cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE)));
                 item.setPredictionDate(calendar.getTime());
                 itemsList.add(item);
             } while (cursor.moveToNext());
