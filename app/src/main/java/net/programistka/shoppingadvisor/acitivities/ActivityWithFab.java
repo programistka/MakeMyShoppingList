@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import net.programistka.shoppingadvisor.R;
+import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 
 public class ActivityWithFab extends AppCompatActivity {
     protected void attachFabAction() {

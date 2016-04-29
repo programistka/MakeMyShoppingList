@@ -14,16 +14,14 @@ import android.widget.Toast;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.acitivities.ShowEmptyItemsHistoryActivity;
 import net.programistka.shoppingadvisor.adapters.SuggestionsAdapter;
-import net.programistka.shoppingadvisor.addemptyitem.EmptyItemsPresenter;
-import net.programistka.shoppingadvisor.views.EmptyItemsView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddEmptyItemActivity extends AppCompatActivity implements EmptyItemsView, AdapterView.OnItemClickListener {
+public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyItemView, AdapterView.OnItemClickListener {
 
-    private EmptyItemsPresenter presenter;
+    private AddEmptyItemPresenter presenter;
 
     @BindView(R.id.emptyItemName) AutoCompleteTextView emptyItemName;
     @BindView(R.id.addNewEmptyItem) Button addNewEmptyItem;
@@ -37,7 +35,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements EmptyItem
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        presenter = new EmptyItemsPresenter(this);
+        presenter = new AddEmptyItemPresenter(this);
 
         SuggestionsAdapter adapter = new SuggestionsAdapter(this, presenter.selectAllItemsFromItemsTable());
         emptyItemName.setAdapter(adapter);
@@ -57,15 +55,8 @@ public class AddEmptyItemActivity extends AppCompatActivity implements EmptyItem
     }
 
     @OnClick(R.id.addNewEmptyItem)
-    public void addNewEmptyItem(View view) {
-        String emptyItemNameText = emptyItemName.getText().toString();
-        if(emptyItemNameText.length() == 0) {
-            showEmptyItemNameMessage();
-        }
-        else {
-            presenter.insertNewEmptyItem(emptyItemNameText);
-            redirectToEmptyItemsHistoryView();
-        }
+    public void addNewEmptyItem() {
+        presenter.addNewEmptyItem(emptyItemName.getText().toString());
     }
 
     @Override

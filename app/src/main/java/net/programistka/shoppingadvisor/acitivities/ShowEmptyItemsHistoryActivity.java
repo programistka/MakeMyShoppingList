@@ -5,10 +5,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import net.programistka.shoppingadvisor.dbhandlers.DbHandler;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.adapters.EmptyItemsHistory;
-import net.programistka.shoppingadvisor.presenters.EmptyItemsPresenter;
+import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemPresenter;
 
 public class ShowEmptyItemsHistoryActivity extends ActivityWithFab {
 
@@ -20,7 +19,7 @@ public class ShowEmptyItemsHistoryActivity extends ActivityWithFab {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        EmptyItemsPresenter presenter = new EmptyItemsPresenter(this);
+        AddEmptyItemPresenter presenter = new AddEmptyItemPresenter(this);
         EmptyItemsHistory adapter = new EmptyItemsHistory(presenter.selectAllItemsFromEmptyItemsHistoryTable());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);
