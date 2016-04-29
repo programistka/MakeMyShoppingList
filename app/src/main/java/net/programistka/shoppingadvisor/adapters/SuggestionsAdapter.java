@@ -25,7 +25,7 @@ public class SuggestionsAdapter extends ArrayAdapter<Item> {
         super(context, 0, items);
 
         this.items = items;
-        this.itemsAll = items;
+        this.itemsAll = new ArrayList<>(items);
     }
 
     @Override

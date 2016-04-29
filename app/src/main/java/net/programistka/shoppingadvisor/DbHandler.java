@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import net.programistka.shoppingadvisor.models.Item;
 import net.programistka.shoppingadvisor.models.Prediction;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -121,16 +122,6 @@ public class DbHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-
-
-
-
-
-
-
-
-
-
     public List<Item> selectAllItemsFromItemsTable () {
         ArrayList<Item> itemsList = new ArrayList<>();
         String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME + " FROM " + TABLE_ITEMS;
@@ -139,8 +130,8 @@ public class DbHandler extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             do {
                 Item item = new Item();
-                item.setId(cursor.getInt(0));
-                item.setName(cursor.getString(1));
+                item.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+                item.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
                 itemsList.add(item);
             } while (cursor.moveToNext());
             cursor.close();
@@ -149,24 +140,31 @@ public class DbHandler extends SQLiteOpenHelper {
         return itemsList;
     }
 
-    public ArrayList<Item> getItems() {
+    public ArrayList<Item> selectAllItemsFromHistoryTable() {
         ArrayList<Item> itemsList = new ArrayList<>();
-        String selectQuery = "SELECT *  FROM " + TABLE_ITEMS + " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY + " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID;
-        System.out.printf(selectQuery);
+        String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME  + ", " + COLUMN_EMPTY_ITEM_DATE +
+                             " FROM " + TABLE_ITEMS +
+                             " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
+                             " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID;
+        System.out.println(selectQuery);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
-                Item item = new Item();
-                item.setId(cursor.getInt(0));
-                item.setName(cursor.getString(1));
-                item.setDate(new Date(cursor.getLong(3)));
-                itemsList.add(item);
+                itemsList.add(createItem(cursor));
             } while (cursor.moveToNext());
             cursor.close();
             db.close();
         }
         return itemsList;
+    }
+
+    private Item createItem(Cursor cursor) {
+        Item item = new Item();
+        item.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+        item.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
+        item.setDate(new Date(cursor.getLong(cursor.getColumnIndex(COLUMN_EMPTY_ITEM_DATE))));
+        return item;
     }
 
     private void addOrUpdatePredictionsForItem(long id) {
@@ -208,7 +206,7 @@ public class DbHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
-                shoppingTimes.add(cursor.getLong(0));
+                shoppingTimes.add(cursor.getLong(cursor.getColumnIndex(COLUMN_EMPTY_ITEM_DATE)));
             } while (cursor.moveToNext());
             cursor.close();
             db.close();
@@ -285,11 +283,11 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
     private long getLastInsertedId(SQLiteDatabase db) {
-        String selectQuery = "SELECT * FROM " + TABLE_ITEMS + " ORDER BY " + COLUMN_ID;
+        String selectQuery = "SELECT " + COLUMN_ID + " FROM " + TABLE_ITEMS + " ORDER BY " + COLUMN_ID;
         Cursor cursor = db.rawQuery(selectQuery, null);
         long lastInsertedId = -1;
         if(cursor.moveToLast()) {
-            lastInsertedId = cursor.getLong(0);
+            lastInsertedId = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
         }
         cursor.close();
         return lastInsertedId;
