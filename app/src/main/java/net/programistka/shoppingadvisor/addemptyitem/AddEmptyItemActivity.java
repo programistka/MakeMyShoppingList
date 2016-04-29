@@ -14,6 +14,8 @@ import android.widget.Toast;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.acitivities.ShowEmptyItemsHistoryActivity;
 import net.programistka.shoppingadvisor.adapters.SuggestionsAdapter;
+import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsInteractor;
+import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,9 +37,10 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        presenter = new AddEmptyItemPresenter(this);
+        presenter = new AddEmptyItemPresenter(this, getApplicationContext());
+        SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(getApplicationContext()));
 
-        SuggestionsAdapter adapter = new SuggestionsAdapter(this, presenter.selectAllItemsFromItemsTable());
+        SuggestionsAdapter adapter = new SuggestionsAdapter(this, selectAllItemsPresenter.selectAllItemsFromItemsTable());
         emptyItemName.setAdapter(adapter);
         emptyItemName.setOnItemClickListener(this);
     }

@@ -22,12 +22,4 @@ public class AddEmptyItemInteractor {
     public void insertExistingEmptyItem(long id) {
         dbHandler.insertExistingEmptyItem(id);
     }
-
-    public List<EmptyItem> selectAllItemsFromEmptyItemsHistoryTable() {
-        return dbHandler.selectAllItemsFromEmptyItemsHistoryTable();
-    }
-
-    public List<EmptyItem> selectAllItemsFromItemsTable() {
-        return dbHandler.selectAllItemsFromItemsTable();
-    }
 }

@@ -1,35 +1,22 @@
 package net.programistka.shoppingadvisor.addemptyitem;
 
-import net.programistka.shoppingadvisor.models.EmptyItem;
-
-import java.util.List;
-
-import javax.inject.Inject;
+import android.content.Context;
 
 public class AddEmptyItemPresenter {
 
-    @Inject AddEmptyItemInteractor interactor;
-
     private AddEmptyItemView view;
+    private AddEmptyItemInteractor interactor;
 
-    public AddEmptyItemPresenter(AddEmptyItemView view) {
+    public AddEmptyItemPresenter(AddEmptyItemView view, Context context) {
         this.view = view;
+        this.interactor = new AddEmptyItemInteractor(context);
     }
-
-    public List<EmptyItem> selectAllItemsFromItemsTable() {
-        return interactor.selectAllItemsFromItemsTable();
-    }
-
     public void insertNewEmptyItem(String name) {
         interactor.insertNewEmptyItem(name);
     }
 
     public void insertExistingEmptyItem(long id) {
         interactor.insertExistingEmptyItem(id);
-    }
-
-    public List<EmptyItem> selectAllItemsFromEmptyItemsHistoryTable() {
-        return interactor.selectAllItemsFromEmptyItemsHistoryTable();
     }
 
     public void addNewEmptyItem(String name) {

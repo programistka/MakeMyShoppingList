@@ -22,6 +22,10 @@ public class EmptyItemsDbHandler extends DbHandler {
         super(context);
     }
 
+    public EmptyItemsDbHandler(Context context, String databaseName) {
+        super(context, databaseName);
+    }
+
     public void insertNewEmptyItem(String newEmptyItemName) {
         SQLiteDatabase db = this.getWritableDatabase();
 

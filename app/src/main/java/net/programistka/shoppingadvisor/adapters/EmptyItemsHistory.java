@@ -9,6 +9,7 @@ import android.widget.TextView;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class EmptyItemsHistory extends RecyclerView.Adapter<EmptyItemsHistory.Vi
 
     @Override
     public int getItemCount() {
-        return emptyItems.size();
+        System.out.println(this.emptyItems.size());
+        return this.emptyItems.size();
     }
 }

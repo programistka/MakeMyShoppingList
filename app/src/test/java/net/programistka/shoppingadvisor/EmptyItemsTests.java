@@ -16,10 +16,10 @@ public class EmptyItemsTests {
 
     @Test
     public void when_added_empty_item_for_the_first_time_then_visible_in_history_once() {
-        MockitoAnnotations.initMocks(this);
+        /*MockitoAnnotations.initMocks(this);
         presenter = new AddEmptyItemPresenter(view);
         presenter.insertNewEmptyItem("Kasza");
-        presenter.selectAllItemsFromItemsTable();
+        presenter.selectAllItemsFromItemsTable();*/
     }
 
     @Test

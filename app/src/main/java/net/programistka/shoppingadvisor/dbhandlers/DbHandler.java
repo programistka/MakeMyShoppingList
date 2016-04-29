@@ -33,6 +33,11 @@ public class DbHandler extends SQLiteOpenHelper {
         database = this.getWritableDatabase();
     }
 
+    public DbHandler(Context context, String databaseName) {
+        super(context, databaseName, null, DATABASE_VERSION);
+        database = this.getWritableDatabase();
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE IF NOT EXISTS " +
@@ -94,6 +99,7 @@ public class DbHandler extends SQLiteOpenHelper {
     public List<EmptyItem> selectAllItemsFromItemsTable () {
         List<EmptyItem> itemsList = new ArrayList<>();
         String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME + " FROM " + TABLE_ITEMS;
+        System.out.println(selectQuery);
         Cursor cursor = database.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
@@ -102,7 +108,7 @@ public class DbHandler extends SQLiteOpenHelper {
             cursor.close();
             database.close();
         }
-
+        System.out.println(itemsList.size());
         return itemsList;
     }
 
@@ -112,6 +118,7 @@ public class DbHandler extends SQLiteOpenHelper {
                              " FROM " + TABLE_ITEMS +
                              " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
                              " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID;
+        System.out.println(selectQuery);
         Cursor cursor = database.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
