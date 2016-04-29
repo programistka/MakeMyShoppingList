@@ -1,35 +1,35 @@
 package net.programistka.shoppingadvisor.addemptyitem;
 
-import net.programistka.shoppingadvisor.dbhandlers.EmptyItemsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class AddEmptyItemPresenter {
 
-    private EmptyItemsDbHandler dbHandler;
+    @Inject AddEmptyItemInteractor interactor;
 
     private AddEmptyItemView view;
 
     public AddEmptyItemPresenter(AddEmptyItemView view) {
-        //this.dbHandler = new EmptyItemsDbHandler(context);
         this.view = view;
     }
 
     public List<EmptyItem> selectAllItemsFromItemsTable() {
-        return this.dbHandler.selectAllItemsFromItemsTable();
-    }
-
-    public void insertExistingEmptyItem(long id) {
-        this.dbHandler.insertExistingEmptyItem(id);
+        return interactor.selectAllItemsFromItemsTable();
     }
 
     public void insertNewEmptyItem(String name) {
-        this.dbHandler.insertNewEmptyItem(name);
+        interactor.insertNewEmptyItem(name);
+    }
+
+    public void insertExistingEmptyItem(long id) {
+        interactor.insertExistingEmptyItem(id);
     }
 
     public List<EmptyItem> selectAllItemsFromEmptyItemsHistoryTable() {
-        return this.dbHandler.selectAllItemsFromEmptyItemsHistoryTable();
+        return interactor.selectAllItemsFromEmptyItemsHistoryTable();
     }
 
     public void addNewEmptyItem(String name) {

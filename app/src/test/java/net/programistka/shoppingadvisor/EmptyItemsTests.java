@@ -1,15 +1,23 @@
 package net.programistka.shoppingadvisor;
 
-import android.test.mock.MockContext;
-
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemPresenter;
+import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemView;
 
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 public class EmptyItemsTests {
+
+    @Mock
+    private AddEmptyItemView view;
+
+    private AddEmptyItemPresenter presenter;
+
     @Test
     public void when_added_empty_item_for_the_first_time_then_visible_in_history_once() {
-        AddEmptyItemPresenter presenter = new AddEmptyItemPresenter(new MockContext());
+        MockitoAnnotations.initMocks(this);
+        presenter = new AddEmptyItemPresenter(view);
         presenter.insertNewEmptyItem("Kasza");
         presenter.selectAllItemsFromItemsTable();
     }

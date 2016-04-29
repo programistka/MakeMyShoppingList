@@ -11,7 +11,6 @@ import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.acitivities.ActivityWithFab;
 import net.programistka.shoppingadvisor.adapters.PredictionsAdapter;
 import net.programistka.shoppingadvisor.presenters.ArchivePresenter;
-import net.programistka.shoppingadvisor.presenters.PredictionsPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ShowPredictionsActivity extends ActivityWithFab {
     public static Menu menu;
     public static List<Long> selectedItems = new ArrayList<>();
 
-    private PredictionsPresenter presenter;
+    private ShowPredictionsPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class ShowPredictionsActivity extends ActivityWithFab {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        presenter = new PredictionsPresenter(this);
+        presenter = new ShowPredictionsPresenter(this);
         PredictionsAdapter adapter = new PredictionsAdapter(presenter.getPredictions());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);

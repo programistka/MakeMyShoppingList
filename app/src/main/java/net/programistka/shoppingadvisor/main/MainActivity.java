@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.acitivities.ActivityWithFab;
 import net.programistka.shoppingadvisor.acitivities.ShowEmptyItemsHistoryActivity;
-import net.programistka.shoppingadvisor.acitivities.ShowPredictionsActivity;
+import net.programistka.shoppingadvisor.showpredictions.ShowPredictionsActivity;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 
 import butterknife.ButterKnife;

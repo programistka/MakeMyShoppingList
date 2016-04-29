@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.programistka.shoppingadvisor.R;
-import net.programistka.shoppingadvisor.acitivities.ShowPredictionsActivity;
+import net.programistka.shoppingadvisor.showpredictions.ShowPredictionsActivity;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 
 import java.text.SimpleDateFormat;
