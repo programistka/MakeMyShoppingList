@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import net.programistka.shoppingadvisor.models.Item;
+import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.models.PredictionsHandler;
 
@@ -20,8 +20,8 @@ public class PredictionsDbHandler extends DbHandler {
         super(context);
     }
 
-    public List<Item> getPredictions() {
-        List<Item> itemsList = new ArrayList<>();
+    public List<EmptyItem> getPredictions() {
+        List<EmptyItem> itemsList = new ArrayList<>();
         String selectQuery = "SELECT DISTINCT(" + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "),*" +
                 " FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS +
                 " LEFT JOIN " + TABLE_ITEMS +
@@ -38,11 +38,11 @@ public class PredictionsDbHandler extends DbHandler {
                 Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 calendar.setTimeInMillis(cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE)));
 
-                Item item = new Item();
-                item.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
-                item.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
-                item.setPredictionDate(calendar.getTime());
-                itemsList.add(item);
+                EmptyItem emptyItem = new EmptyItem();
+                emptyItem.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+                emptyItem.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
+                emptyItem.setPredictionDate(calendar.getTime());
+                itemsList.add(emptyItem);
             } while (cursor.moveToNext());
             cursor.close();
             db.close();

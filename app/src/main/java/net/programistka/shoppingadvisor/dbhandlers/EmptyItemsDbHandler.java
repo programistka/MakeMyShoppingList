@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import net.programistka.shoppingadvisor.models.Item;
 import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.models.PredictionsHandler;
 

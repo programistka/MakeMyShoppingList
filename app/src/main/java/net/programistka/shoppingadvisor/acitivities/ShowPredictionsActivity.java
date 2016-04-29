@@ -11,14 +11,18 @@ import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.adapters.PredictionsAdapter;
 import net.programistka.shoppingadvisor.dbhandlers.ArchiveDbHandler;
 import net.programistka.shoppingadvisor.dbhandlers.PredictionsDbHandler;
+import net.programistka.shoppingadvisor.presenters.ArchivePresenter;
+import net.programistka.shoppingadvisor.presenters.PredictionsPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowPredictions extends ActivityWithFab {
+public class ShowPredictionsActivity extends ActivityWithFab {
 
     public static Menu menu;
     public static List<Long> selectedItems = new ArrayList<>();
+
+    private PredictionsPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +35,8 @@ public class ShowPredictions extends ActivityWithFab {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        PredictionsDbHandler dbHandler = new PredictionsDbHandler(this);
-        PredictionsAdapter adapter = new PredictionsAdapter(dbHandler.getPredictions());
+        presenter = new PredictionsPresenter(this);
+        PredictionsAdapter adapter = new PredictionsAdapter(presenter.getPredictions());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);
         recyclerView.setAdapter(adapter);
@@ -46,21 +50,16 @@ public class ShowPredictions extends ActivityWithFab {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_predictions, menu);
-        ShowPredictions.menu = menu;
+        ShowPredictionsActivity.menu = menu;
         return true;
     }
 
     public void markAsBought(MenuItem item) {
-        PredictionsDbHandler dbHandler = new PredictionsDbHandler(this);
-        for (Long itemId:selectedItems) {
-            dbHandler.insertBoughtPredictionIntoPredictionsTable(itemId);
-        }
+        presenter.markAsBought(selectedItems);
     }
 
     public void markAsArchived(MenuItem item) {
-        ArchiveDbHandler dbHandler = new ArchiveDbHandler(this);
-        for (Long itemId:selectedItems) {
-            dbHandler.insertItemToArchiveTable(itemId);
-        }
+        ArchivePresenter presenter = new ArchivePresenter(this);
+        presenter.markAsArchived(selectedItems);
     }
 }

@@ -12,7 +12,7 @@ public class ActivityWithFab extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityWithFab.this, AddEmptyItem.class);
+                Intent intent = new Intent(ActivityWithFab.this, AddEmptyItemActivity.class);
                 startActivity(intent);
             }
         });

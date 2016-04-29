@@ -7,16 +7,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.programistka.shoppingadvisor.R;
-import net.programistka.shoppingadvisor.models.Item;
+import net.programistka.shoppingadvisor.models.EmptyItem;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class EmptyItemsHistory extends RecyclerView.Adapter<EmptyItemsHistory.ViewHolder> {
-    private List<Item> items;
+    private List<EmptyItem> emptyItems;
 
-    public EmptyItemsHistory(List<Item> items) {
-        this.items = items;
+    public EmptyItemsHistory(List<EmptyItem> emptyItems) {
+        this.emptyItems = emptyItems;
     }
 
     @Override
@@ -39,13 +39,13 @@ public class EmptyItemsHistory extends RecyclerView.Adapter<EmptyItemsHistory.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Item currentItem = items.get(position);
-        holder.nameTextView.setText(currentItem.getName());
-        holder.dateTextView.setText(new SimpleDateFormat("dd MM yyyy").format(currentItem.getCreationDate()));
+        EmptyItem currentEmptyItem = emptyItems.get(position);
+        holder.nameTextView.setText(currentEmptyItem.getName());
+        holder.dateTextView.setText(new SimpleDateFormat("dd MM yyyy").format(currentEmptyItem.getCreationDate()));
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return emptyItems.size();
     }
 }

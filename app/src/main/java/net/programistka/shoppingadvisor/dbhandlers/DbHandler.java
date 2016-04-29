@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import net.programistka.shoppingadvisor.models.Item;
+import net.programistka.shoppingadvisor.models.EmptyItem;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,8 +26,11 @@ public class DbHandler extends SQLiteOpenHelper {
     protected static final String COLUMN_NEXT_EMPTY_ITEM_DATE = "next_empty_item_date";
     protected static final String COLUMN_DAYS_TO_RUN_OUT = "days_to_run_out";
 
+    private SQLiteDatabase database;
+
     public DbHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        database = this.getWritableDatabase();
     }
 
     @Override
@@ -88,50 +91,48 @@ public class DbHandler extends SQLiteOpenHelper {
         db.execSQL(INSERT_PREDICTIONS);
     }
 
-    public List<Item> selectAllItemsFromItemsTable () {
-        List<Item> itemsList = new ArrayList<>();
+    public List<EmptyItem> selectAllItemsFromItemsTable () {
+        List<EmptyItem> itemsList = new ArrayList<>();
         String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME + " FROM " + TABLE_ITEMS;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = database.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
                 itemsList.add(createItemInstance(cursor));
             } while (cursor.moveToNext());
             cursor.close();
-            db.close();
+            database.close();
         }
+
         return itemsList;
     }
 
-    public List<Item> selectAllItemsFromEmptyItemsHistoryTable() {
-        List<Item> itemsList = new ArrayList<>();
+    public List<EmptyItem> selectAllItemsFromEmptyItemsHistoryTable() {
+        List<EmptyItem> itemsList = new ArrayList<>();
         String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME  + ", " + COLUMN_EMPTY_ITEM_DATE +
                              " FROM " + TABLE_ITEMS +
                              " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
                              " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = database.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
                 itemsList.add(createItemInstance(cursor));
             } while (cursor.moveToNext());
             cursor.close();
-            db.close();
         }
         return itemsList;
     }
 
-    private Item createItemInstance(Cursor cursor) {
-        Item item = new Item();
+    private EmptyItem createItemInstance(Cursor cursor) {
+        EmptyItem emptyItem = new EmptyItem();
         if(cursor.getColumnIndex(COLUMN_ID) != -1) {
-            item.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+            emptyItem.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
         }
         if(cursor.getColumnIndex(COLUMN_ITEM_NAME) != -1) {
-            item.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
+            emptyItem.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
         }
         if(cursor.getColumnIndex(COLUMN_EMPTY_ITEM_DATE) != -1) {
-            item.setDate(new Date(cursor.getLong(cursor.getColumnIndex(COLUMN_EMPTY_ITEM_DATE))));
+            emptyItem.setCreationDate(new Date(cursor.getLong(cursor.getColumnIndex(COLUMN_EMPTY_ITEM_DATE))));
         }
-        return item;
+        return emptyItem;
     }
 }

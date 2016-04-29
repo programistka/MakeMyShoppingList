@@ -12,15 +12,7 @@ import java.util.TimeZone;
 
 import static org.junit.Assert.assertEquals;
 
-
-/**
- * To work on unit tests, switch the Test Artifact in the Build Variants view.
- */
-public class PredictionsUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
+public class PredictionsUnitTests {
 
     @Test
     public void when_more_then_two_dates_and_average_not_integer_and_greater_than_2_5_then_prediction_is_correct() {

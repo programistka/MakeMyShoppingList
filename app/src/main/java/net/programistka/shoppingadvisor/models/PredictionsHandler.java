@@ -1,7 +1,5 @@
 package net.programistka.shoppingadvisor.models;
 
-import net.programistka.shoppingadvisor.models.Prediction;
-
 import java.util.List;
 
 public class PredictionsHandler {
@@ -28,13 +26,13 @@ public class PredictionsHandler {
         int days = (int) Math.round(time/(FACTOR));
         Prediction prediction = new Prediction();
         prediction.setTime(next + days*FACTOR);
-        prediction.setDays_number(days);
+        prediction.setDaysNumber(days);
         return prediction;
     }
 
     private static Prediction generatePredictionForTwoItems(long current, long next) {
         Prediction prediction = new Prediction();
-        prediction.setDays_number((int)(next - current)/FACTOR);
+        prediction.setDaysNumber((int)(next - current)/FACTOR);
         prediction.setTime(next + next - current);
         return prediction;
     }
@@ -42,7 +40,7 @@ public class PredictionsHandler {
     public static Prediction generateBoughtPrediction(long nextEmptyItemDate, int daysToRunOut) {
         Prediction prediction = new Prediction();
         prediction.setTime(nextEmptyItemDate + daysToRunOut*FACTOR);
-        prediction.setDays_number(daysToRunOut);
+        prediction.setDaysNumber(daysToRunOut);
         return prediction;
     }
 }
