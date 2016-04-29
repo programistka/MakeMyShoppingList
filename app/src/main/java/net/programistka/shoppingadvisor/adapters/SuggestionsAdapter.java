@@ -18,14 +18,12 @@ import java.util.List;
  * Created by maga on 13.03.16.
  */
 public class SuggestionsAdapter extends ArrayAdapter<Item> {
-    private ArrayList<Item> suggestions;
-    private ArrayList<Item> items = new ArrayList<>();
-    private ArrayList<Item> itemsAll = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
+    private List<Item> itemsAll = new ArrayList<>();
 
     public SuggestionsAdapter(Context context, List<Item> items) {
         super(context, 0, items);
 
-        this.suggestions = new ArrayList<>();
         this.items.addAll(items);
         this.itemsAll.addAll(items);
     }
@@ -65,7 +63,7 @@ public class SuggestionsAdapter extends ArrayAdapter<Item> {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             if(constraint != null) {
-                suggestions.clear();
+                List<Item> suggestions = new ArrayList<>();
                 for (Item item : itemsAll) {
                     if(item.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())){
                         suggestions.add(item);
