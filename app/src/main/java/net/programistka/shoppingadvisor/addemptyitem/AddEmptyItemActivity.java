@@ -1,4 +1,4 @@
-package net.programistka.shoppingadvisor.acitivities;
+package net.programistka.shoppingadvisor.addemptyitem;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import net.programistka.shoppingadvisor.R;
+import net.programistka.shoppingadvisor.acitivities.ShowEmptyItemsHistoryActivity;
 import net.programistka.shoppingadvisor.adapters.SuggestionsAdapter;
-import net.programistka.shoppingadvisor.presenters.EmptyItemsPresenter;
+import net.programistka.shoppingadvisor.addemptyitem.EmptyItemsPresenter;
 import net.programistka.shoppingadvisor.views.EmptyItemsView;
 
 import butterknife.BindView;

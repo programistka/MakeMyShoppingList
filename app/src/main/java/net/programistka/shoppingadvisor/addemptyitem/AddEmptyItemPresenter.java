@@ -1,4 +1,4 @@
-package net.programistka.shoppingadvisor.presenters;
+package net.programistka.shoppingadvisor.addemptyitem;
 
 import android.content.Context;
 
@@ -7,10 +7,10 @@ import net.programistka.shoppingadvisor.models.EmptyItem;
 
 import java.util.List;
 
-public class EmptyItemsPresenter {
+public class AddEmptyItemPresenter {
     private EmptyItemsDbHandler dbHandler;
 
-    public EmptyItemsPresenter(Context context) {
+    public AddEmptyItemPresenter(Context context) {
         this.dbHandler = new EmptyItemsDbHandler(context);
     }
 

@@ -1,20 +1,21 @@
-package net.programistka.shoppingadvisor.acitivities;
+package net.programistka.shoppingadvisor.main;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 
 import net.programistka.shoppingadvisor.R;
+import net.programistka.shoppingadvisor.acitivities.ActivityWithFab;
+import net.programistka.shoppingadvisor.acitivities.AddEmptyItemActivity;
+import net.programistka.shoppingadvisor.acitivities.ShowEmptyItemsHistoryActivity;
+import net.programistka.shoppingadvisor.acitivities.ShowPredictionsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends ActivityWithFab {
+public class MainActivity extends ActivityWithFab implements MainActivityView {
 
     @BindView(R.id.addShoppingItem) Button addShoppingItem;
     @BindView(R.id.showHistory) Button showHistory;
@@ -31,30 +32,18 @@ public class MainActivity extends ActivityWithFab {
         attachFabAction();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
-
     @OnClick(R.id.addShoppingItem)
-    public void loadAddEmptyItemView(View view){
+    public void navigateToAddNewEmptyItem() {
         startActivity(new Intent(this, AddEmptyItemActivity.class));
     }
 
     @OnClick(R.id.showHistory)
-    public void loadShowEmptyItemsHistoryView(View view){
+    public void navigateToShowHistory() {
         startActivity(new Intent(this, ShowEmptyItemsHistoryActivity.class));
     }
 
     @OnClick(R.id.showPredictions)
-    public void loadShowPredictionsView(View view){
+    public void navigateToShowPredictions(){
         startActivity(new Intent(this, ShowPredictionsActivity.class));
     }
 }
