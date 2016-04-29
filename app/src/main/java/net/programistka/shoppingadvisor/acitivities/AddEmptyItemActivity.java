@@ -16,27 +16,31 @@ import net.programistka.shoppingadvisor.adapters.SuggestionsAdapter;
 import net.programistka.shoppingadvisor.presenters.EmptyItemsPresenter;
 import net.programistka.shoppingadvisor.views.EmptyItemsView;
 
-public class AddEmptyItemActivity extends AppCompatActivity implements EmptyItemsView, AdapterView.OnItemClickListener, View.OnClickListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-    private AutoCompleteTextView emptyItemName;
-    private Button addNewEmptyItem;
+public class AddEmptyItemActivity extends AppCompatActivity implements EmptyItemsView, AdapterView.OnItemClickListener {
+
     private EmptyItemsPresenter presenter;
+
+    @BindView(R.id.emptyItemName) AutoCompleteTextView emptyItemName;
+    @BindView(R.id.addNewEmptyItem) Button addNewEmptyItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_empty_item);
+        ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        emptyItemName = (AutoCompleteTextView) findViewById(R.id.emptyItemName);
-        addNewEmptyItem = (Button) findViewById(R.id.addNewEmptyItem);
-        addNewEmptyItem.setOnClickListener(this);
         presenter = new EmptyItemsPresenter(this);
 
         SuggestionsAdapter adapter = new SuggestionsAdapter(this, presenter.selectAllItemsFromItemsTable());
-        this.emptyItemName.setAdapter(adapter);
-        this.emptyItemName.setOnItemClickListener(this);
+        emptyItemName.setAdapter(adapter);
+        emptyItemName.setOnItemClickListener(this);
     }
 
     @Override
@@ -51,8 +55,8 @@ public class AddEmptyItemActivity extends AppCompatActivity implements EmptyItem
         toast.show();
     }
 
-    @Override
-    public void onClick(View view) {
+    @OnClick(R.id.addNewEmptyItem)
+    public void addNewEmptyItem(View view) {
         String emptyItemNameText = emptyItemName.getText().toString();
         if(emptyItemNameText.length() == 0) {
             showEmptyItemNameMessage();
