@@ -18,37 +18,31 @@
         android:layout_height="wrap_content"
         android:text="@string/add_item_which_you_run_out_of"
         android:drawableLeft="@android:drawable/ic_input_add"
-        android:id="@+id/btnAddShoppingItem"
+        android:id="@+id/addShoppingItem"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="loadAddEmptyItemView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/show_history"
         android:drawableLeft="@android:drawable/ic_menu_today"
-        android:id="@+id/btnShowHistory"
-        android:layout_below="@+id/btnAddShoppingItem"
+        android:id="@+id/showHistory"
+        android:layout_below="@+id/addShoppingItem"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/btnAddShoppingItem"
-        android:layout_alignEnd="@+id/btnAddShoppingItem"
-        android:onClick="loadShowEmptyItemsHistoryView" />
-
+        android:layout_alignRight="@+id/addShoppingItem"
+        android:layout_alignEnd="@+id/addShoppingItem" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/show_predictions"
         android:drawableLeft="@android:drawable/ic_dialog_alert"
-        android:id="@+id/btnShowPredictions"
-        android:layout_below="@+id/btnShowHistory"
+        android:id="@+id/showPredictions"
+        android:layout_below="@+id/showHistory"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/btnShowHistory"
-        android:layout_alignEnd="@+id/btnShowHistory"
-        android:onClick="loadShowPredictionsView" />
-
+        android:layout_alignRight="@+id/showHistory"
+        android:layout_alignEnd="@+id/showHistory"/>
 </RelativeLayout>
