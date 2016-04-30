@@ -93,43 +93,42 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
     public List<EmptyItem> selectAllItemsFromItemsTable () {
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         List<EmptyItem> itemsList = new ArrayList<>();
         String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME + " FROM " + TABLE_ITEMS;
         System.out.println(selectQuery);
-        Cursor cursor = database.rawQuery(selectQuery, null);
+        Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
                 itemsList.add(createItemInstance(cursor));
             } while (cursor.moveToNext());
             cursor.close();
-            database.close();
+            db.close();
         }
         System.out.println(itemsList.size());
         return itemsList;
     }
 
     public List<EmptyItem> selectAllItemsFromEmptyItemsHistoryTable() {
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         List<EmptyItem> itemsList = new ArrayList<>();
         String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME  + ", " + COLUMN_EMPTY_ITEM_DATE +
                              " FROM " + TABLE_ITEMS +
                              " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
                              " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID;
         System.out.println(selectQuery);
-        Cursor cursor = database.rawQuery(selectQuery, null);
+        Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
                 itemsList.add(createItemInstance(cursor));
             } while (cursor.moveToNext());
             cursor.close();
-            database.close();
+            db.close();
         }
         return itemsList;
     }
 
     private EmptyItem createItemInstance(Cursor cursor) {
-        SQLiteDatabase database = this.getWritableDatabase();
         EmptyItem emptyItem = new EmptyItem();
         if(cursor.getColumnIndex(COLUMN_ID) != -1) {
             emptyItem.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
