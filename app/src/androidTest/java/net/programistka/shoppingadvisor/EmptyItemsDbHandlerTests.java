@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
+import net.programistka.shoppingadvisor.dbhandlers.DbHandler;
 import net.programistka.shoppingadvisor.dbhandlers.EmptyItemsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 
@@ -23,31 +24,16 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
     }
 
     public void testWhenAddNewEmptyItemThenNewItemAddedToEmptyItemsTable() {
-        dbHandler.getWritableDatabase();
         dbHandler.insertNewEmptyItem("Proszek do prania");
         List<EmptyItem> emptyItemsList = dbHandler.selectAllItemsFromItemsTable();
         assertEquals(1, emptyItemsList.size());
+        assertEquals("Proszek do prania", emptyItemsList.get(0).getName());
     }
 
-    /*public void testCreateDB() {
-        EmptyItemsDbHandler dbHandler = new EmptyItemsDbHandler(mContext, "shopping_advisor_test.db");
-        SQLiteDatabase db = dbHandler.getWritableDatabase();
-        assertTrue(db.isOpen());
-        db.close();
-    }*/
-
-//    public void setUp() throws Exception {
-//        dbHandler = new EmptyItemsDbHandler(mContext);
-//        mContext.deleteDatabase(dbHandler.getDatabaseName());
-//    }
-//
-//    public void tearDown() throws Exception {
-//        dbHandler.close();
-//    }
-//
-//    public void testWhenAddNewEmptyItemThenNewItemAddedToEmptyItemsTable() {
-//        dbHandler.insertNewEmptyItem("Proszek do prania");
-//        List<EmptyItem> emptyItemsList = dbHandler.selectAllItemsFromItemsTable();
-//        assertEquals(1, emptyItemsList.size());
-//    }
+    public void testWhenAddNewEmptyItemThenNewItemAddedToEmptyItemsHistoryTable() {
+        dbHandler.insertNewEmptyItem("Proszek do prania");
+        List<EmptyItem> emptyItemsList = dbHandler.selectAllItemsFromEmptyItemsHistoryTable();
+        assertEquals(1, emptyItemsList.size());
+        assertEquals("Proszek do prania", emptyItemsList.get(0).getName());
+    }
 }

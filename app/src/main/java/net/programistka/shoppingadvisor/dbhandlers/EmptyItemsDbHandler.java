@@ -27,36 +27,33 @@ public class EmptyItemsDbHandler extends DbHandler {
     }
 
     public void insertNewEmptyItem(String newEmptyItemName) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase database = this.getWritableDatabase();
+        insertNewEmptyItemIntoItemsTable(database, newEmptyItemName);
 
-        insertNewEmptyItemIntoItemsTable(db, newEmptyItemName);
+        long lastInsertedId = getLastInsertedId(database);
 
-        long lastInsertedId = getLastInsertedId(db);
-
-        if(lastInsertedId != -1)
-        {
-            insertNewEmptyItemIntoHistoryTable(db, lastInsertedId);
+        if (lastInsertedId != -1) {
+            insertNewEmptyItemIntoHistoryTable(database, lastInsertedId);
             insertPredictionForItemIntoPredictionsTable(lastInsertedId);
         }
-
-        db.close();
+        database.close();
     }
 
     public void insertExistingEmptyItem(long existingEmptyItemId) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase database = this.getWritableDatabase();
 
-        insertNewEmptyItemIntoHistoryTable(db, existingEmptyItemId);
+        insertNewEmptyItemIntoHistoryTable(database, existingEmptyItemId);
 
         updatePredictionForItemInPredictionsTable(existingEmptyItemId);
 
-        db.close();
+        database.close();
     }
 
     private long getLastInsertedId(SQLiteDatabase db) {
         String selectQuery = "SELECT " + COLUMN_ID + " FROM " + TABLE_ITEMS + " ORDER BY " + COLUMN_ID;
         Cursor cursor = db.rawQuery(selectQuery, null);
         long lastInsertedId = -1;
-        if(cursor.moveToLast()) {
+        if (cursor.moveToLast()) {
             lastInsertedId = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
         }
         cursor.close();
@@ -80,8 +77,7 @@ public class EmptyItemsDbHandler extends DbHandler {
 
     private void insertPredictionForItemIntoPredictionsTable(long itemId) {
         Date c = calculatePredictionForItem(itemId);
-        if(c == null)
-        {
+        if (c == null) {
             return;
         }
         ContentValues predictionValues = new ContentValues();
@@ -103,7 +99,7 @@ public class EmptyItemsDbHandler extends DbHandler {
     private Date calculatePredictionForItem(long itemId) {
         SQLiteDatabase db = this.getWritableDatabase();
         List<Long> emptyTimes = getEmptyTimes(db, itemId);
-        if(emptyTimes.size() > 1) {
+        if (emptyTimes.size() > 1) {
             Prediction prediction = PredictionsHandler.generatePrediction(emptyTimes);
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             calendar.setTimeInMillis(prediction.getTime());
@@ -115,13 +111,13 @@ public class EmptyItemsDbHandler extends DbHandler {
     @NonNull
     private List<Long> getEmptyTimes(SQLiteDatabase db, long itemId) {
         List<Long> emptyTimes = new ArrayList<>();
-        String selectQuery = "SELECT DISTINCT(" + COLUMN_EMPTY_ITEM_DATE +") FROM " + TABLE_ITEMS +
+        String selectQuery = "SELECT DISTINCT(" + COLUMN_EMPTY_ITEM_DATE + ") FROM " + TABLE_ITEMS +
                 " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
-                " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID +
+                " ON " + TABLE_ITEMS + "." + COLUMN_ID + "=" + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID +
                 " WHERE " + TABLE_ITEMS + "." + COLUMN_ID + "=" + itemId + " ORDER BY " + COLUMN_EMPTY_ITEM_DATE;
 
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             do {
                 emptyTimes.add(cursor.getLong(cursor.getColumnIndex(COLUMN_EMPTY_ITEM_DATE)));
             } while (cursor.moveToNext());

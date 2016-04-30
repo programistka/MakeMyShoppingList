@@ -26,16 +26,12 @@ public class DbHandler extends SQLiteOpenHelper {
     protected static final String COLUMN_NEXT_EMPTY_ITEM_DATE = "next_empty_item_date";
     protected static final String COLUMN_DAYS_TO_RUN_OUT = "days_to_run_out";
 
-    private SQLiteDatabase database;
-
     public DbHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        database = this.getWritableDatabase();
     }
 
     public DbHandler(Context context, String databaseName) {
         super(context, databaseName, null, DATABASE_VERSION);
-        database = this.getWritableDatabase();
     }
 
     @Override
@@ -60,8 +56,8 @@ public class DbHandler extends SQLiteOpenHelper {
                 TABLE_ARCHIVE + "("
                 + COLUMN_ITEM_ID + " INTEGER)";
         db.execSQL(CREATE_ARCHIVE_TABLE);
-        initializeData(db);
-        initializeData2(db);
+//        initializeData(db);
+//        initializeData2(db);
     }
 
     @Override
@@ -97,6 +93,7 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
     public List<EmptyItem> selectAllItemsFromItemsTable () {
+        SQLiteDatabase database = this.getWritableDatabase();
         List<EmptyItem> itemsList = new ArrayList<>();
         String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME + " FROM " + TABLE_ITEMS;
         System.out.println(selectQuery);
@@ -113,6 +110,7 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
     public List<EmptyItem> selectAllItemsFromEmptyItemsHistoryTable() {
+        SQLiteDatabase database = this.getWritableDatabase();
         List<EmptyItem> itemsList = new ArrayList<>();
         String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME  + ", " + COLUMN_EMPTY_ITEM_DATE +
                              " FROM " + TABLE_ITEMS +
@@ -125,11 +123,13 @@ public class DbHandler extends SQLiteOpenHelper {
                 itemsList.add(createItemInstance(cursor));
             } while (cursor.moveToNext());
             cursor.close();
+            database.close();
         }
         return itemsList;
     }
 
     private EmptyItem createItemInstance(Cursor cursor) {
+        SQLiteDatabase database = this.getWritableDatabase();
         EmptyItem emptyItem = new EmptyItem();
         if(cursor.getColumnIndex(COLUMN_ID) != -1) {
             emptyItem.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
