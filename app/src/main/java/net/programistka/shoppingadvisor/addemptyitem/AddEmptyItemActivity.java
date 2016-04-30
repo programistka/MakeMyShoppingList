@@ -23,7 +23,7 @@ import butterknife.OnClick;
 
 public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyItemView, AdapterView.OnItemClickListener {
 
-    private AddEmptyItemPresenter presenter;
+    private AddEmptyItemPresenter addEmptyItemPresenter ;
 
     @BindView(R.id.emptyItemName) AutoCompleteTextView emptyItemName;
     @BindView(R.id.addNewEmptyItem) Button addNewEmptyItem;
@@ -37,7 +37,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        presenter = new AddEmptyItemPresenter(this, getApplicationContext());
+        addEmptyItemPresenter = new AddEmptyItemPresenter(this, getApplicationContext());
         SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(getApplicationContext()));
 
         SuggestionsAdapter adapter = new SuggestionsAdapter(this, selectAllItemsPresenter.selectAllItemsFromItemsTable());
@@ -52,14 +52,14 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
 
     @Override
     public void showEmptyItemNameMessage() {
-        Toast toast = Toast.makeText(this, "EmptyItem name is empty", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(this, "Name is empty", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
 
     @OnClick(R.id.addNewEmptyItem)
     public void addNewEmptyItem() {
-        presenter.addNewEmptyItem(emptyItemName.getText().toString());
+        addEmptyItemPresenter.addNewEmptyItem(emptyItemName.getText().toString());
     }
 
     @Override
@@ -67,7 +67,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
         addNewEmptyItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.insertExistingEmptyItem(l);
+                addEmptyItemPresenter.insertExistingEmptyItem(l);
                 redirectToEmptyItemsHistoryView();
             }
         });

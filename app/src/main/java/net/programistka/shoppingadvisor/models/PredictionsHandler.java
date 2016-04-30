@@ -15,6 +15,13 @@ public class PredictionsHandler {
         }
     }
 
+    public static Prediction generateBoughtPrediction(long nextEmptyItemDate, int daysToRunOut) {
+        Prediction prediction = new Prediction();
+        prediction.setTime(nextEmptyItemDate + daysToRunOut*FACTOR);
+        prediction.setDaysNumber(daysToRunOut);
+        return prediction;
+    }
+
     private static Prediction generatePredictionForMoreThanTwoItems(List<Long> shoppingTimes, long current, long next) {
         long predictionTime = next - current;
         for (int i = 2; i < shoppingTimes.size(); i++) {
@@ -34,13 +41,6 @@ public class PredictionsHandler {
         Prediction prediction = new Prediction();
         prediction.setDaysNumber((int)(next - current)/FACTOR);
         prediction.setTime(next + next - current);
-        return prediction;
-    }
-
-    public static Prediction generateBoughtPrediction(long nextEmptyItemDate, int daysToRunOut) {
-        Prediction prediction = new Prediction();
-        prediction.setTime(nextEmptyItemDate + daysToRunOut*FACTOR);
-        prediction.setDaysNumber(daysToRunOut);
         return prediction;
     }
 }

@@ -79,7 +79,7 @@ public class DbHandler extends SQLiteOpenHelper {
         db.execSQL(INSERT_PREDICTIONS);
     }
 
-    public void     initializeData2(SQLiteDatabase db) {
+    public void initializeData2(SQLiteDatabase db) {
         String INSERT_PRODUCTS = "INSERT INTO items VALUES(2, 'szampon')";
         db.execSQL(INSERT_PRODUCTS);
         String INSERT_HISTORY1 = "INSERT INTO empty_items_history VALUES(2, 1457996400000)";
