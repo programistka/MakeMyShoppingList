@@ -27,29 +27,28 @@ public class EmptyItemsDbHandler extends DbHandler {
     }
 
     public void insertNewEmptyItem(String newEmptyItemName) {
-        SQLiteDatabase database = this.getWritableDatabase();
-        insertNewEmptyItemIntoItemsTable(database, newEmptyItemName);
+        insertNewEmptyItemIntoItemsTable(newEmptyItemName);
 
-        long lastInsertedId = getLastInsertedId(database);
+        long lastInsertedId = getLastInsertedId();
 
         if (lastInsertedId != -1) {
-            insertNewEmptyItemIntoHistoryTable(database, lastInsertedId);
+            insertNewEmptyItemIntoHistoryTable(lastInsertedId);
             insertPredictionForItemIntoPredictionsTable(lastInsertedId);
         }
-        database.close();
     }
 
     public void insertExistingEmptyItem(long existingEmptyItemId) {
-        SQLiteDatabase database = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
 
-        insertNewEmptyItemIntoHistoryTable(database, existingEmptyItemId);
+        insertNewEmptyItemIntoHistoryTable(existingEmptyItemId);
 
         updatePredictionForItemInPredictionsTable(existingEmptyItemId);
 
-        database.close();
+        db.close();
     }
 
-    private long getLastInsertedId(SQLiteDatabase db) {
+    private long getLastInsertedId() {
+        SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT " + COLUMN_ID + " FROM " + TABLE_ITEMS + " ORDER BY " + COLUMN_ID;
         Cursor cursor = db.rawQuery(selectQuery, null);
         long lastInsertedId = -1;
@@ -57,22 +56,29 @@ public class EmptyItemsDbHandler extends DbHandler {
             lastInsertedId = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
         }
         cursor.close();
+        db.close();
         return lastInsertedId;
     }
 
-    private void insertNewEmptyItemIntoItemsTable(SQLiteDatabase db, String itemName) {
+    private void insertNewEmptyItemIntoItemsTable(String itemName) {
         ContentValues emptyItemValues = new ContentValues();
         emptyItemValues.put(COLUMN_ITEM_NAME, itemName);
+
+        SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_ITEMS, null, emptyItemValues);
+        db.close();
     }
 
-    private void insertNewEmptyItemIntoHistoryTable(SQLiteDatabase db, long itemId) {
+    private void insertNewEmptyItemIntoHistoryTable(long itemId) {
         Date c = new Date(System.currentTimeMillis());
         ContentValues shoppingValues = new ContentValues();
         shoppingValues.put(COLUMN_ITEM_ID, itemId);
         shoppingValues.put(COLUMN_EMPTY_ITEM_DATE, c.getTime());
+
+        SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_EMPTY_ITEMS_HISTORY, null, shoppingValues);
         insertPredictionForItemIntoPredictionsTable(itemId);
+        db.close();
     }
 
     private void insertPredictionForItemIntoPredictionsTable(long itemId) {
@@ -83,6 +89,7 @@ public class EmptyItemsDbHandler extends DbHandler {
         ContentValues predictionValues = new ContentValues();
         predictionValues.put(COLUMN_ITEM_ID, itemId);
         predictionValues.put(COLUMN_NEXT_EMPTY_ITEM_DATE, c.getTime());
+
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_EMPTY_ITEMS_PREDICTIONS, null, predictionValues);
         db.close();
@@ -98,7 +105,7 @@ public class EmptyItemsDbHandler extends DbHandler {
     @Nullable
     private Date calculatePredictionForItem(long itemId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        List<Long> emptyTimes = getEmptyTimes(db, itemId);
+        List<Long> emptyTimes = getEmptyTimes(itemId);
         if (emptyTimes.size() > 1) {
             Prediction prediction = PredictionsHandler.generatePrediction(emptyTimes);
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
@@ -109,7 +116,9 @@ public class EmptyItemsDbHandler extends DbHandler {
     }
 
     @NonNull
-    private List<Long> getEmptyTimes(SQLiteDatabase db, long itemId) {
+    private List<Long> getEmptyTimes(long itemId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
         List<Long> emptyTimes = new ArrayList<>();
         String selectQuery = "SELECT DISTINCT(" + COLUMN_EMPTY_ITEM_DATE + ") FROM " + TABLE_ITEMS +
                 " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
