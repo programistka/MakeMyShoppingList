@@ -10,10 +10,13 @@ import net.programistka.shoppingadvisor.acitivities.ShowEmptyItemsHistoryActivit
 import net.programistka.shoppingadvisor.showpredictions.ShowPredictionsActivity;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends ActivityWithFab implements MainActivityView {
+
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,20 +24,19 @@ public class MainActivity extends ActivityWithFab implements MainActivityView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        initToolbar();
         attachFabAction();
     }
 
     @Override
     @OnClick(R.id.showAddNewEmptyItem)
-    public void navigateToAddNewEmptyItem() {
+    public void navigateToAddNewEmptyItem(){
         startActivity(new Intent(this, AddEmptyItemActivity.class));
     }
 
     @Override
     @OnClick(R.id.showHistory)
-    public void navigateToShowHistory() {
+    public void navigateToShowHistory(){
         startActivity(new Intent(this, ShowEmptyItemsHistoryActivity.class));
     }
 
@@ -42,5 +44,9 @@ public class MainActivity extends ActivityWithFab implements MainActivityView {
     @OnClick(R.id.showPredictions)
     public void navigateToShowPredictions(){
         startActivity(new Intent(this, ShowPredictionsActivity.class));
+    }
+
+    private void initToolbar(){
+        setSupportActionBar(toolbar);
     }
 }

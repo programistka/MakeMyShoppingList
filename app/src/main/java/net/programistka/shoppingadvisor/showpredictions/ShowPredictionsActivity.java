@@ -15,7 +15,12 @@ import net.programistka.shoppingadvisor.presenters.ArchivePresenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ShowPredictionsActivity extends ActivityWithFab {
+
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     public static Menu menu;
     public static List<Long> selectedItems = new ArrayList<>();
@@ -25,13 +30,10 @@ public class ShowPredictionsActivity extends ActivityWithFab {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createActivity();
-    }
-
-    private void createActivity() {
         setContentView(R.layout.activity_show_predictions);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
+
+        initToolbar();
 
         presenter = new ShowPredictionsPresenter(this);
         PredictionsAdapter adapter = new PredictionsAdapter(presenter.getPredictions());
@@ -59,5 +61,9 @@ public class ShowPredictionsActivity extends ActivityWithFab {
     public void markAsArchived(MenuItem item) {
         ArchivePresenter presenter = new ArchivePresenter(this);
         presenter.markAsArchived(selectedItems);
+    }
+
+    private void initToolbar(){
+        setSupportActionBar(toolbar);
     }
 }

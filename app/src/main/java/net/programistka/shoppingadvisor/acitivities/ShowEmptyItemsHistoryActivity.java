@@ -13,15 +13,20 @@ import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemView;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsInteractor;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsPresenter;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ShowEmptyItemsHistoryActivity extends ActivityWithFab {
+
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_history);
+        ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        initToolbar();
 
         SelectAllItemsInteractor interactor = new SelectAllItemsInteractor(getApplicationContext());
         SelectAllItemsPresenter presenter = new SelectAllItemsPresenter(interactor);
@@ -34,5 +39,9 @@ public class ShowEmptyItemsHistoryActivity extends ActivityWithFab {
         recyclerView.setLayoutManager(layoutManager);
 
         this.attachFabAction();
+    }
+
+    private void initToolbar(){
+        setSupportActionBar(toolbar);
     }
 }
