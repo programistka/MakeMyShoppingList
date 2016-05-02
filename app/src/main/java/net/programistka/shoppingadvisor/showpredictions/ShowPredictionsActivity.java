@@ -38,6 +38,9 @@ public class ShowPredictionsActivity extends ActivityWithFab {
         PredictionsAdapter adapter = new PredictionsAdapter(presenter.getPredictions());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);
+        if(recyclerView == null) {
+            return;
+        }
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

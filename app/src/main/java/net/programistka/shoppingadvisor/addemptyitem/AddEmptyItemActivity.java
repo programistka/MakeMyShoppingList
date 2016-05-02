@@ -2,6 +2,7 @@ package net.programistka.shoppingadvisor.addemptyitem;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -25,6 +26,8 @@ import butterknife.OnClick;
 
 public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyItemView, AdapterView.OnItemClickListener {
 
+    @BindView(R.id.toolbar) Toolbar toolbar;
+
     private AddEmptyItemPresenter addEmptyItemPresenter ;
     private Long time;
 
@@ -37,8 +40,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
         setContentView(R.layout.activity_add_empty_item);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        initToolbar();
 
         addEmptyItemPresenter = new AddEmptyItemPresenter(this, getApplicationContext());
         SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(getApplicationContext()));
@@ -62,13 +64,9 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
 
     @OnClick(R.id.addNewEmptyItem)
     public void addNewEmptyItem() {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
-        addEmptyItemPresenter.addNewEmptyItem(emptyItemName.getText().toString(), c.getTimeInMillis());
+        addEmptyItemPresenter.addNewEmptyItem(emptyItemName.getText().toString(), getCurrentTime().getTimeInMillis());
     }
+
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, final long l) {
@@ -80,5 +78,18 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
                 redirectToEmptyItemsHistoryView();
             }
         });
+    }
+    private void initToolbar(){
+        setSupportActionBar(toolbar);
+    }
+
+    @NonNull
+    private Calendar getCurrentTime() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c;
     }
 }

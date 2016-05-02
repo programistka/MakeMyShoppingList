@@ -9,8 +9,11 @@ import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 
 public class ActivityWithFab extends AppCompatActivity {
     protected void attachFabAction() {
-        View addButton = findViewById(R.id.fab);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        View plusButton = findViewById(R.id.plusButton);
+        if(plusButton == null){
+            return;
+        }
+        plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityWithFab.this, AddEmptyItemActivity.class);

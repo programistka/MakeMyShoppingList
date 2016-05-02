@@ -30,6 +30,9 @@ public class ShowEmptyItemsHistoryActivity extends ActivityWithFab {
         EmptyItemsHistoryAdapter adapter = new EmptyItemsHistoryAdapter(presenter.selectAllItemsFromEmptyItemsHistoryTable());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);
+        if(recyclerView == null){
+            return;
+        }
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
