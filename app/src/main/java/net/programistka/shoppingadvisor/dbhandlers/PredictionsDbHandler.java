@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.models.PredictionsHandler;
+import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,12 +17,8 @@ import java.util.TimeZone;
 
 public class PredictionsDbHandler extends DbHandler {
 
-    public PredictionsDbHandler(Context context) {
-        super(context);
-    }
-
-    public PredictionsDbHandler(Context context, String databaseName) {
-        super(context, databaseName);
+    public PredictionsDbHandler(DbConfig dbConfig, Context context) {
+        super(dbConfig, context);
     }
 
     public List<EmptyItem> getPredictions() {

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import net.programistka.shoppingadvisor.dbhandlers.EmptyItemsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
+import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.List;
 
@@ -11,8 +12,8 @@ public class AddEmptyItemInteractor {
 
     private EmptyItemsDbHandler dbHandler;
 
-    public AddEmptyItemInteractor(Context context) {
-        dbHandler = new EmptyItemsDbHandler(context);
+    public AddEmptyItemInteractor(DbConfig dbConfig, Context context) {
+        dbHandler = new EmptyItemsDbHandler(dbConfig, context);
     }
 
     public void insertNewEmptyItem(String name, Long time) {

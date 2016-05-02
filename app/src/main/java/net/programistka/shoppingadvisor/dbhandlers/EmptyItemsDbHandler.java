@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 
 import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.models.PredictionsHandler;
+import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,12 +19,8 @@ import java.util.TimeZone;
 
 public class EmptyItemsDbHandler extends DbHandler {
 
-    public EmptyItemsDbHandler(Context context) {
-        super(context);
-    }
-
-    public EmptyItemsDbHandler(Context context, String databaseName) {
-        super(context, databaseName);
+    public EmptyItemsDbHandler(DbConfig dbConfig, Context context) {
+        super(dbConfig, context);
     }
 
     public void insertNewEmptyItem(String newEmptyItemName, long time) {

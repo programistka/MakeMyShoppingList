@@ -9,6 +9,7 @@ import net.programistka.shoppingadvisor.dbhandlers.PredictionsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.models.PredictionsHandler;
+import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,7 +21,7 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
     private EmptyItemsDbHandler dbHandler;
 
     public void setUp() throws Exception {
-        dbHandler = new EmptyItemsDbHandler(mContext, "shopping_advisor_test.db");
+        dbHandler = new EmptyItemsDbHandler(new DbConfig("shopping_advisor_test.db"), mContext);
         mContext.deleteDatabase(dbHandler.getDatabaseName());
         mContext.openOrCreateDatabase(dbHandler.getDatabaseName(), Context.MODE_PRIVATE, null);
     }
@@ -108,7 +109,7 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
         Calendar c3 = Calendar.getInstance();
         c3.set(2016, 3, 28, 0, 0, 0);
         dbHandler.insertExistingEmptyItem(1, c3.getTimeInMillis());
-        ArchiveDbHandler archiveDbHandler = new ArchiveDbHandler(mContext, "shopping_advisor_test.db");
+        ArchiveDbHandler archiveDbHandler = new ArchiveDbHandler(new DbConfig("shopping_advisor_test.db"), mContext);
         archiveDbHandler.insertItemToArchiveTable(1);
         assertTrue(archiveDbHandler.checkIfArchivedElement(1));
     }
@@ -123,7 +124,7 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
         Calendar c3 = Calendar.getInstance();
         c3.set(2016, 3, 28, 0, 0, 0);
         dbHandler.insertExistingEmptyItem(1, c3.getTimeInMillis());
-        ArchiveDbHandler archiveDbHandler = new ArchiveDbHandler(mContext, "shopping_advisor_test.db");
+        ArchiveDbHandler archiveDbHandler = new ArchiveDbHandler(new DbConfig("shopping_advisor_test.db"), mContext);
         archiveDbHandler.insertItemToArchiveTable(1);
         Calendar c4 = Calendar.getInstance();
         c4.set(2016, 4, 1, 0, 0, 0);

@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.adapters.EmptyItemsHistoryAdapter;
+import net.programistka.shoppingadvisor.presenters.DbConfig;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsInteractor;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsPresenter;
 
@@ -25,8 +26,7 @@ public class ShowEmptyItemsHistoryActivity extends ActivityWithFab {
 
         initToolbar();
 
-        SelectAllItemsInteractor interactor = new SelectAllItemsInteractor(getApplicationContext());
-        SelectAllItemsPresenter presenter = new SelectAllItemsPresenter(interactor);
+        SelectAllItemsPresenter presenter = new SelectAllItemsPresenter(new DbConfig(), getApplicationContext());
         EmptyItemsHistoryAdapter adapter = new EmptyItemsHistoryAdapter(presenter.selectAllItemsFromEmptyItemsHistoryTable());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);

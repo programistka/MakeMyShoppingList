@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import net.programistka.shoppingadvisor.models.EmptyItem;
+import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,7 +15,6 @@ import java.util.List;
 
 public class DbHandler extends SQLiteOpenHelper {
     protected static final int DATABASE_VERSION = 1;
-    protected static final String DATABASE_NAME = "shopping_advisor.db";
     protected static final String TABLE_ITEMS = "items";
     protected static final String TABLE_EMPTY_ITEMS_HISTORY = "empty_items_history";
     protected static final String TABLE_EMPTY_ITEMS_PREDICTIONS = "empty_items_predictions";
@@ -27,12 +27,8 @@ public class DbHandler extends SQLiteOpenHelper {
     protected static final String COLUMN_NEXT_EMPTY_ITEM_DATE = "next_empty_item_date";
     protected static final String COLUMN_DAYS_TO_RUN_OUT = "days_to_run_out";
 
-    public DbHandler(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
-    public DbHandler(Context context, String databaseName) {
-        super(context, databaseName, null, DATABASE_VERSION);
+    public DbHandler(DbConfig config, Context context) {
+        super(context, config.getDbName(), null, DATABASE_VERSION);
     }
 
     @Override

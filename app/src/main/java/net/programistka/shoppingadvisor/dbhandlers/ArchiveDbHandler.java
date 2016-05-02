@@ -8,15 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import net.programistka.shoppingadvisor.dbhandlers.DbHandler;
 import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.models.PredictionsHandler;
+import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 public class ArchiveDbHandler extends DbHandler {
 
-    public ArchiveDbHandler(Context context) {
-        super(context);
-    }
-
-    public ArchiveDbHandler(Context context, String databaseName) {
-        super(context, databaseName);
+    public ArchiveDbHandler(DbConfig dbConfig, Context context) {
+        super(dbConfig, context);
     }
 
     public void insertItemToArchiveTable(long itemId) {

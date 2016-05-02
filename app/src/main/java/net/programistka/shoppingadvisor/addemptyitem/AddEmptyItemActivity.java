@@ -15,7 +15,7 @@ import android.widget.Toast;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.acitivities.ShowEmptyItemsHistoryActivity;
 import net.programistka.shoppingadvisor.adapters.SuggestionsAdapter;
-import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsInteractor;
+import net.programistka.shoppingadvisor.presenters.DbConfig;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsPresenter;
 
 import java.util.Calendar;
@@ -42,8 +42,8 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
 
         initToolbar();
 
-        addEmptyItemPresenter = new AddEmptyItemPresenter(this, getApplicationContext());
-        SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(getApplicationContext()));
+        addEmptyItemPresenter = new AddEmptyItemPresenter(this, new DbConfig(), getApplicationContext());
+        SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new DbConfig(), getApplicationContext());
 
         SuggestionsAdapter adapter = new SuggestionsAdapter(this, selectAllItemsPresenter.selectAllItemsFromItemsTable());
         emptyItemName.setAdapter(adapter);
@@ -66,7 +66,6 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
     public void addNewEmptyItem() {
         addEmptyItemPresenter.addNewEmptyItem(emptyItemName.getText().toString(), getCurrentTime().getTimeInMillis());
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, final long l) {

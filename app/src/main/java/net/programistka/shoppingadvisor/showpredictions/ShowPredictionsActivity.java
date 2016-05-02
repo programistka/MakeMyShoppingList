@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.acitivities.ActivityWithFab;
 import net.programistka.shoppingadvisor.presenters.ArchivePresenter;
+import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ShowPredictionsActivity extends ActivityWithFab {
 
         initToolbar();
 
-        presenter = new ShowPredictionsPresenter(this);
+        presenter = new ShowPredictionsPresenter(new DbConfig(), this);
         PredictionsAdapter adapter = new PredictionsAdapter(presenter.getPredictions());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);
@@ -61,7 +62,7 @@ public class ShowPredictionsActivity extends ActivityWithFab {
     }
 
     public void markAsArchived(MenuItem item) {
-        ArchivePresenter presenter = new ArchivePresenter(this);
+        ArchivePresenter presenter = new ArchivePresenter(new DbConfig(), this);
         presenter.markAsArchived(selectedItems);
     }
 

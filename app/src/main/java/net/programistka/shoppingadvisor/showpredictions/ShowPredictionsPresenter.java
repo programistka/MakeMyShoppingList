@@ -4,14 +4,15 @@ import android.content.Context;
 
 import net.programistka.shoppingadvisor.dbhandlers.PredictionsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
+import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.List;
 
 public class ShowPredictionsPresenter {
     private PredictionsDbHandler dbHandler;
 
-    public ShowPredictionsPresenter(Context context) {
-        this.dbHandler = new PredictionsDbHandler(context);
+    public ShowPredictionsPresenter(DbConfig dbConfig, Context context) {
+        this.dbHandler = new PredictionsDbHandler(dbConfig, context);
     }
 
     public List<EmptyItem> getPredictions() {
