@@ -39,13 +39,10 @@ public class PredictionsDbHandler extends DbHandler {
 
         if(cursor.moveToFirst()) {
             do {
-                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-                calendar.setTimeInMillis(cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE)));
-
                 EmptyItem emptyItem = new EmptyItem();
                 emptyItem.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
                 emptyItem.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
-                emptyItem.setPredictionDate(calendar.getTime());
+                emptyItem.setPredictionDate(cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE)));
                 itemsList.add(emptyItem);
             } while (cursor.moveToNext());
             cursor.close();

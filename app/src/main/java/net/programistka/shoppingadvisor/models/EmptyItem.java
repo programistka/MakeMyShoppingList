@@ -1,13 +1,11 @@
 package net.programistka.shoppingadvisor.models;
 
-import java.util.Date;
-
 public class EmptyItem {
 
     private int id;
     private String name;
-    private Date creationDate;
-    private Date predictionDate;
+    private long creationDate;
+    private long predictionDate;
 
     public int getId() {
         return id;
@@ -25,15 +23,15 @@ public class EmptyItem {
         this.name = name;
     }
 
-    public Date getCreationDate() {
+    public long getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(long creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Date getPredictionDate() { return this.predictionDate; }
+    public long getPredictionDate() { return this.predictionDate; }
 
-    public void setPredictionDate(Date predictionDate) { this.predictionDate = predictionDate; }
+    public void setPredictionDate(long predictionDate) { this.predictionDate = predictionDate; }
 }

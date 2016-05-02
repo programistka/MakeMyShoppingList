@@ -13,6 +13,7 @@ import net.programistka.shoppingadvisor.models.EmptyItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -85,7 +86,7 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         EmptyItem currentEmptyItem = emptyItems.get(position);
         holder.nameTextView.setText(currentEmptyItem.getName());
         SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy");
-        if(currentEmptyItem.getPredictionDate().compareTo(new Date()) < 0){
+        if(currentEmptyItem.getPredictionDate() < Calendar.getInstance().getTimeInMillis()){
             holder.nameTextView.setTextColor(Color.RED);
             holder.dateTextView.setTextColor(Color.RED);
         }

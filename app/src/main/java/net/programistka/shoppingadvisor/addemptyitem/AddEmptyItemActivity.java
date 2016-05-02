@@ -62,7 +62,12 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
 
     @OnClick(R.id.addNewEmptyItem)
     public void addNewEmptyItem() {
-        addEmptyItemPresenter.addNewEmptyItem(emptyItemName.getText().toString(), Calendar.getInstance().getTimeInMillis());
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        addEmptyItemPresenter.addNewEmptyItem(emptyItemName.getText().toString(), c.getTimeInMillis());
     }
 
     @Override
