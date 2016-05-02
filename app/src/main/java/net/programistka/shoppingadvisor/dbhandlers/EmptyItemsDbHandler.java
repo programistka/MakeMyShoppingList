@@ -97,7 +97,9 @@ public class EmptyItemsDbHandler extends DbHandler {
     private void updatePredictionForItemInPredictionsTable(long itemId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_EMPTY_ITEMS_PREDICTIONS, COLUMN_ITEM_ID + "=" + itemId, null);
+        Cursor c = db.rawQuery("SELECT * FROM archive", null);
         db.delete(TABLE_ARCHIVE, COLUMN_ITEM_ID + "=" + itemId, null);
+        Cursor c2 = db.rawQuery("SELECT * FROM archive", null);
         insertPredictionForItemIntoPredictionsTable(itemId);
     }
 

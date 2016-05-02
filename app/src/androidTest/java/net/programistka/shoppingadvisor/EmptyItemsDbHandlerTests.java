@@ -3,6 +3,7 @@ package net.programistka.shoppingadvisor;
 import android.content.Context;
 import android.test.AndroidTestCase;
 
+import net.programistka.shoppingadvisor.dbhandlers.ArchiveDbHandler;
 import net.programistka.shoppingadvisor.dbhandlers.EmptyItemsDbHandler;
 import net.programistka.shoppingadvisor.dbhandlers.PredictionsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
@@ -96,4 +97,40 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
         assertEquals(4, c4.get(Calendar.MONTH));
         assertEquals(2016, c4.get(Calendar.YEAR));
     }
+
+    public void testWhenMoveElementToArchiveThenElementAddedToArchiveTable() {
+        Calendar c = Calendar.getInstance();
+        c.set(2016, 3, 21, 0, 0, 0);
+        dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis());
+        Calendar c2 = Calendar.getInstance();
+        c2.set(2016, 3, 23, 0, 0, 0);
+        dbHandler.insertExistingEmptyItem(1, c2.getTimeInMillis());
+        Calendar c3 = Calendar.getInstance();
+        c3.set(2016, 3, 28, 0, 0, 0);
+        dbHandler.insertExistingEmptyItem(1, c3.getTimeInMillis());
+        ArchiveDbHandler archiveDbHandler = new ArchiveDbHandler(mContext, "shopping_advisor_test.db");
+        archiveDbHandler.insertItemToArchiveTable(1);
+        assertTrue(archiveDbHandler.checkIfArchivedElement(1));
+    }
+
+    public void testWhenAddExistingEmptyItemWhichIsArchivedThenDeletedFromArchiveTable() {
+        Calendar c = Calendar.getInstance();
+        c.set(2016, 3, 21, 0, 0, 0);
+        dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis());
+        Calendar c2 = Calendar.getInstance();
+        c2.set(2016, 3, 23, 0, 0, 0);
+        dbHandler.insertExistingEmptyItem(1, c2.getTimeInMillis());
+        Calendar c3 = Calendar.getInstance();
+        c3.set(2016, 3, 28, 0, 0, 0);
+        dbHandler.insertExistingEmptyItem(1, c3.getTimeInMillis());
+        ArchiveDbHandler archiveDbHandler = new ArchiveDbHandler(mContext, "shopping_advisor_test.db");
+        archiveDbHandler.insertItemToArchiveTable(1);
+        Calendar c4 = Calendar.getInstance();
+        c4.set(2016, 4, 1, 0, 0, 0);
+        dbHandler.insertExistingEmptyItem(1, c4.getTimeInMillis());
+        assertFalse(archiveDbHandler.checkIfArchivedElement(1));
+    }
+
+    //TODO: Test, ze gdy dodamy empty item, ktory byl zarchiwizowany to powstaje dodatakowa predykcja w bazie danych
+    //TODO: Test, ze gdy dodamy empty item, ktory byl zarchiwizowany i powstala dodatkowa predykcja to po kolejnym wstawieniu predykcja znika
 }

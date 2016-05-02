@@ -9,19 +9,18 @@ import android.widget.TextView;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 
-import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class EmptyItemsHistory extends RecyclerView.Adapter<EmptyItemsHistory.ViewHolder> {
+public class EmptyItemsHistoryAdapter extends RecyclerView.Adapter<EmptyItemsHistoryAdapter.ViewHolder> {
     private List<EmptyItem> emptyItems;
 
-    public EmptyItemsHistory(List<EmptyItem> emptyItems) {
+    public EmptyItemsHistoryAdapter(List<EmptyItem> emptyItems) {
         this.emptyItems = emptyItems;
     }
 
     @Override
-    public EmptyItemsHistory.ViewHolder
+    public EmptyItemsHistoryAdapter.ViewHolder
         onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(
                     parent.getContext()).inflate(
