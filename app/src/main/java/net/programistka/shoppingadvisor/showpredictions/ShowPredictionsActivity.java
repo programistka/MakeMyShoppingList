@@ -9,7 +9,6 @@ import android.view.MenuItem;
 
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.acitivities.ActivityWithFab;
-import net.programistka.shoppingadvisor.adapters.PredictionsAdapter;
 import net.programistka.shoppingadvisor.presenters.ArchivePresenter;
 
 import java.util.ArrayList;

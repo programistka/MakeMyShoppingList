@@ -116,7 +116,25 @@ public class DbHandler extends SQLiteOpenHelper {
                              " FROM " + TABLE_ITEMS +
                              " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
                              " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID;
-        System.out.println(selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                itemsList.add(createItemInstance(cursor));
+            } while (cursor.moveToNext());
+            cursor.close();
+            db.close();
+        }
+        return itemsList;
+    }
+
+    public List<EmptyItem> selectAllItemsFromEmptyItemsHistoryTableByItemId(long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        List<EmptyItem> itemsList = new ArrayList<>();
+        String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME  + ", " + COLUMN_EMPTY_ITEM_DATE +
+                " FROM " + TABLE_ITEMS +
+                " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
+                " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID +
+                " WHERE " +  TABLE_ITEMS + "." + COLUMN_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {

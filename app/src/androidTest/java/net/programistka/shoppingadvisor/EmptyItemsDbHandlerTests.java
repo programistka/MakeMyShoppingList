@@ -1,13 +1,17 @@
 package net.programistka.shoppingadvisor;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
-import net.programistka.shoppingadvisor.dbhandlers.DbHandler;
 import net.programistka.shoppingadvisor.dbhandlers.EmptyItemsDbHandler;
+import net.programistka.shoppingadvisor.dbhandlers.PredictionsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
+import net.programistka.shoppingadvisor.models.Prediction;
+import net.programistka.shoppingadvisor.models.PredictionsHandler;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class EmptyItemsDbHandlerTests extends AndroidTestCase {
@@ -16,6 +20,7 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
 
     public void setUp() throws Exception {
         dbHandler = new EmptyItemsDbHandler(mContext, "shopping_advisor_test.db");
+        mContext.deleteDatabase(dbHandler.getDatabaseName());
         mContext.openOrCreateDatabase(dbHandler.getDatabaseName(), Context.MODE_PRIVATE, null);
     }
 
@@ -24,16 +29,71 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
     }
 
     public void testWhenAddNewEmptyItemThenNewItemAddedToEmptyItemsTable() {
-        dbHandler.insertNewEmptyItem("Proszek do prania");
+        Calendar c = Calendar.getInstance();
+        c.set(2016, 4, 21, 0, 0, 0);
+        dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis() );
         List<EmptyItem> emptyItemsList = dbHandler.selectAllItemsFromItemsTable();
         assertEquals(1, emptyItemsList.size());
         assertEquals("Proszek do prania", emptyItemsList.get(0).getName());
     }
 
     public void testWhenAddNewEmptyItemThenNewItemAddedToEmptyItemsHistoryTable() {
-        dbHandler.insertNewEmptyItem("Proszek do prania");
-        List<EmptyItem> emptyItemsList = dbHandler.selectAllItemsFromEmptyItemsHistoryTable();
-        assertEquals(1, emptyItemsList.size());
-        assertEquals("Proszek do prania", emptyItemsList.get(0).getName());
+        Calendar c = Calendar.getInstance();
+        c.set(2016, 4, 21, 0, 0, 0);
+        dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis());
+        List<EmptyItem> emptyItemsHistoryList = dbHandler.selectAllItemsFromEmptyItemsHistoryTable();
+        assertEquals(1, emptyItemsHistoryList.size());
+        assertEquals("Proszek do prania", emptyItemsHistoryList.get(0).getName());
+    }
+
+    public void testWhenAddTwoEmptyItemsThenValidPredictionCreatedInPredictionsTable() {
+        Calendar c = Calendar.getInstance();
+        c.set(2016, 3, 21, 0, 0, 0);
+        dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis());
+        Calendar c2 = Calendar.getInstance();
+        c2.set(2016, 3, 23, 0, 0, 0);
+        dbHandler.insertExistingEmptyItem(1, c2.getTimeInMillis());
+
+        List<EmptyItem> emptyItems = dbHandler.selectAllItemsFromEmptyItemsHistoryTableByItemId(1);
+        List<Long> emptyItemsTimes = new ArrayList<>();
+        for (EmptyItem emptyItem:emptyItems){
+            emptyItemsTimes.add(emptyItem.getCreationDate().getTime());
+        }
+         
+        Prediction prediction = PredictionsHandler.generatePrediction(emptyItemsTimes);
+        assertEquals(2, prediction.getDaysNumber());
+        Calendar c3 = Calendar.getInstance();
+        c3.setTimeInMillis(prediction.getTime());
+
+        assertEquals(25, c3.get(Calendar.DAY_OF_MONTH));
+        assertEquals(3, c3.get(Calendar.MONTH));
+        assertEquals(2016, c3.get(Calendar.YEAR));
+    }
+
+    public void testWhenMoreThanTwoEmptyItemsThenValidPredictionCreatedInPredictionsTable() {
+        Calendar c = Calendar.getInstance();
+        c.set(2016, 3, 21, 0, 0, 0);
+        dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis());
+        Calendar c2 = Calendar.getInstance();
+        c2.set(2016, 3, 23, 0, 0, 0);
+        dbHandler.insertExistingEmptyItem(1, c2.getTimeInMillis());
+        Calendar c3 = Calendar.getInstance();
+        c3.set(2016, 3, 28, 0, 0, 0);
+        dbHandler.insertExistingEmptyItem(1, c3.getTimeInMillis());
+
+        List<EmptyItem> emptyItems = dbHandler.selectAllItemsFromEmptyItemsHistoryTableByItemId(1);
+        List<Long> emptyItemsTimes = new ArrayList<>();
+        for (EmptyItem emptyItem:emptyItems){
+            emptyItemsTimes.add(emptyItem.getCreationDate().getTime());
+        }
+
+        Prediction prediction = PredictionsHandler.generatePrediction(emptyItemsTimes);
+        assertEquals(4, prediction.getDaysNumber());
+        Calendar c4 = Calendar.getInstance();
+        c4.setTimeInMillis(prediction.getTime());
+
+        assertEquals(2, c4.get(Calendar.DAY_OF_MONTH));
+        assertEquals(4, c4.get(Calendar.MONTH));
+        assertEquals(2016, c4.get(Calendar.YEAR));
     }
 }

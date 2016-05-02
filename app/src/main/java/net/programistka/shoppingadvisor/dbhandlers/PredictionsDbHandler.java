@@ -20,6 +20,10 @@ public class PredictionsDbHandler extends DbHandler {
         super(context);
     }
 
+    public PredictionsDbHandler(Context context, String databaseName) {
+        super(context, databaseName);
+    }
+
     public List<EmptyItem> getPredictions() {
         List<EmptyItem> itemsList = new ArrayList<>();
         String selectQuery = "SELECT DISTINCT(" + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "),*" +

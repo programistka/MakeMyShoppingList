@@ -26,21 +26,21 @@ public class EmptyItemsDbHandler extends DbHandler {
         super(context, databaseName);
     }
 
-    public void insertNewEmptyItem(String newEmptyItemName) {
+    public void insertNewEmptyItem(String newEmptyItemName, long time) {
         insertNewEmptyItemIntoItemsTable(newEmptyItemName);
 
         long lastInsertedId = getLastInsertedId();
 
         if (lastInsertedId != -1) {
-            insertNewEmptyItemIntoHistoryTable(lastInsertedId);
+            insertNewEmptyItemIntoHistoryTable(lastInsertedId, time);
             insertPredictionForItemIntoPredictionsTable(lastInsertedId);
         }
     }
 
-    public void insertExistingEmptyItem(long existingEmptyItemId) {
+    public void insertExistingEmptyItem(long existingEmptyItemId, long time) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        insertNewEmptyItemIntoHistoryTable(existingEmptyItemId);
+        insertNewEmptyItemIntoHistoryTable(existingEmptyItemId, time);
 
         updatePredictionForItemInPredictionsTable(existingEmptyItemId);
 
@@ -69,11 +69,10 @@ public class EmptyItemsDbHandler extends DbHandler {
         db.close();
     }
 
-    private void insertNewEmptyItemIntoHistoryTable(long itemId) {
-        Date c = new Date(System.currentTimeMillis());
+    private void insertNewEmptyItemIntoHistoryTable(long itemId, long time) {
         ContentValues shoppingValues = new ContentValues();
         shoppingValues.put(COLUMN_ITEM_ID, itemId);
-        shoppingValues.put(COLUMN_EMPTY_ITEM_DATE, c.getTime());
+        shoppingValues.put(COLUMN_EMPTY_ITEM_DATE, time);
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_EMPTY_ITEMS_HISTORY, null, shoppingValues);

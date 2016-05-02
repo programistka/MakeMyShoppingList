@@ -13,21 +13,21 @@ public class AddEmptyItemPresenter {
         this.interactor = new AddEmptyItemInteractor(context);
     }
 
-    public void insertNewEmptyItem(String name) {
-        interactor.insertNewEmptyItem(name);
+    public void insertNewEmptyItem(String name, Long time) {
+        interactor.insertNewEmptyItem(name, time);
     }
 
-    public void insertExistingEmptyItem(long id) {
-        interactor.insertExistingEmptyItem(id);
+    public void insertExistingEmptyItem(long id, Long time) {
+        interactor.insertExistingEmptyItem(id, time);
     }
 
-    public void addNewEmptyItem(String name) {
+    public void addNewEmptyItem(String name, Long time) {
         String emptyItemNameText = name;
         if(emptyItemNameText.length() == 0) {
             view.showEmptyItemNameMessage();
         }
         else {
-            insertNewEmptyItem(emptyItemNameText);
+            insertNewEmptyItem(emptyItemNameText, time);
             view.redirectToEmptyItemsHistoryView();
         }
     }

@@ -17,6 +17,8 @@ import net.programistka.shoppingadvisor.adapters.SuggestionsAdapter;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsInteractor;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsPresenter;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,6 +26,7 @@ import butterknife.OnClick;
 public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyItemView, AdapterView.OnItemClickListener {
 
     private AddEmptyItemPresenter addEmptyItemPresenter ;
+    private Long time;
 
     @BindView(R.id.emptyItemName) AutoCompleteTextView emptyItemName;
     @BindView(R.id.addNewEmptyItem) Button addNewEmptyItem;
@@ -59,15 +62,16 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
 
     @OnClick(R.id.addNewEmptyItem)
     public void addNewEmptyItem() {
-        addEmptyItemPresenter.addNewEmptyItem(emptyItemName.getText().toString());
+        addEmptyItemPresenter.addNewEmptyItem(emptyItemName.getText().toString(), Calendar.getInstance().getTimeInMillis());
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, final long l) {
+        time = Calendar.getInstance().getTimeInMillis();
         addNewEmptyItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addEmptyItemPresenter.insertExistingEmptyItem(l);
+                addEmptyItemPresenter.insertExistingEmptyItem(l, time);
                 redirectToEmptyItemsHistoryView();
             }
         });
