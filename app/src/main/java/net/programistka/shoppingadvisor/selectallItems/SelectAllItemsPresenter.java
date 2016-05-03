@@ -16,6 +16,10 @@ public class SelectAllItemsPresenter {
         return interactor.selectAllItemsFromEmptyItemsHistoryTable();
     }
 
+    public List<EmptyItem> selectShoppingHistoryForItemFromItemsHistoryTable(long id) {
+        return interactor.selectShoppingHistoryForItemFromItemsHistoryTable(id);
+    }
+
     public List<EmptyItem> selectAllItemsFromItemsTable() {
         return interactor.selectAllItemsFromItemsTable();
     }

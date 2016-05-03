@@ -10,15 +10,15 @@ public class AddEmptyItemPresenter {
         this.view = view;
     }
 
-    public void insertNewEmptyItem(String name, Long time) {
+    public void insertNewEmptyItem(String name, long time) {
         interactor.insertNewEmptyItem(name, time);
     }
 
-    public void insertExistingEmptyItem(long id, Long time) {
+    public void insertExistingEmptyItem(long id, long time) {
         interactor.insertExistingEmptyItem(id, time);
     }
 
-    public void addNewEmptyItem(String name, Long time) {
+    public void addNewEmptyItem(String name, long time) {
         if(name.length() == 0) {
             view.showEmptyItemNameMessage();
         }
@@ -26,5 +26,9 @@ public class AddEmptyItemPresenter {
             insertNewEmptyItem(name, time);
             view.redirectToEmptyItemsHistoryView();
         }
+    }
+
+    public void insertPredictionForItemIntoPredictionsTable(long id, long time) {
+        interactor.insertPredictionForItemIntoPredictionsTable(id, time);
     }
 }

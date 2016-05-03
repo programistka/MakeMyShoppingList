@@ -8,10 +8,13 @@ import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemPresenter;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemView;
 import net.programistka.shoppingadvisor.dbhandlers.EmptyItemsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
+import net.programistka.shoppingadvisor.models.Prediction;
+import net.programistka.shoppingadvisor.models.PredictionsHandler;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsInteractor;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsPresenter;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -31,27 +34,97 @@ public class EmptyItemsTests extends AndroidTestCase {
         mContext.deleteDatabase(dbHandler.getDatabaseName());
     }
 
-    public void test_when_added_empty_item_for_the_first_time_then_visible_in_history_once() {
+    public void testWhenAddedEmptyItemForTheFirstTimeThenVisibleInHistoryOnce() {
+
+        //Given
         AddEmptyItemView view = mock(AddEmptyItemView.class);
         AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
-        Calendar c = Calendar.getInstance();
-        c.set(2016, 3, 21, 0, 0, 0);
-        addEmptyItemPresenter.insertNewEmptyItem("Kasza", c.getTimeInMillis());
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
         SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(new DbConfig("shopping_advisor_test.db"), mContext));
+
+        //When
+        addEmptyItemPresenter.insertNewEmptyItem("Kasza", c.getTimeInMillis());
+
+        //Then
         List<EmptyItem> emptyItems = selectAllItemsPresenter.selectAllItemsFromItemsTable();
         assertEquals(1, emptyItems.size());
         assertEquals("kasza", emptyItems.get(0).getName());
     }
 
-    public void test_when_added_empty_item_for_the_second_time_then_visible_in_history_twice() {
+    public void testWhenAddedEmptyItemForTheSecondTimeThenVisibleInHistoryTwice() {
 
+        //Given
+        AddEmptyItemView view = mock(AddEmptyItemView.class);
+        AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
+        Calendar c2 = CalendarProvider.setCalendar(23, 3, 2016);
+        SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(new DbConfig("shopping_advisor_test.db"), mContext));
+
+        //When
+        addEmptyItemPresenter.insertNewEmptyItem("Kasza", c.getTimeInMillis());
+        addEmptyItemPresenter.insertExistingEmptyItem(1, c2.getTimeInMillis());
+
+        //Then
+        List<EmptyItem> emptyItems = selectAllItemsPresenter.selectAllItemsFromEmptyItemsHistoryTable();
+        assertEquals(2, emptyItems.size());
     }
 
-    public void test_when_added_empty_item_for_the_second_time_and_not_the_same_day_then_visible_in_predictions() {
+    public void testWhenAddedEmptyItemForTheSecondTimeAndNotTheSameDayThenVisibleInPredictions() {
 
+        //Given
+        AddEmptyItemView view = mock(AddEmptyItemView.class);
+        AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
+        Calendar c2 = CalendarProvider.setCalendar(23, 3, 2016);
+        SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(new DbConfig("shopping_advisor_test.db"), mContext));
+
+        //When
+        addEmptyItemPresenter.insertNewEmptyItem("Kasza", c.getTimeInMillis());
+        addEmptyItemPresenter.insertExistingEmptyItem(1, c2.getTimeInMillis());
+
+        //Then
+        List<EmptyItem> shoppingHistory = selectAllItemsPresenter.selectShoppingHistoryForItemFromItemsHistoryTable(1);
+        List<Long> shoppingTimesHistory = new ArrayList<>();
+        for (EmptyItem item:shoppingHistory) {
+            shoppingTimesHistory.add(item.getCreationDate());
+        }
+        Prediction prediction = PredictionsHandler.generatePrediction(shoppingTimesHistory);
+        Calendar c3 = Calendar.getInstance();
+        c3.setTimeInMillis(prediction.getTime());
+        assertEquals(2, prediction.getDaysNumber());
+        assertEquals(25, c3.get(Calendar.DAY_OF_MONTH));
+        assertEquals(3, c3.get(Calendar.MONTH));
+        assertEquals(2016, c3.get(Calendar.YEAR));
     }
 
-    public void test_when_added_existing_empty_item_then_prediction_updated() {
+    public void testWhenAddedExistingEmptyItemThreeItemsThenPredictionUpdated() {
 
+        //Given
+        AddEmptyItemView view = mock(AddEmptyItemView.class);
+        AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
+        addEmptyItemPresenter.insertNewEmptyItem("Kasza", c.getTimeInMillis());
+        Calendar c2 = CalendarProvider.setCalendar(22, 3, 2016);
+        addEmptyItemPresenter.insertExistingEmptyItem(1, c2.getTimeInMillis());
+
+        SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(new DbConfig("shopping_advisor_test.db"), mContext));
+
+        //When
+        Calendar c3 = CalendarProvider.setCalendar(24, 3, 2016);
+        addEmptyItemPresenter.insertExistingEmptyItem(1, c3.getTimeInMillis());
+
+        //Then
+        List<EmptyItem> shoppingHistory = selectAllItemsPresenter.selectShoppingHistoryForItemFromItemsHistoryTable(1);
+        List<Long> shoppingTimesHistory = new ArrayList<>();
+        for (EmptyItem item:shoppingHistory) {
+            shoppingTimesHistory.add(item.getCreationDate());
+        }
+        Prediction prediction = PredictionsHandler.generatePrediction(shoppingTimesHistory);
+        Calendar c4 = Calendar.getInstance();
+        c4.setTimeInMillis(prediction.getTime());
+        assertEquals(2, prediction.getDaysNumber());
+        assertEquals(26, c4.get(Calendar.DAY_OF_MONTH));
+        assertEquals(3, c4.get(Calendar.MONTH));
+        assertEquals(2016, c4.get(Calendar.YEAR));
     }
 }

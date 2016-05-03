@@ -16,11 +16,15 @@ public class AddEmptyItemInteractor {
         dbHandler = new EmptyItemsDbHandler(dbConfig, context);
     }
 
-    public void insertNewEmptyItem(String name, Long time) {
+    public void insertNewEmptyItem(String name, long time) {
         dbHandler.insertNewEmptyItem(name, time);
     }
 
     public void insertExistingEmptyItem(long id, long time) {
         dbHandler.insertExistingEmptyItem(id, time);
+    }
+
+    public void insertPredictionForItemIntoPredictionsTable(long id, long time) {
+        dbHandler.insertPredictionForItemIntoPredictionsTable(id, time);
     }
 }

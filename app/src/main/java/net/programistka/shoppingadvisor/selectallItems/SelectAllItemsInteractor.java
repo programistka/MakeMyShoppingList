@@ -24,4 +24,8 @@ public class SelectAllItemsInteractor {
     public List<EmptyItem> selectAllItemsFromItemsTable() {
         return dbHandler.selectAllItemsFromItemsTable();
     }
+
+    public List<EmptyItem> selectShoppingHistoryForItemFromItemsHistoryTable(Long id) {
+        return dbHandler.selectAllItemsFromEmptyItemsHistoryTableByItemId(id);
+    }
 }

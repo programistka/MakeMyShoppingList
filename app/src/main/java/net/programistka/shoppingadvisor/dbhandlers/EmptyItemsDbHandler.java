@@ -30,7 +30,7 @@ public class EmptyItemsDbHandler extends DbHandler {
 
         if (lastInsertedId != -1) {
             insertNewEmptyItemIntoHistoryTable(lastInsertedId, time);
-            insertPredictionForItemIntoPredictionsTable(lastInsertedId);
+            insertPredictionForItemIntoPredictionsTable(lastInsertedId, calculatePredictionForItem(time));
         }
     }
 
@@ -73,18 +73,14 @@ public class EmptyItemsDbHandler extends DbHandler {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_EMPTY_ITEMS_HISTORY, null, shoppingValues);
-        insertPredictionForItemIntoPredictionsTable(itemId);
+        insertPredictionForItemIntoPredictionsTable(itemId, calculatePredictionForItem(itemId));
         db.close();
     }
 
-    private void insertPredictionForItemIntoPredictionsTable(long itemId) {
-        Date c = calculatePredictionForItem(itemId);
-        if (c == null) {
-            return;
-        }
+    public void insertPredictionForItemIntoPredictionsTable(long itemId, long prediction) {
         ContentValues predictionValues = new ContentValues();
         predictionValues.put(COLUMN_ITEM_ID, itemId);
-        predictionValues.put(COLUMN_NEXT_EMPTY_ITEM_DATE, c.getTime());
+        predictionValues.put(COLUMN_NEXT_EMPTY_ITEM_DATE, prediction);
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_EMPTY_ITEMS_PREDICTIONS, null, predictionValues);
@@ -94,23 +90,17 @@ public class EmptyItemsDbHandler extends DbHandler {
     private void updatePredictionForItemInPredictionsTable(long itemId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_EMPTY_ITEMS_PREDICTIONS, COLUMN_ITEM_ID + "=" + itemId, null);
-        Cursor c = db.rawQuery("SELECT * FROM archive", null);
         db.delete(TABLE_ARCHIVE, COLUMN_ITEM_ID + "=" + itemId, null);
-        Cursor c2 = db.rawQuery("SELECT * FROM archive", null);
-        insertPredictionForItemIntoPredictionsTable(itemId);
+        insertPredictionForItemIntoPredictionsTable(itemId, calculatePredictionForItem(itemId));
     }
 
-    @Nullable
-    private Date calculatePredictionForItem(long itemId) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    private long calculatePredictionForItem(long itemId) {
         List<Long> emptyTimes = getEmptyTimes(itemId);
         if (emptyTimes.size() > 1) {
             Prediction prediction = PredictionsHandler.generatePrediction(emptyTimes);
-            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            calendar.setTimeInMillis(prediction.getTime());
-            return calendar.getTime();
+            return prediction.getTime();
         }
-        return null;
+        return 0;
     }
 
     @NonNull

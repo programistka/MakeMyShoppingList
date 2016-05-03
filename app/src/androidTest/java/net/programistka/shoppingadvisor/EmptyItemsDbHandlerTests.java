@@ -31,12 +31,11 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
     }
 
     public void testWhenAddNewEmptyItemThenNewItemAddedToEmptyItemsTable() {
-        Calendar c = Calendar.getInstance();
-        c.set(2016, 4, 21, 0, 0, 0);
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
         dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis() );
         List<EmptyItem> emptyItemsList = dbHandler.selectAllItemsFromItemsTable();
         assertEquals(1, emptyItemsList.size());
-        assertEquals("Proszek do prania", emptyItemsList.get(0).getName());
+        assertEquals("proszek do prania", emptyItemsList.get(0).getName());
     }
 
     public void testWhenAddNewEmptyItemThenNewItemAddedToEmptyItemsHistoryTable() {
@@ -45,7 +44,7 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
         dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis());
         List<EmptyItem> emptyItemsHistoryList = dbHandler.selectAllItemsFromEmptyItemsHistoryTable();
         assertEquals(1, emptyItemsHistoryList.size());
-        assertEquals("Proszek do prania", emptyItemsHistoryList.get(0).getName());
+        assertEquals("proszek do prania", emptyItemsHistoryList.get(0).getName());
     }
 
     public void testWhenAddTwoEmptyItemsThenValidPredictionCreatedInPredictionsTable() {
@@ -73,14 +72,11 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
     }
 
     public void testWhenMoreThanTwoEmptyItemsThenValidPredictionCreatedInPredictionsTable() {
-        Calendar c = Calendar.getInstance();
-        c.set(2016, 3, 21, 0, 0, 0);
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
         dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis());
-        Calendar c2 = Calendar.getInstance();
-        c2.set(2016, 3, 23, 0, 0, 0);
+        Calendar c2 = CalendarProvider.setCalendar(23, 3, 2016);
         dbHandler.insertExistingEmptyItem(1, c2.getTimeInMillis());
-        Calendar c3 = Calendar.getInstance();
-        c3.set(2016, 3, 28, 0, 0, 0);
+        Calendar c3 = CalendarProvider.setCalendar(28, 3, 2016);
         dbHandler.insertExistingEmptyItem(1, c3.getTimeInMillis());
 
         List<EmptyItem> emptyItems = dbHandler.selectAllItemsFromEmptyItemsHistoryTableByItemId(1);
@@ -100,14 +96,11 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
     }
 
     public void testWhenMoveElementToArchiveThenElementAddedToArchiveTable() {
-        Calendar c = Calendar.getInstance();
-        c.set(2016, 3, 21, 0, 0, 0);
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
         dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis());
-        Calendar c2 = Calendar.getInstance();
-        c2.set(2016, 3, 23, 0, 0, 0);
+        Calendar c2 = CalendarProvider.setCalendar(23, 3, 2016);
         dbHandler.insertExistingEmptyItem(1, c2.getTimeInMillis());
-        Calendar c3 = Calendar.getInstance();
-        c3.set(2016, 3, 28, 0, 0, 0);
+        Calendar c3 = CalendarProvider.setCalendar(28, 3, 2016);
         dbHandler.insertExistingEmptyItem(1, c3.getTimeInMillis());
         ArchiveDbHandler archiveDbHandler = new ArchiveDbHandler(new DbConfig("shopping_advisor_test.db"), mContext);
         archiveDbHandler.insertItemToArchiveTable(1);
@@ -115,19 +108,15 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
     }
 
     public void testWhenAddExistingEmptyItemWhichIsArchivedThenDeletedFromArchiveTable() {
-        Calendar c = Calendar.getInstance();
-        c.set(2016, 3, 21, 0, 0, 0);
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
         dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis());
-        Calendar c2 = Calendar.getInstance();
-        c2.set(2016, 3, 23, 0, 0, 0);
+        Calendar c2 = CalendarProvider.setCalendar(23, 3, 2016);
         dbHandler.insertExistingEmptyItem(1, c2.getTimeInMillis());
-        Calendar c3 = Calendar.getInstance();
-        c3.set(2016, 3, 28, 0, 0, 0);
+        Calendar c3 = CalendarProvider.setCalendar(28, 3, 2016);
         dbHandler.insertExistingEmptyItem(1, c3.getTimeInMillis());
         ArchiveDbHandler archiveDbHandler = new ArchiveDbHandler(new DbConfig("shopping_advisor_test.db"), mContext);
         archiveDbHandler.insertItemToArchiveTable(1);
-        Calendar c4 = Calendar.getInstance();
-        c4.set(2016, 4, 1, 0, 0, 0);
+        Calendar c4 = CalendarProvider.setCalendar(1, 4, 2016);
         dbHandler.insertExistingEmptyItem(1, c4.getTimeInMillis());
         assertFalse(archiveDbHandler.checkIfArchivedElement(1));
     }
