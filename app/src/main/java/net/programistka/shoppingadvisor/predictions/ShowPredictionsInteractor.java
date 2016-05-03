@@ -1,4 +1,4 @@
-package net.programistka.shoppingadvisor.showpredictions;
+package net.programistka.shoppingadvisor.predictions;
 
 import android.content.Context;
 
@@ -8,15 +8,15 @@ import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.List;
 
-public class ShowPredictionsPresenter {
+public class ShowPredictionsInteractor {
     private PredictionsDbHandler dbHandler;
 
-    public ShowPredictionsPresenter(DbConfig dbConfig, Context context) {
-        this.dbHandler = new PredictionsDbHandler(dbConfig, context);
+    public ShowPredictionsInteractor(DbConfig dbConfig, Context context) {
+        dbHandler = new PredictionsDbHandler(dbConfig, context);
     }
 
     public List<EmptyItem> getPredictions() {
-        return this.dbHandler.getPredictions();
+        return dbHandler.getPredictions();
     }
 
     public void markAsBought(List<Long> selectedItems) {

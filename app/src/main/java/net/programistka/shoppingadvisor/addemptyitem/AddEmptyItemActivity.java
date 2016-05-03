@@ -16,6 +16,7 @@ import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.acitivities.ShowEmptyItemsHistoryActivity;
 import net.programistka.shoppingadvisor.adapters.SuggestionsAdapter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
+import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsInteractor;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsPresenter;
 
 import java.util.Calendar;
@@ -42,8 +43,8 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
 
         initToolbar();
 
-        addEmptyItemPresenter = new AddEmptyItemPresenter(this, new DbConfig(), getApplicationContext());
-        SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new DbConfig(), getApplicationContext());
+        addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig(), getApplicationContext()), this);
+        SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(new DbConfig(), getApplicationContext()));
 
         SuggestionsAdapter adapter = new SuggestionsAdapter(this, selectAllItemsPresenter.selectAllItemsFromItemsTable());
         emptyItemName.setAdapter(adapter);

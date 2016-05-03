@@ -26,7 +26,7 @@ public class ShowEmptyItemsHistoryActivity extends ActivityWithFab {
 
         initToolbar();
 
-        SelectAllItemsPresenter presenter = new SelectAllItemsPresenter(new DbConfig(), getApplicationContext());
+        SelectAllItemsPresenter presenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(new DbConfig(), getApplicationContext()));
         EmptyItemsHistoryAdapter adapter = new EmptyItemsHistoryAdapter(presenter.selectAllItemsFromEmptyItemsHistoryTable());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);

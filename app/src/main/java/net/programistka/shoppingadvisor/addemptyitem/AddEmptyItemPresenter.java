@@ -1,18 +1,13 @@
 package net.programistka.shoppingadvisor.addemptyitem;
 
-import android.content.Context;
-
-import net.programistka.shoppingadvisor.presenters.DbConfig;
-
 public class AddEmptyItemPresenter {
 
+    private AddEmptyItemInteractor interactor;
     private AddEmptyItemView view;
 
-    private AddEmptyItemInteractor interactor;
-
-    public AddEmptyItemPresenter(AddEmptyItemView view, DbConfig dbConfig, Context context) {
+    public AddEmptyItemPresenter(AddEmptyItemInteractor interactor, AddEmptyItemView view) {
+        this.interactor = interactor;
         this.view = view;
-        this.interactor = new AddEmptyItemInteractor(dbConfig, context);
     }
 
     public void insertNewEmptyItem(String name, Long time) {
@@ -24,12 +19,11 @@ public class AddEmptyItemPresenter {
     }
 
     public void addNewEmptyItem(String name, Long time) {
-        String emptyItemNameText = name;
-        if(emptyItemNameText.length() == 0) {
+        if(name.length() == 0) {
             view.showEmptyItemNameMessage();
         }
         else {
-            insertNewEmptyItem(emptyItemNameText, time);
+            insertNewEmptyItem(name, time);
             view.redirectToEmptyItemsHistoryView();
         }
     }

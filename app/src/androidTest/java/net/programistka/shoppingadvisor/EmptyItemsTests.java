@@ -3,11 +3,13 @@ package net.programistka.shoppingadvisor;
 import android.content.Context;
 import android.test.AndroidTestCase;
 
+import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemInteractor;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemPresenter;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemView;
 import net.programistka.shoppingadvisor.dbhandlers.EmptyItemsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
+import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsInteractor;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsPresenter;
 
 import java.util.Calendar;
@@ -31,11 +33,11 @@ public class EmptyItemsTests extends AndroidTestCase {
 
     public void test_when_added_empty_item_for_the_first_time_then_visible_in_history_once() {
         AddEmptyItemView view = mock(AddEmptyItemView.class);
-        AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(view, new DbConfig("shopping_advisor_test.db"), mContext);
+        AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
         Calendar c = Calendar.getInstance();
         c.set(2016, 3, 21, 0, 0, 0);
         addEmptyItemPresenter.insertNewEmptyItem("Kasza", c.getTimeInMillis());
-        SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new DbConfig("shopping_advisor_test.db"), mContext);
+        SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(new DbConfig("shopping_advisor_test.db"), mContext));
         List<EmptyItem> emptyItems = selectAllItemsPresenter.selectAllItemsFromItemsTable();
         assertEquals(1, emptyItems.size());
         assertEquals("kasza", emptyItems.get(0).getName());

@@ -1,4 +1,4 @@
-package net.programistka.shoppingadvisor.showpredictions;
+package net.programistka.shoppingadvisor.predictions;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;

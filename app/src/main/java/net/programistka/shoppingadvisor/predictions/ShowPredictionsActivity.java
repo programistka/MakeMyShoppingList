@@ -1,4 +1,4 @@
-package net.programistka.shoppingadvisor.showpredictions;
+package net.programistka.shoppingadvisor.predictions;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,7 +35,7 @@ public class ShowPredictionsActivity extends ActivityWithFab {
 
         initToolbar();
 
-        presenter = new ShowPredictionsPresenter(new DbConfig(), this);
+        presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), this));
         PredictionsAdapter adapter = new PredictionsAdapter(presenter.getPredictions());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);
