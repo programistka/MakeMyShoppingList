@@ -24,7 +24,7 @@ public class EmptyItemsDbHandler extends DbHandler {
     }
 
     public void insertNewEmptyItem(String newEmptyItemName, long time) {
-        insertNewEmptyItemIntoItemsTable(newEmptyItemName.toLowerCase().trim().replace(" ", ""));
+        insertNewEmptyItemIntoItemsTable(newEmptyItemName.toLowerCase().trim());
 
         long lastInsertedId = getLastInsertedId();
 
