@@ -39,8 +39,7 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
     }
 
     public void testWhenAddNewEmptyItemThenNewItemAddedToEmptyItemsHistoryTable() {
-        Calendar c = Calendar.getInstance();
-        c.set(2016, 4, 21, 0, 0, 0);
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
         dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis());
         List<EmptyItem> emptyItemsHistoryList = dbHandler.selectAllItemsFromEmptyItemsHistoryTable();
         assertEquals(1, emptyItemsHistoryList.size());
@@ -48,11 +47,9 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
     }
 
     public void testWhenAddTwoEmptyItemsThenValidPredictionCreatedInPredictionsTable() {
-        Calendar c = Calendar.getInstance();
-        c.set(2016, 3, 21, 0, 0, 0);
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
         dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis());
-        Calendar c2 = Calendar.getInstance();
-        c2.set(2016, 3, 23, 0, 0, 0);
+        Calendar c2 = CalendarProvider.setCalendar(23, 3, 2016);
         dbHandler.insertExistingEmptyItem(1, c2.getTimeInMillis());
 
         List<EmptyItem> emptyItems = dbHandler.selectAllItemsFromEmptyItemsHistoryTableByItemId(1);

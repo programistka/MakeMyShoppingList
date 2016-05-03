@@ -38,8 +38,9 @@ public class PredictionsHandler {
 
     private static Prediction generatePredictionForTwoItems(long current, long next) {
         Prediction prediction = new Prediction();
-        prediction.setDaysNumber((int)(next - current)/ MILLIS_IN_DAY);
-        prediction.setTime(next + next - current);
+        int daysAverage = (int)(next - current)/ MILLIS_IN_DAY;
+        prediction.setDaysNumber(daysAverage);
+        prediction.setTime(next + daysAverage * MILLIS_IN_DAY);
         return prediction;
     }
 }
