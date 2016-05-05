@@ -23,26 +23,16 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/show_history"
-        android:drawableLeft="@android:drawable/ic_menu_today"
-        android:id="@+id/showHistory"
-        android:layout_below="@+id/showAddNewEmptyItem"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/showAddNewEmptyItem"
-        android:layout_alignEnd="@+id/showAddNewEmptyItem" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/show_predictions"
         android:drawableLeft="@android:drawable/ic_dialog_alert"
         android:id="@+id/showPredictions"
-        android:layout_below="@+id/showHistory"
+        android:layout_below="@+id/showAddNewEmptyItem"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/showHistory"
-        android:layout_alignEnd="@+id/showHistory"/>
+        android:layout_alignRight="@+id/showAddNewEmptyItem"
+        android:layout_alignEnd="@+id/showAddNewEmptyItem"/>
 </RelativeLayout>

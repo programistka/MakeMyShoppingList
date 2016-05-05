@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.acitivities.ActivityWithFab;
-import net.programistka.shoppingadvisor.acitivities.ShowEmptyItemsHistoryActivity;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsActivity;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 
@@ -32,12 +31,6 @@ public class MainActivity extends ActivityWithFab implements MainActivityView {
     @OnClick(R.id.showAddNewEmptyItem)
     public void navigateToAddNewEmptyItem(){
         startActivity(new Intent(this, AddEmptyItemActivity.class));
-    }
-
-    @Override
-    @OnClick(R.id.showHistory)
-    public void navigateToShowHistory(){
-        startActivity(new Intent(this, ShowEmptyItemsHistoryActivity.class));
     }
 
     @Override

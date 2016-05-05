@@ -4,7 +4,5 @@ public interface MainActivityView {
 
     void navigateToAddNewEmptyItem();
 
-    void navigateToShowHistory();
-
     void navigateToShowPredictions();
 }

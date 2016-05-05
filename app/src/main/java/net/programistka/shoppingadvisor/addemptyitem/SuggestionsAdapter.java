@@ -1,4 +1,4 @@
-package net.programistka.shoppingadvisor.adapters;
+package net.programistka.shoppingadvisor.addemptyitem;
 
 import android.content.Context;
 import android.view.LayoutInflater;

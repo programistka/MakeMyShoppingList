@@ -13,8 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import net.programistka.shoppingadvisor.R;
-import net.programistka.shoppingadvisor.acitivities.ShowEmptyItemsHistoryActivity;
-import net.programistka.shoppingadvisor.adapters.SuggestionsAdapter;
+import net.programistka.shoppingadvisor.predictions.ShowPredictionsActivity;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsInteractor;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsPresenter;
@@ -52,8 +51,8 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
     }
 
     @Override
-    public void redirectToEmptyItemsHistoryView() {
-        startActivity(new Intent(getApplicationContext(), ShowEmptyItemsHistoryActivity.class));
+    public void redirectToPredictionsView() {
+        startActivity(new Intent(getApplicationContext(), ShowPredictionsActivity.class));
     }
 
     @Override
@@ -75,7 +74,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
             @Override
             public void onClick(View v) {
                 addEmptyItemPresenter.insertExistingEmptyItem(l, time);
-                redirectToEmptyItemsHistoryView();
+                redirectToPredictionsView();
             }
         });
     }
