@@ -72,8 +72,10 @@ public class EmptyItemsDbHandler extends DbHandler {
             cursor.moveToFirst();
             long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
             cursor.close();
+            db.close();
             return id;
         }
+        db.close();
         return -1;
     }
 
@@ -96,10 +98,11 @@ public class EmptyItemsDbHandler extends DbHandler {
         db.close();
     }
 
-    public void insertPredictionForItemIntoPredictionsTable(long itemId, long prediction) {
+    public void insertPredictionForItemIntoPredictionsTable(long itemId, Prediction prediction) {
         ContentValues predictionValues = new ContentValues();
         predictionValues.put(COLUMN_ITEM_ID, itemId);
-        predictionValues.put(COLUMN_NEXT_EMPTY_ITEM_DATE, prediction);
+        predictionValues.put(COLUMN_NEXT_EMPTY_ITEM_DATE, prediction.getTime());
+        predictionValues.put(COLUMN_DAYS_TO_RUN_OUT, prediction.getDaysNumber());
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_EMPTY_ITEMS_PREDICTIONS, null, predictionValues);
@@ -110,16 +113,17 @@ public class EmptyItemsDbHandler extends DbHandler {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_EMPTY_ITEMS_PREDICTIONS, COLUMN_ITEM_ID + "=" + itemId, null);
         db.delete(TABLE_ARCHIVE, COLUMN_ITEM_ID + "=" + itemId, null);
+        db.close();
         insertPredictionForItemIntoPredictionsTable(itemId, calculatePredictionForItem(itemId));
     }
 
-    private long calculatePredictionForItem(long itemId) {
+    private Prediction calculatePredictionForItem(long itemId) {
         List<Long> emptyTimes = getEmptyTimes(itemId);
         if (emptyTimes.size() > 1) {
             Prediction prediction = PredictionsHandler.generatePrediction(emptyTimes);
-            return prediction.getTime();
+            return prediction;
         }
-        return 0;
+        return null;
     }
 
     @NonNull
@@ -138,8 +142,8 @@ public class EmptyItemsDbHandler extends DbHandler {
                 emptyTimes.add(cursor.getLong(cursor.getColumnIndex(COLUMN_EMPTY_ITEM_DATE)));
             } while (cursor.moveToNext());
             cursor.close();
-            db.close();
         }
+        db.close();
         return emptyTimes;
     }
 }

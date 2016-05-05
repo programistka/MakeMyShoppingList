@@ -48,7 +48,7 @@ public class PredictionsDbHandler extends DbHandler {
         return itemsList;
     }
 
-    public Prediction getPredictionById(long id) {
+    public Prediction getPredictionForItem(long id) {
         String selectQuery = "SELECT " + COLUMN_DAYS_TO_RUN_OUT + ", " + COLUMN_NEXT_EMPTY_ITEM_DATE +
                 " FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS +
                 " WHERE " + COLUMN_ITEM_ID + " = " + id;
@@ -61,11 +61,11 @@ public class PredictionsDbHandler extends DbHandler {
         if(cursor.moveToFirst()) {
             do {
                 prediction.setDaysNumber(cursor.getInt(cursor.getColumnIndex(COLUMN_DAYS_TO_RUN_OUT)));
-                prediction.setTime(cursor.getInt(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE)));
+                prediction.setTime(cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE)));
             } while (cursor.moveToNext());
             cursor.close();
-            db.close();
         }
+        db.close();
         return prediction;
     }
 

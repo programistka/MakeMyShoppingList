@@ -4,6 +4,7 @@ import android.content.Context;
 
 import net.programistka.shoppingadvisor.dbhandlers.PredictionsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
+import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.List;
@@ -18,6 +19,10 @@ public class ShowPredictionsPresenter {
 
     public List<EmptyItem> getPredictions() {
         return interactor.getPredictions();
+    }
+
+    public Prediction getPredictionForItem(long id) {
+        return interactor.getPredictionForItem(id);
     }
 
     public void markAsBought(List<Long> selectedItems) {

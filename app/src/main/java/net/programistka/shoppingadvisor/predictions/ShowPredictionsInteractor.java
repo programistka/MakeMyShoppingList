@@ -4,6 +4,7 @@ import android.content.Context;
 
 import net.programistka.shoppingadvisor.dbhandlers.PredictionsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
+import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.List;
@@ -23,5 +24,9 @@ public class ShowPredictionsInteractor {
         for (Long itemId:selectedItems) {
             dbHandler.insertBoughtPredictionIntoPredictionsTable(itemId);
         }
+    }
+
+    public Prediction getPredictionForItem(long id) {
+        return dbHandler.getPredictionForItem(id);
     }
 }

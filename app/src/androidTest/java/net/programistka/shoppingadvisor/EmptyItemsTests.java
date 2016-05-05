@@ -10,6 +10,8 @@ import net.programistka.shoppingadvisor.dbhandlers.EmptyItemsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.models.PredictionsHandler;
+import net.programistka.shoppingadvisor.predictions.ShowPredictionsInteractor;
+import net.programistka.shoppingadvisor.predictions.ShowPredictionsPresenter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsInteractor;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsPresenter;
@@ -124,6 +126,41 @@ public class EmptyItemsTests extends AndroidTestCase {
         c4.setTimeInMillis(prediction.getTime());
         assertEquals(2, prediction.getDaysNumber());
         assertEquals(26, c4.get(Calendar.DAY_OF_MONTH));
+        assertEquals(3, c4.get(Calendar.MONTH));
+        assertEquals(2016, c4.get(Calendar.YEAR));
+    }
+
+    public void testWhenNewEmptyItemWithTheSameNameAsTheExistingOneThenNoNewItemIsCreatedAndNewHistoryEntryIsCreatedInHistoryTableAndPredictionIsUpdated() {
+
+        //Given
+        AddEmptyItemView view = mock(AddEmptyItemView.class);
+        AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
+        addEmptyItemPresenter.insertNewEmptyItem("Kasza", c.getTimeInMillis());
+        Calendar c2 = CalendarProvider.setCalendar(22, 3, 2016);
+        addEmptyItemPresenter.insertNewEmptyItem("Kasza", c2.getTimeInMillis());
+
+        SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(new DbConfig("shopping_advisor_test.db"), mContext));
+        ShowPredictionsPresenter showPredictionsPresenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig("shopping_advisor_test.db"), mContext));
+
+        //When
+        List<EmptyItem> allItems = selectAllItemsPresenter.selectAllItemsFromItemsTable();
+        List<EmptyItem> historyItems = selectAllItemsPresenter.selectShoppingHistoryForItemFromItemsHistoryTable(1);
+        Calendar c3 = Calendar.getInstance();
+        c3.setTimeInMillis(historyItems.get(historyItems.size()-1).getCreationDate());
+        Prediction prediction = showPredictionsPresenter.getPredictionForItem(1);
+        System.out.println("IN test" + prediction.getDaysNumber());
+        Calendar c4 = Calendar.getInstance();
+        c4.setTimeInMillis(prediction.getTime());
+
+        //Then
+        assertEquals(1, allItems.size());
+        assertEquals(2, historyItems.size());
+        assertEquals(22, c3.get(Calendar.DAY_OF_MONTH));
+        assertEquals(3, c3.get(Calendar.MONTH));
+        assertEquals(2016, c3.get(Calendar.YEAR));
+        assertEquals(1, prediction.getDaysNumber());
+        assertEquals(23, c4.get(Calendar.DAY_OF_MONTH));
         assertEquals(3, c4.get(Calendar.MONTH));
         assertEquals(2016, c4.get(Calendar.YEAR));
     }

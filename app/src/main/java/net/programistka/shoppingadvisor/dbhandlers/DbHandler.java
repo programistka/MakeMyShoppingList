@@ -53,8 +53,8 @@ public class DbHandler extends SQLiteOpenHelper {
                 TABLE_ARCHIVE + "("
                 + COLUMN_ITEM_ID + " INTEGER)";
         db.execSQL(CREATE_ARCHIVE_TABLE);
-//        initializeData(db);
-//        initializeData2(db);
+        initializeData(db);
+        initializeData2(db);
     }
 
     @Override
@@ -100,8 +100,8 @@ public class DbHandler extends SQLiteOpenHelper {
                 itemsList.add(createItemInstance(cursor));
             } while (cursor.moveToNext());
             cursor.close();
-            db.close();
         }
+        db.close();
         System.out.println(itemsList.size());
         return itemsList;
     }
@@ -119,8 +119,8 @@ public class DbHandler extends SQLiteOpenHelper {
                 itemsList.add(createItemInstance(cursor));
             } while (cursor.moveToNext());
             cursor.close();
-            db.close();
         }
+        db.close();
         return itemsList;
     }
 
@@ -138,8 +138,8 @@ public class DbHandler extends SQLiteOpenHelper {
                 itemsList.add(createItemInstance(cursor));
             } while (cursor.moveToNext());
             cursor.close();
-            db.close();
         }
+        db.close();
         return itemsList;
     }
 
