@@ -24,13 +24,19 @@ public class EmptyItemsDbHandler extends DbHandler {
     }
 
     public void insertNewEmptyItem(String newEmptyItemName, long time) {
-        insertNewEmptyItemIntoItemsTable(newEmptyItemName.toLowerCase().trim());
+        String trimmedName = newEmptyItemName.toLowerCase().trim();
+        long itemId = checkIfElementAlreadyExistsInDatabase(trimmedName);
+        if(itemId > 0) {
+            insertExistingEmptyItem(itemId, time);
+            return;
+        }
+
+        insertNewEmptyItemIntoItemsTable(trimmedName);
 
         long lastInsertedId = getLastInsertedId();
 
         if (lastInsertedId != -1) {
             insertNewEmptyItemIntoHistoryTable(lastInsertedId, time);
-            insertPredictionForItemIntoPredictionsTable(lastInsertedId, calculatePredictionForItem(time));
         }
     }
 
@@ -57,6 +63,20 @@ public class EmptyItemsDbHandler extends DbHandler {
         return lastInsertedId;
     }
 
+    private long checkIfElementAlreadyExistsInDatabase(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT " + COLUMN_ID + " FROM " + TABLE_ITEMS + " WHERE " + COLUMN_ITEM_NAME + " = '" + name + "'";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.getCount() > 0 )
+        {
+            cursor.moveToFirst();
+            long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
+            cursor.close();
+            return id;
+        }
+        return -1;
+    }
+
     private void insertNewEmptyItemIntoItemsTable(String itemName) {
         ContentValues emptyItemValues = new ContentValues();
         emptyItemValues.put(COLUMN_ITEM_NAME, itemName);
@@ -73,7 +93,6 @@ public class EmptyItemsDbHandler extends DbHandler {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_EMPTY_ITEMS_HISTORY, null, shoppingValues);
-        insertPredictionForItemIntoPredictionsTable(itemId, calculatePredictionForItem(itemId));
         db.close();
     }
 

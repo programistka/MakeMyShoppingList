@@ -13,7 +13,6 @@ import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class EmptyItemsDbHandlerTests extends AndroidTestCase {
@@ -36,6 +35,14 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
         List<EmptyItem> emptyItemsList = dbHandler.selectAllItemsFromItemsTable();
         assertEquals(1, emptyItemsList.size());
         assertEquals("proszek do prania", emptyItemsList.get(0).getName());
+    }
+
+    public void testWhenAddNewEmptyItemThenNewOnceItemNotAddedToPredictionsTable() {
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
+        dbHandler.insertNewEmptyItem("Proszek do prania", c.getTimeInMillis() );
+        PredictionsDbHandler predictionsDbHandler = new PredictionsDbHandler(new DbConfig("shopping_advisor_test.db"), mContext);
+        Prediction prediction = predictionsDbHandler.getPredictionById(1);
+        assertNull(prediction);
     }
 
     public void testWhenAddNewEmptyItemThenNewItemAddedToEmptyItemsHistoryTable() {

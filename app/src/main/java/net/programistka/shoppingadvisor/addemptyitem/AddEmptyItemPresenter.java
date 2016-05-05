@@ -27,8 +27,4 @@ public class AddEmptyItemPresenter {
             view.redirectToPredictionsView();
         }
     }
-
-    public void insertPredictionForItemIntoPredictionsTable(long id, long time) {
-        interactor.insertPredictionForItemIntoPredictionsTable(id, time);
-    }
 }

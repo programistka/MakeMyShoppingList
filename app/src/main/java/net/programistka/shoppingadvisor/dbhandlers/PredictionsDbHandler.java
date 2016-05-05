@@ -48,6 +48,27 @@ public class PredictionsDbHandler extends DbHandler {
         return itemsList;
     }
 
+    public Prediction getPredictionById(long id) {
+        String selectQuery = "SELECT " + COLUMN_DAYS_TO_RUN_OUT + ", " + COLUMN_NEXT_EMPTY_ITEM_DATE +
+                " FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS +
+                " WHERE " + COLUMN_ITEM_ID + " = " + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.getCount() == 0) {
+            return null;
+        }
+        Prediction prediction = new Prediction();
+        if(cursor.moveToFirst()) {
+            do {
+                prediction.setDaysNumber(cursor.getInt(cursor.getColumnIndex(COLUMN_DAYS_TO_RUN_OUT)));
+                prediction.setTime(cursor.getInt(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE)));
+            } while (cursor.moveToNext());
+            cursor.close();
+            db.close();
+        }
+        return prediction;
+    }
+
     public void insertBoughtPredictionIntoPredictionsTable(long itemId) {
         Prediction prediction = getBoughtPredictionForEmptyItem(itemId);
         ContentValues itemValues = new ContentValues();
