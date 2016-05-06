@@ -49,11 +49,6 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
     }
 
     @Override
-    public void showDialogToAddAnotherItem() {
-        startActivity(new Intent(getApplicationContext(), ShowPredictionsActivity.class));
-    }
-
-    @Override
     public void showEmptyItemNameMessage() {
         Toast toast = Toast.makeText(this, "Name is empty", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -63,12 +58,17 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
     @OnClick(R.id.addNewEmptyItem)
     public void addNewEmptyItem() {
         addEmptyItemPresenter.addNewEmptyItem(emptyItemName.getText().toString(), getCurrentTime().getTimeInMillis());
+    }
+
+    @Override
+    public void showDialogToAddAnotherItem() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Item added. Do you want to add another item?");
         alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 startActivity(new Intent(getApplicationContext(), AddEmptyItemActivity.class));
+                finish();
             }
         });
 
