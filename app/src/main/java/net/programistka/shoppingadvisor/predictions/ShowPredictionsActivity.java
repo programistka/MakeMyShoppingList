@@ -49,8 +49,6 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
-        attachFabAction();
     }
 
     @Override
