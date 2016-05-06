@@ -1,6 +1,8 @@
 package net.programistka.shoppingadvisor.predictions;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -8,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import net.programistka.shoppingadvisor.R;
-import net.programistka.shoppingadvisor.acitivities.ActivityWithFab;
+import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 import net.programistka.shoppingadvisor.presenters.ArchivePresenter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
@@ -17,8 +19,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class ShowPredictionsActivity extends ActivityWithFab {
+public class ShowPredictionsActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
 
@@ -68,5 +71,10 @@ public class ShowPredictionsActivity extends ActivityWithFab {
 
     private void initToolbar(){
         setSupportActionBar(toolbar);
+    }
+
+    @OnClick(R.id.plusButton)
+    protected void attachFabAction() {
+        startActivity(new Intent(ShowPredictionsActivity.this, AddEmptyItemActivity.class));
     }
 }
