@@ -61,12 +61,12 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         private void initImageView(View v) {
             ImageView imageView = (ImageView) v.findViewById(R.id.icon_imageview);
             if(toggle) {
-                imageView.setImageResource(R.drawable.apply);
+                imageView.setImageResource(R.drawable.ic_done_black_24dp);
                 selectedItems.add(id);
                 counter++;
             }
             else {
-                imageView.setImageResource(R.drawable.calendar);
+                imageView.setImageResource(R.drawable.ic_event_black_24dp);
                 selectedItems.remove(id);
                 counter--;
             }

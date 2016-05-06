@@ -13,17 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".main.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
             android:name=".addemptyitem.AddEmptyItemActivity"
             android:label="@string/title_activity_add_running_out_of_event"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
             android:name=".predictions.ShowPredictionsActivity"
-            android:label="@string/title_activity_show_running_out_of_predictions"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
