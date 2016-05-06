@@ -4,5 +4,5 @@ public interface AddEmptyItemView {
 
     void showEmptyItemNameMessage();
 
-    void redirectToPredictionsView();
+    void showDialogToAddAnotherItem();
 }

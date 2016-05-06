@@ -24,7 +24,7 @@ public class AddEmptyItemPresenter {
         }
         else {
             insertNewEmptyItem(name, time);
-            view.redirectToPredictionsView();
+            //view.showDialogToAddAnotherItem();
         }
     }
 }

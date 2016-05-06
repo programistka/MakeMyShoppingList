@@ -1,10 +1,11 @@
 package net.programistka.shoppingadvisor.addemptyitem;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -48,7 +49,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
     }
 
     @Override
-    public void redirectToPredictionsView() {
+    public void showDialogToAddAnotherItem() {
         startActivity(new Intent(getApplicationContext(), ShowPredictionsActivity.class));
     }
 
@@ -62,9 +63,23 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
     @OnClick(R.id.addNewEmptyItem)
     public void addNewEmptyItem() {
         addEmptyItemPresenter.addNewEmptyItem(emptyItemName.getText().toString(), getCurrentTime().getTimeInMillis());
-        Toast toast = Toast.makeText(this, "Item added", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Item added. Do you want to add another item?");
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                startActivity(new Intent(getApplicationContext(), AddEmptyItemActivity.class));
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        AlertDialog dialog = alertDialogBuilder.create();
+        dialog.show();
     }
 
     @OnClick(R.id.cancel)
@@ -79,7 +94,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
             @Override
             public void onClick(View v) {
                 addEmptyItemPresenter.insertExistingEmptyItem(l, time);
-                redirectToPredictionsView();
+                showDialogToAddAnotherItem();
             }
         });
     }
