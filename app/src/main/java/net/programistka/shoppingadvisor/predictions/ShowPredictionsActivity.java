@@ -1,17 +1,22 @@
 package net.programistka.shoppingadvisor.predictions;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
-import net.programistka.shoppingadvisor.presenters.ArchivePresenter;
+import net.programistka.shoppingadvisor.archive.ArchiveInteractor;
+import net.programistka.shoppingadvisor.archive.ArchivePresenter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.ArrayList;
@@ -61,12 +66,35 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
     public void markAsBought(MenuItem item) {
         presenter.markAsBought(selectedItems);
-        recyclerView.invalidate();
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Items Bought.");
+        alertDialogBuilder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                presenter.undoMarkAsBought(selectedItems);
+            }
+        });
+        AlertDialog dialog = alertDialogBuilder.create();
+        WindowManager.LayoutParams wlmp = dialog.getWindow().getAttributes();
+        wlmp.gravity = Gravity.BOTTOM;
+        dialog.show();
     }
 
     public void markAsArchived(MenuItem item) {
-        ArchivePresenter presenter = new ArchivePresenter(new DbConfig(), this);
+        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
         presenter.markAsArchived(selectedItems);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Items archived.");
+        alertDialogBuilder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                presenter.undoMarkAsArchived(selectedItems);
+            }
+        });
+        AlertDialog dialog = alertDialogBuilder.create();
+        WindowManager.LayoutParams wlmp = dialog.getWindow().getAttributes();
+        wlmp.gravity = Gravity.BOTTOM;
+        dialog.show();
     }
 
     private void initToolbar(){

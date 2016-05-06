@@ -1,6 +1,7 @@
 package net.programistka.shoppingadvisor;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class CalendarProvider {
     public static Calendar setCalendar(int day, int month, int year) {

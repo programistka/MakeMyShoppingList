@@ -55,7 +55,7 @@ public class EmptyItemsDbHandler extends DbHandler {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT " + COLUMN_ID + " FROM " + TABLE_ITEMS + " ORDER BY " + COLUMN_ID;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        long lastInsertedId = 0;
+        long lastInsertedId = 0-1;
         if (cursor.moveToLast()) {
             lastInsertedId = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
         }
@@ -66,8 +66,7 @@ public class EmptyItemsDbHandler extends DbHandler {
 
     private long checkIfElementAlreadyExistsInDatabase(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT " + COLUMN_ID + " FROM " + TABLE_ITEMS + " WHERE " + COLUMN_ITEM_NAME + " = '" + name + "'";
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.query(TABLE_ITEMS, new String[] { COLUMN_ID }, "" + COLUMN_ITEM_NAME + "= ?", new String[] { name }, null, null, null);
         if(cursor.getCount() > 0 )
         {
             cursor.moveToFirst();

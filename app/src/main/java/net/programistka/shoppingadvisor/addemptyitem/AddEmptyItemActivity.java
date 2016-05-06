@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -46,12 +47,16 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
         SuggestionsAdapter adapter = new SuggestionsAdapter(this, selectAllItemsPresenter.selectAllItemsFromItemsTable());
         emptyItemName.setAdapter(adapter);
         emptyItemName.setOnItemClickListener(this);
+
+        WindowManager.LayoutParams wmlp = getWindow().getAttributes();
+        wmlp.gravity = Gravity.TOP;
+        wmlp.y = 100;
     }
 
     @Override
     public void showEmptyItemNameMessage() {
         Toast toast = Toast.makeText(this, "Name is empty", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setGravity(Gravity.TOP, 0, 500);
         toast.show();
     }
 
@@ -79,6 +84,9 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
             }
         });
         AlertDialog dialog = alertDialogBuilder.create();
+        WindowManager.LayoutParams wlmp = dialog.getWindow().getAttributes();
+        wlmp.gravity = Gravity.TOP;
+        wlmp.y = 100;
         dialog.show();
     }
 

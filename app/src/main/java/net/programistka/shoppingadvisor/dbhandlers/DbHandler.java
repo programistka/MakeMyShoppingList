@@ -53,8 +53,8 @@ public class DbHandler extends SQLiteOpenHelper {
                 TABLE_ARCHIVE + "("
                 + COLUMN_ITEM_ID + " INTEGER)";
         db.execSQL(CREATE_ARCHIVE_TABLE);
-        initializeData(db);
-        initializeData2(db);
+//        initializeData(db);
+//        initializeData2(db);
     }
 
     @Override

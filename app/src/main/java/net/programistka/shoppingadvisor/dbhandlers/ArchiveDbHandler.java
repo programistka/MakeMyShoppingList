@@ -10,6 +10,8 @@ import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.models.PredictionsHandler;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
+import java.util.List;
+
 public class ArchiveDbHandler extends DbHandler {
 
     public ArchiveDbHandler(DbConfig dbConfig, Context context) {
@@ -31,5 +33,13 @@ public class ArchiveDbHandler extends DbHandler {
             return true;
         }
         return false;
+    }
+
+    public void undoMarkAsArchived(List<Long> selectedItems) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        for (Long itemId:selectedItems) {
+            db.delete(TABLE_ARCHIVE, COLUMN_ITEM_ID + "=" + itemId, null);
+        }
+        db.close();
     }
 }
