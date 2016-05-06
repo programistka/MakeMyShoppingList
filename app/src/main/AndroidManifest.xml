@@ -20,7 +20,7 @@
         <activity
             android:name=".addemptyitem.AddEmptyItemActivity"
             android:label="@string/title_activity_add_running_out_of_event"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
             android:name=".predictions.ShowPredictionsActivity"
             android:label="@string/title_activity_show_running_out_of_predictions"

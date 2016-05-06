@@ -26,21 +26,18 @@ import butterknife.OnClick;
 
 public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyItemView, AdapterView.OnItemClickListener {
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
-
     private AddEmptyItemPresenter addEmptyItemPresenter ;
     private Long time;
 
     @BindView(R.id.emptyItemName) AutoCompleteTextView emptyItemName;
     @BindView(R.id.addNewEmptyItem) Button addNewEmptyItem;
+    @BindView(R.id.cancel) Button cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_empty_item);
         ButterKnife.bind(this);
-
-        initToolbar();
 
         addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig(), getApplicationContext()), this);
         SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(new DbConfig(), getApplicationContext()));
@@ -65,6 +62,14 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
     @OnClick(R.id.addNewEmptyItem)
     public void addNewEmptyItem() {
         addEmptyItemPresenter.addNewEmptyItem(emptyItemName.getText().toString(), getCurrentTime().getTimeInMillis());
+        Toast toast = Toast.makeText(this, "Item added", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
+    @OnClick(R.id.cancel)
+    public void cancel() {
+        this.finish();
     }
 
     @Override
@@ -77,9 +82,6 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
                 redirectToPredictionsView();
             }
         });
-    }
-    private void initToolbar(){
-        setSupportActionBar(toolbar);
     }
 
     @NonNull
