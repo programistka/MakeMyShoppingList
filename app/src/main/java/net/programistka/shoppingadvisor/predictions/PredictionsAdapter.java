@@ -32,8 +32,7 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         public ViewHolder(View v) {
             super(v);
             view = v;
-            ImageView imageView = (ImageView) v.findViewById(R.id.icon_imageview);
-            imageView.setOnClickListener(new ImageView.OnClickListener() {
+            v.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             initImageView(v);

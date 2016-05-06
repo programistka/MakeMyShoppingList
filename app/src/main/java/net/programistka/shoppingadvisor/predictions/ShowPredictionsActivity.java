@@ -29,6 +29,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     public static List<Long> selectedItems = new ArrayList<>();
 
     private ShowPredictionsPresenter presenter;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), this));
         PredictionsAdapter adapter = new PredictionsAdapter(presenter.getPredictions());
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lvItems);
+        recyclerView = (RecyclerView) findViewById(R.id.lvItems);
         if(recyclerView == null) {
             return;
         }
@@ -60,6 +61,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
     public void markAsBought(MenuItem item) {
         presenter.markAsBought(selectedItems);
+        recyclerView.invalidate();
     }
 
     public void markAsArchived(MenuItem item) {

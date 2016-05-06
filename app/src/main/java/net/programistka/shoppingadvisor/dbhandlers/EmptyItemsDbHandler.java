@@ -23,12 +23,12 @@ public class EmptyItemsDbHandler extends DbHandler {
         super(dbConfig, context);
     }
 
-    public void insertNewEmptyItem(String newEmptyItemName, long time) {
+    public long insertNewEmptyItem(String newEmptyItemName, long time) {
         String trimmedName = newEmptyItemName.toLowerCase().trim();
         long itemId = checkIfElementAlreadyExistsInDatabase(trimmedName);
         if(itemId > 0) {
             insertExistingEmptyItem(itemId, time);
-            return;
+            return itemId;
         }
 
         insertNewEmptyItemIntoItemsTable(trimmedName);
@@ -38,6 +38,7 @@ public class EmptyItemsDbHandler extends DbHandler {
         if (lastInsertedId != -1) {
             insertNewEmptyItemIntoHistoryTable(lastInsertedId, time);
         }
+        return lastInsertedId;
     }
 
     public void insertExistingEmptyItem(long existingEmptyItemId, long time) {
@@ -54,7 +55,7 @@ public class EmptyItemsDbHandler extends DbHandler {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT " + COLUMN_ID + " FROM " + TABLE_ITEMS + " ORDER BY " + COLUMN_ID;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        long lastInsertedId = -1;
+        long lastInsertedId = 0;
         if (cursor.moveToLast()) {
             lastInsertedId = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
         }

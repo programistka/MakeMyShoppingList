@@ -16,8 +16,8 @@ public class AddEmptyItemInteractor {
         dbHandler = new EmptyItemsDbHandler(dbConfig, context);
     }
 
-    public void insertNewEmptyItem(String name, long time) {
-        dbHandler.insertNewEmptyItem(name, time);
+    public long insertNewEmptyItem(String name, long time) {
+        return dbHandler.insertNewEmptyItem(name, time);
     }
 
     public void insertExistingEmptyItem(long id, long time) {

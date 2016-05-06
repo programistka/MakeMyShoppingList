@@ -10,8 +10,8 @@ public class AddEmptyItemPresenter {
         this.view = view;
     }
 
-    public void insertNewEmptyItem(String name, long time) {
-        interactor.insertNewEmptyItem(name, time);
+    public long insertNewEmptyItem(String name, long time) {
+        return interactor.insertNewEmptyItem(name, time);
     }
 
     public void insertExistingEmptyItem(long id, long time) {
@@ -23,8 +23,12 @@ public class AddEmptyItemPresenter {
             view.showEmptyItemNameMessage();
         }
         else {
-            insertNewEmptyItem(name, time);
-            view.showDialogToAddAnotherItem();
+            if(insertNewEmptyItem(name, time) > 0) {
+                view.showDialogToAddAnotherItem();
+            }
+            else {
+                view.showAddingErrorMessage();
+            }
         }
     }
 }

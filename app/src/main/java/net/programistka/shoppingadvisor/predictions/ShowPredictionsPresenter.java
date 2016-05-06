@@ -1,11 +1,7 @@
 package net.programistka.shoppingadvisor.predictions;
 
-import android.content.Context;
-
-import net.programistka.shoppingadvisor.dbhandlers.PredictionsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.models.Prediction;
-import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.List;
 

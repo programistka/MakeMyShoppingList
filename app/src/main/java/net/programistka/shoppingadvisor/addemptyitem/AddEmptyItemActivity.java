@@ -82,6 +82,13 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
         dialog.show();
     }
 
+    @Override
+    public void showAddingErrorMessage() {
+        Toast toast = Toast.makeText(this, "Error occured when adding. Please try again", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
     @OnClick(R.id.cancel)
     public void cancel() {
         this.finish();
