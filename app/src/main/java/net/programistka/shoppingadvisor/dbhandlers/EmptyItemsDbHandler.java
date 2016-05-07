@@ -42,6 +42,10 @@ public class EmptyItemsDbHandler extends DbHandler {
     }
 
     public void insertExistingEmptyItem(long existingEmptyItemId, long time) {
+        if(checkIfItemExistsWithTheSameDate(existingEmptyItemId, time)) {
+            return;
+        }
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         insertNewEmptyItemIntoHistoryTable(existingEmptyItemId, time);
@@ -51,11 +55,25 @@ public class EmptyItemsDbHandler extends DbHandler {
         db.close();
     }
 
+    private boolean checkIfItemExistsWithTheSameDate(long existingEmptyItemId, long time) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT " + COLUMN_ITEM_ID + " FROM " + TABLE_EMPTY_ITEMS_HISTORY +
+                             " WHERE " + COLUMN_ITEM_ID + " = " + existingEmptyItemId +
+                             " AND " + COLUMN_EMPTY_ITEM_DATE + " = " + time;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.getCount() > 0){
+            db.close();
+            return true;
+        }
+        db.close();
+        return false;
+    }
+
     private long getLastInsertedId() {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT " + COLUMN_ID + " FROM " + TABLE_ITEMS + " ORDER BY " + COLUMN_ID;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        long lastInsertedId = 0-1;
+        long lastInsertedId = 0;
         if (cursor.moveToLast()) {
             lastInsertedId = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
         }

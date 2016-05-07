@@ -6,6 +6,9 @@ public class PredictionsHandler {
     private static final int MILLIS_IN_DAY = 1000*3600*24;
 
     public static Prediction generatePrediction(List<Long> shoppingTimes) {
+        if(shoppingTimes.size() < 2) {
+            return  null;
+        }
         long current = shoppingTimes.get(0);
         long next = shoppingTimes.get(1);
         if(shoppingTimes.size() == 2) {

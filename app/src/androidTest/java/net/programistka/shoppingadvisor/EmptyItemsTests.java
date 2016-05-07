@@ -71,6 +71,29 @@ public class EmptyItemsTests extends AndroidTestCase {
         assertEquals(2, emptyItems.size());
     }
 
+    public void testWhenAddedEmptyItemForTheSecondTimeAndTheSameDayThenNotVisibleInPredictions() {
+
+        //Given
+        AddEmptyItemView view = mock(AddEmptyItemView.class);
+        AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
+        Calendar c = CalendarProvider.setCalendar(21, 3, 2016);
+        Calendar c2 = CalendarProvider.setCalendar(21, 3, 2016);
+        SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(new DbConfig("shopping_advisor_test.db"), mContext));
+
+        //When
+        addEmptyItemPresenter.insertNewEmptyItem("Kasza", c.getTimeInMillis());
+        addEmptyItemPresenter.insertExistingEmptyItem(1, c2.getTimeInMillis());
+
+        //Then
+        List<EmptyItem> shoppingHistory = selectAllItemsPresenter.selectShoppingHistoryForItemFromItemsHistoryTable(1);
+        List<Long> shoppingTimesHistory = new ArrayList<>();
+        for (EmptyItem item:shoppingHistory) {
+            shoppingTimesHistory.add(item.getCreationDate());
+        }
+        Prediction prediction = PredictionsHandler.generatePrediction(shoppingTimesHistory);
+        assertNull(prediction);
+    }
+
     public void testWhenAddedEmptyItemForTheSecondTimeAndNotTheSameDayThenVisibleInPredictions() {
 
         //Given
