@@ -1,5 +1,8 @@
 package net.programistka.shoppingadvisor.models;
 
+import net.programistka.shoppingadvisor.CalendarProvider;
+
+import java.util.Calendar;
 import java.util.List;
 
 public class PredictionsHandler {
@@ -16,6 +19,14 @@ public class PredictionsHandler {
         } else {
             return generatePredictionForMoreThanTwoItems(shoppingTimes, current, next);
         }
+    }
+
+    public static Prediction generateExpiredBoughtPrediction(int daysToRunOut) {
+        Prediction prediction = new Prediction();
+        Calendar now = CalendarProvider.setNowCalendar();
+        prediction.setTime(now.getTimeInMillis() + daysToRunOut* MILLIS_IN_DAY);
+        prediction.setDaysNumber(daysToRunOut);
+        return prediction;
     }
 
     public static Prediction generateBoughtPrediction(long nextEmptyItemDate, int daysToRunOut) {

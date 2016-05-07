@@ -23,4 +23,8 @@ public class ArchiveInteractor {
     public void undoMarkAsArchived(List<Long> selectedItems) {
         dbHandler.undoMarkAsArchived(selectedItems);
     }
+
+    public Boolean checkIfArchivedElement(long itemId) {
+        return dbHandler.checkIfArchivedElement(itemId);
+    }
 }

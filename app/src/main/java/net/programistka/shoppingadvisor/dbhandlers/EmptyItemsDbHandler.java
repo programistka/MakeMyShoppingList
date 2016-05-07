@@ -127,7 +127,7 @@ public class EmptyItemsDbHandler extends DbHandler {
         db.close();
     }
 
-    private void updatePredictionForItemInPredictionsTable(long itemId) {
+    public void updatePredictionForItemInPredictionsTable(long itemId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_EMPTY_ITEMS_PREDICTIONS, COLUMN_ITEM_ID + "=" + itemId, null);
         db.delete(TABLE_ARCHIVE, COLUMN_ITEM_ID + "=" + itemId, null);
@@ -135,7 +135,7 @@ public class EmptyItemsDbHandler extends DbHandler {
         insertPredictionForItemIntoPredictionsTable(itemId, calculatePredictionForItem(itemId));
     }
 
-    private Prediction calculatePredictionForItem(long itemId) {
+    public Prediction calculatePredictionForItem(long itemId) {
         List<Long> emptyTimes = getEmptyTimes(itemId);
         if (emptyTimes.size() > 1) {
             Prediction prediction = PredictionsHandler.generatePrediction(emptyTimes);

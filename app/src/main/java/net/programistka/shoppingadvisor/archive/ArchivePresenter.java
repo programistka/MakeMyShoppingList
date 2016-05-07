@@ -17,4 +17,8 @@ public class ArchivePresenter {
     public void undoMarkAsArchived(List<Long> selectedItems) {
         interactor.undoMarkAsArchived(selectedItems);
     }
+
+    public Boolean checkIfArchivedElement(long itemId) {
+        return interactor.checkIfArchivedElement(itemId);
+    }
 }

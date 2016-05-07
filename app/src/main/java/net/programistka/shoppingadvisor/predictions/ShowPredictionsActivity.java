@@ -21,6 +21,8 @@ import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,10 +76,19 @@ public class ShowPredictionsActivity extends AppCompatActivity {
                 presenter.undoMarkAsBought(selectedItems);
             }
         });
-        AlertDialog dialog = alertDialogBuilder.create();
+        final AlertDialog dialog = alertDialogBuilder.create();
         WindowManager.LayoutParams wlmp = dialog.getWindow().getAttributes();
         wlmp.gravity = Gravity.BOTTOM;
         dialog.show();
+
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                dialog.dismiss();
+                timer.cancel();
+            }
+        }, 2000);
+
     }
 
     public void markAsArchived(MenuItem item) {
@@ -91,10 +102,19 @@ public class ShowPredictionsActivity extends AppCompatActivity {
                 presenter.undoMarkAsArchived(selectedItems);
             }
         });
-        AlertDialog dialog = alertDialogBuilder.create();
+        final AlertDialog dialog = alertDialogBuilder.create();
         WindowManager.LayoutParams wlmp = dialog.getWindow().getAttributes();
         wlmp.gravity = Gravity.BOTTOM;
         dialog.show();
+
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                dialog.dismiss();
+                timer.cancel();
+            }
+        }, 5000);
+
     }
 
     private void initToolbar(){

@@ -85,7 +85,15 @@ public class PredictionsDbHandler extends DbHandler {
         Cursor cursor = db.rawQuery(selectQuery, null);
         Prediction newPrediction = new Prediction();
         if(cursor.moveToFirst()) {
-            newPrediction = PredictionsHandler.generateBoughtPrediction(cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE)), cursor.getInt(cursor.getColumnIndex(COLUMN_DAYS_TO_RUN_OUT)));
+            long nextEmptyItemDate = cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE));
+            int daysToRunOut = cursor.getInt(cursor.getColumnIndex(COLUMN_DAYS_TO_RUN_OUT));
+            Calendar c = Calendar.getInstance();
+            if(nextEmptyItemDate < c.getTimeInMillis()) {
+                newPrediction = PredictionsHandler.generateExpiredBoughtPrediction(daysToRunOut);
+            }
+            else {
+                newPrediction = PredictionsHandler.generateBoughtPrediction(nextEmptyItemDate, daysToRunOut);
+            }
         }
         return newPrediction;
     }

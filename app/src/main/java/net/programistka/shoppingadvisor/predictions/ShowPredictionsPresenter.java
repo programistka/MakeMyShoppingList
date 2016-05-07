@@ -26,6 +26,6 @@ public class ShowPredictionsPresenter {
     }
 
     public void undoMarkAsBought(List<Long> selectedItems) {
-        //TODO: delete latest prediction because this is the prediction which is from bought
+        interactor.undoMarkAsBought(selectedItems);
     }
 }
