@@ -205,7 +205,6 @@ public class EmptyItemsTests extends AndroidTestCase {
         Calendar c3 = Calendar.getInstance();
         c3.setTimeInMillis(historyItems.get(historyItems.size()-1).getCreationDate());
         Prediction prediction = showPredictionsPresenter.getPredictionForItem(1);
-        System.out.println("IN test" + prediction.getDaysNumber());
         Calendar c4 = Calendar.getInstance();
         c4.setTimeInMillis(prediction.getTime());
 

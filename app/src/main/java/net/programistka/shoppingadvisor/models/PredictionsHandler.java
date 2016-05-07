@@ -8,7 +8,6 @@ public class PredictionsHandler {
     public static Prediction generatePrediction(List<Long> shoppingTimes) {
         long current = shoppingTimes.get(0);
         long next = shoppingTimes.get(1);
-        System.out.println("Shopping times size: " + shoppingTimes.size());
         if(shoppingTimes.size() == 2) {
             return generatePredictionForTwoItems(current, next);
         } else {
@@ -42,7 +41,6 @@ public class PredictionsHandler {
         int daysAverage = (int)(next - current)/ MILLIS_IN_DAY;
         prediction.setDaysNumber(daysAverage);
         prediction.setTime(next + daysAverage * MILLIS_IN_DAY);
-        System.out.println("Days number" + daysAverage);
         return prediction;
     }
 }

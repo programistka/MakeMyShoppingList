@@ -93,7 +93,6 @@ public class DbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         List<EmptyItem> itemsList = new ArrayList<>();
         String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME + " FROM " + TABLE_ITEMS;
-        System.out.println(selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {
             do {
@@ -102,7 +101,6 @@ public class DbHandler extends SQLiteOpenHelper {
             cursor.close();
         }
         db.close();
-        System.out.println(itemsList.size());
         return itemsList;
     }
 
