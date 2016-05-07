@@ -27,6 +27,7 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         public View view;
         public TextView nameTextView;
         public TextView dateTextView;
+        public ImageView iconView;
         public long id;
 
         public ViewHolder(View v) {
@@ -77,6 +78,16 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         this.emptyItems = emptyItems;
     }
 
+    public void clear() {
+        emptyItems.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<EmptyItem> list) {
+        emptyItems.addAll(list);
+        notifyDataSetChanged();
+    }
+
     @Override
     public PredictionsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(
@@ -101,6 +112,7 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         ViewHolder viewHolder = new ViewHolder(v);
         viewHolder.nameTextView = (TextView)v.findViewById(R.id.name_textview);
         viewHolder.dateTextView = (TextView)v.findViewById(R.id.date_textview);
+        viewHolder.iconView = (ImageView)v.findViewById(R.id.icon_imageview);
         return viewHolder;
     }
 
@@ -113,5 +125,6 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         }
         holder.dateTextView.setText(sdf.format(currentEmptyItem.getPredictionDate()));
         holder.id = currentEmptyItem.getId();
+        holder.iconView.setImageResource(R.drawable.ic_event_black_24dp);
     }
 }

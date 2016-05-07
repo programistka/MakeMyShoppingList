@@ -35,8 +35,9 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     public static Menu menu;
     public static List<Long> selectedItems = new ArrayList<>();
 
-    private ShowPredictionsPresenter presenter;
+    private ShowPredictionsPresenter showPredictionsPresenter;
     RecyclerView recyclerView;
+    PredictionsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,8 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
         initToolbar();
 
-        presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), this));
-        PredictionsAdapter adapter = new PredictionsAdapter(presenter.getPredictions());
+        showPredictionsPresenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), this));
+        adapter = new PredictionsAdapter(showPredictionsPresenter.getPredictions());
 
         recyclerView = (RecyclerView) findViewById(R.id.lvItems);
         if(recyclerView == null) {
@@ -67,13 +68,19 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     }
 
     public void markAsBought(MenuItem item) {
-        presenter.markAsBought(selectedItems);
+        showPredictionsPresenter.markAsBought(selectedItems);
+        adapter.clear();
+        adapter.addAll(showPredictionsPresenter.getPredictions());
+        adapter.notifyDataSetChanged();
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Items Bought.");
         alertDialogBuilder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                presenter.undoMarkAsBought(selectedItems);
+                showPredictionsPresenter.undoMarkAsBought(selectedItems);
+                adapter.clear();
+                adapter.addAll(showPredictionsPresenter.getPredictions());
+                adapter.notifyDataSetChanged();
             }
         });
         final AlertDialog dialog = alertDialogBuilder.create();
@@ -94,12 +101,18 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     public void markAsArchived(MenuItem item) {
         final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
         presenter.markAsArchived(selectedItems);
+        adapter.clear();
+        adapter.addAll(showPredictionsPresenter.getPredictions());
+        adapter.notifyDataSetChanged();
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Items archived.");
         alertDialogBuilder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 presenter.undoMarkAsArchived(selectedItems);
+                adapter.clear();
+                adapter.addAll(showPredictionsPresenter.getPredictions());
+                adapter.notifyDataSetChanged();
             }
         });
         final AlertDialog dialog = alertDialogBuilder.create();
