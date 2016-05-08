@@ -44,6 +44,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
     public static Menu menu;
     public static List<Long> selectedItems = new ArrayList<>();
+    public static List<Long> copySelectedItems = new ArrayList<>();
 
     private ShowPredictionsPresenter showPredictionsPresenter;
     PredictionsAdapter adapter;
@@ -73,6 +74,12 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+    private void removeFragments(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.removeAll();
+        viewPager.setAdapter(adapter);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_predictions, menu);
@@ -81,19 +88,20 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     }
 
     public void markAsBought(MenuItem item) {
+        copySelectedItems.addAll(selectedItems);
         showPredictionsPresenter.markAsBought(selectedItems);
-        adapter.clear();
-        adapter.addAll(showPredictionsPresenter.getPredictions());
-        adapter.notifyDataSetChanged();
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        removeFragments(viewPager);
+        setupViewPager(viewPager);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Items Bought.");
         alertDialogBuilder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                showPredictionsPresenter.undoMarkAsBought(selectedItems);
-                adapter.clear();
-                adapter.addAll(showPredictionsPresenter.getPredictions());
-                adapter.notifyDataSetChanged();
+                showPredictionsPresenter.undoMarkAsBought(copySelectedItems);
+                viewPager = (ViewPager) findViewById(R.id.viewpager);
+                removeFragments(viewPager);
+                setupViewPager(viewPager);
             }
         });
         final AlertDialog dialog = alertDialogBuilder.create();
@@ -114,18 +122,19 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     public void markAsArchived(MenuItem item) {
         final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
         presenter.markAsArchived(selectedItems);
-        adapter.clear();
-        adapter.addAll(showPredictionsPresenter.getPredictions());
-        adapter.notifyDataSetChanged();
+        copySelectedItems.addAll(selectedItems);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        removeFragments(viewPager);
+        setupViewPager(viewPager);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Items archived.");
         alertDialogBuilder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                presenter.undoMarkAsArchived(selectedItems);
-                adapter.clear();
-                adapter.addAll(showPredictionsPresenter.getPredictions());
-                adapter.notifyDataSetChanged();
+                presenter.undoMarkAsArchived(copySelectedItems);
+                viewPager = (ViewPager) findViewById(R.id.viewpager);
+                removeFragments(viewPager);
+                setupViewPager(viewPager);
             }
         });
         final AlertDialog dialog = alertDialogBuilder.create();
