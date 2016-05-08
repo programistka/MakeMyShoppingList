@@ -263,10 +263,8 @@ public class EmptyItemsTests extends AndroidTestCase {
         //Then
         Prediction prediction = showPredictionsPresenter.getPredictionForItem(1);
         Calendar c3 = Calendar.getInstance();
-        c3.setTimeInMillis(prediction.getTime());
-        assertEquals(9, c3.get(Calendar.DAY_OF_MONTH));
-        assertEquals(4, c3.get(Calendar.MONTH));
-        assertEquals(2016, c3.get(Calendar.YEAR));
+        Calendar now = CalendarProvider.setNowCalendar();
+        assertEquals(now.getTimeInMillis() + 2 * 1000*24*3600, prediction.getTime());
     }
 
     public void testWhenMarkAsBoughtAndPredictionNotExpiredThenNewPredictionInPredictionsTable() {
