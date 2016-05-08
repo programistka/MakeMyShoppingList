@@ -20,9 +20,9 @@ import java.util.List;
 public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.ViewHolder> {
     private List<EmptyItem> emptyItems;
     private List<Long> selectedItems = new ArrayList<>();
+    private int counter = 0;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private int counter = 0;
         private Boolean toggle = true;
         public View view;
         public TextView nameTextView;
