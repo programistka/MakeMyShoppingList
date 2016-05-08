@@ -53,8 +53,13 @@ public class DbHandler extends SQLiteOpenHelper {
                 TABLE_ARCHIVE + "("
                 + COLUMN_ITEM_ID + " INTEGER)";
         db.execSQL(CREATE_ARCHIVE_TABLE);
-//        initializeData(db);
-//        initializeData2(db);
+        initializeData(db, 1,  "szampon");
+        initializeData(db, 2, "makaron");
+        initializeData(db, 3, "ziemniaki");
+        initializeData(db, 4, "kasza");
+        initializeData(db, 5, "płyn do mycia naczyń");
+        initializeData(db, 6, "odkurzacz");
+        initializeData(db, 7, "ziemia do kwiatów");
     }
 
     @Override
@@ -63,29 +68,16 @@ public class DbHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void initializeData(SQLiteDatabase db) {
-        String INSERT_PRODUCTS = "INSERT INTO items VALUES(1, 'makaron')";
+    public void initializeData(SQLiteDatabase db, long id, String name) {
+        String INSERT_PRODUCTS = "INSERT INTO items VALUES(" + id +", '" + name + "')";
         db.execSQL(INSERT_PRODUCTS);
-        String INSERT_HISTORY1 = "INSERT INTO empty_items_history VALUES(1, 1458428400000)";
-        String INSERT_HISTORY2 = "INSERT INTO empty_items_history VALUES(1, 1458687600000)";
-        String INSERT_HISTORY3 = "INSERT INTO empty_items_history VALUES(1, 1458946800000)";
+        String INSERT_HISTORY1 = "INSERT INTO empty_items_history VALUES(" + id + ", 1458428400000)";
+        String INSERT_HISTORY2 = "INSERT INTO empty_items_history VALUES(" + id + ", 1458687600000)";
+        String INSERT_HISTORY3 = "INSERT INTO empty_items_history VALUES(" + id + ", 1458946800000)";
         db.execSQL(INSERT_HISTORY1);
         db.execSQL(INSERT_HISTORY2);
         db.execSQL(INSERT_HISTORY3);
-        String INSERT_PREDICTIONS = "INSERT INTO empty_items_predictions VALUES(1, 1479596400000, 3)";
-        db.execSQL(INSERT_PREDICTIONS);
-    }
-
-    public void initializeData2(SQLiteDatabase db) {
-        String INSERT_PRODUCTS = "INSERT INTO items VALUES(2, 'szampon')";
-        db.execSQL(INSERT_PRODUCTS);
-        String INSERT_HISTORY1 = "INSERT INTO empty_items_history VALUES(2, 1457996400000)";
-        String INSERT_HISTORY2 = "INSERT INTO empty_items_history VALUES(2, 1458860400000)";
-        String INSERT_HISTORY3 = "INSERT INTO empty_items_history VALUES(2, 1459461600000)";
-        db.execSQL(INSERT_HISTORY1);
-        db.execSQL(INSERT_HISTORY2);
-        db.execSQL(INSERT_HISTORY3);
-        String INSERT_PREDICTIONS = "INSERT INTO empty_items_predictions VALUES(2, 1459807200000, 3)";
+        String INSERT_PREDICTIONS = "INSERT INTO empty_items_predictions VALUES(" + id + ", 1479596400000, 3)";
         db.execSQL(INSERT_PREDICTIONS);
     }
 

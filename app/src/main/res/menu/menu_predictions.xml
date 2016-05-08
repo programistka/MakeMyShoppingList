@@ -8,14 +8,14 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_favorite"
-        android:icon="@drawable/ic_shopping_cart_black_24dp"
+        android:icon="@drawable/ic_shopping_cart_white_24dp"
         android:title="@string/done"
         android:visible="false"
         android:onClick="markAsBought"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_archive"
-        android:icon="@drawable/ic_store_black_24dp"
+        android:icon="@drawable/ic_archive_white_24dp"
         android:title="@string/archive"
         android:visible="false"
         android:onClick="markAsArchived"

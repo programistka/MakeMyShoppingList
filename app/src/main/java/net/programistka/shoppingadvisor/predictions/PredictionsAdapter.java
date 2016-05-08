@@ -67,7 +67,7 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
                 counter++;
             }
             else {
-                imageView.setImageResource(R.drawable.ic_event_black_24dp);
+                imageView.setImageResource(R.drawable.ic_event_grey_24dp);
                 selectedItems.remove(id);
                 counter--;
             }
@@ -125,6 +125,6 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         }
         holder.dateTextView.setText(sdf.format(currentEmptyItem.getPredictionDate()));
         holder.id = currentEmptyItem.getId();
-        holder.iconView.setImageResource(R.drawable.ic_event_black_24dp);
+        holder.iconView.setImageResource(R.drawable.ic_event_grey_24dp);
     }
 }

@@ -30,7 +30,8 @@ public class PredictionsDbHandler extends DbHandler {
                 " LEFT JOIN " + TABLE_ARCHIVE +
                 " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "="  + TABLE_ARCHIVE + "." + COLUMN_ITEM_ID +
                 " WHERE " + TABLE_ARCHIVE + "." +COLUMN_ITEM_ID + " ISNULL" +
-                " GROUP BY " + TABLE_EMPTY_ITEMS_PREDICTIONS +"." + COLUMN_ITEM_ID;
+                " GROUP BY " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID +
+                " ORDER BY " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_NEXT_EMPTY_ITEM_DATE;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
