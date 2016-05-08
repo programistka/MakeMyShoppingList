@@ -46,7 +46,6 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     public static List<Long> selectedItems = new ArrayList<>();
 
     private ShowPredictionsPresenter showPredictionsPresenter;
-    RecyclerView recyclerView;
     PredictionsAdapter adapter;
 
     @Override
@@ -64,16 +63,6 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         showPredictionsPresenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), this));
-        adapter = new PredictionsAdapter(showPredictionsPresenter.getPredictions());
-
-        recyclerView = (RecyclerView) findViewById(R.id.lvItems);
-        if(recyclerView == null) {
-            return;
-        }
-        recyclerView.setAdapter(adapter);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
     }
 
     private void setupViewPager(ViewPager viewPager) {
