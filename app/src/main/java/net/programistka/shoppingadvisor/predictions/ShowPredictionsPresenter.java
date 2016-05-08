@@ -28,4 +28,12 @@ public class ShowPredictionsPresenter {
     public void undoMarkAsBought(List<Long> selectedItems) {
         interactor.undoMarkAsBought(selectedItems);
     }
+
+    public List<EmptyItem> getPredictionsForWeek() {
+        return interactor.getPredictionsForWeek();
+    }
+
+    public List<EmptyItem> getPredictionsForMonth() {
+        return interactor.getPredictionsForMonth();
+    }
 }

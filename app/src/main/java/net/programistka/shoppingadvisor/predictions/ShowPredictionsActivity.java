@@ -3,6 +3,11 @@ package net.programistka.shoppingadvisor.predictions;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +22,9 @@ import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 import net.programistka.shoppingadvisor.archive.ArchiveInteractor;
 import net.programistka.shoppingadvisor.archive.ArchivePresenter;
+import net.programistka.shoppingadvisor.predictions.fragments.AllFragment;
+import net.programistka.shoppingadvisor.predictions.fragments.SevenDaysFragment;
+import net.programistka.shoppingadvisor.predictions.fragments.ThirtyDaysFragment;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.ArrayList;
@@ -31,6 +39,8 @@ import butterknife.OnClick;
 public class ShowPredictionsActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     public static Menu menu;
     public static List<Long> selectedItems = new ArrayList<>();
@@ -47,6 +57,12 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
         initToolbar();
 
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
         showPredictionsPresenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), this));
         adapter = new PredictionsAdapter(showPredictionsPresenter.getPredictions());
 
@@ -58,6 +74,14 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new AllFragment(), "ALL");
+        adapter.addFragment(new SevenDaysFragment(), "7 DAYS");
+        adapter.addFragment(new ThirtyDaysFragment(), "30 DAYS");
+        viewPager.setAdapter(adapter);
     }
 
     @Override
@@ -132,6 +156,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
     private void initToolbar(){
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @OnClick(R.id.plusButton)

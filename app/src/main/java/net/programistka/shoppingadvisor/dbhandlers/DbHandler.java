@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import net.programistka.shoppingadvisor.CalendarProvider;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
@@ -53,13 +54,18 @@ public class DbHandler extends SQLiteOpenHelper {
                 TABLE_ARCHIVE + "("
                 + COLUMN_ITEM_ID + " INTEGER)";
         db.execSQL(CREATE_ARCHIVE_TABLE);
-        initializeData(db, 1,  "szampon");
-        initializeData(db, 2, "makaron");
-        initializeData(db, 3, "ziemniaki");
-        initializeData(db, 4, "kasza");
-        initializeData(db, 5, "płyn do mycia naczyń");
-        initializeData(db, 6, "odkurzacz");
-        initializeData(db, 7, "ziemia do kwiatów");
+
+        Calendar calendar = CalendarProvider.setNowCalendar();
+        long lessThanSevenDays = calendar.getTimeInMillis() - 3*1000*24*3600;
+        long lessThanThirtyDays = calendar.getTimeInMillis() - 25*1000*24*3600;
+
+        initializeData(db, 1,  "szampon", calendar.getTimeInMillis());
+        initializeData(db, 2, "makaron", calendar.getTimeInMillis());
+        initializeData(db, 3, "ziemniaki", lessThanSevenDays);
+        initializeData(db, 4, "kasza", lessThanSevenDays);
+        initializeData(db, 5, "płyn do mycia naczyń", lessThanThirtyDays);
+        initializeData(db, 6, "odkurzacz", lessThanThirtyDays);
+        initializeData(db, 7, "ziemia do kwiatów", lessThanThirtyDays);
     }
 
     @Override
@@ -68,7 +74,7 @@ public class DbHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void initializeData(SQLiteDatabase db, long id, String name) {
+    public void initializeData(SQLiteDatabase db, long id, String name, long nextEmptyDate) {
         String INSERT_PRODUCTS = "INSERT INTO items VALUES(" + id +", '" + name + "')";
         db.execSQL(INSERT_PRODUCTS);
         String INSERT_HISTORY1 = "INSERT INTO empty_items_history VALUES(" + id + ", 1458428400000)";
@@ -77,7 +83,7 @@ public class DbHandler extends SQLiteOpenHelper {
         db.execSQL(INSERT_HISTORY1);
         db.execSQL(INSERT_HISTORY2);
         db.execSQL(INSERT_HISTORY3);
-        String INSERT_PREDICTIONS = "INSERT INTO empty_items_predictions VALUES(" + id + ", 1479596400000, 3)";
+        String INSERT_PREDICTIONS = "INSERT INTO empty_items_predictions VALUES(" + id + ", " + nextEmptyDate + ", 3)";
         db.execSQL(INSERT_PREDICTIONS);
     }
 

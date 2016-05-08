@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import net.programistka.shoppingadvisor.CalendarProvider;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.models.PredictionsHandler;
@@ -13,9 +14,10 @@ import net.programistka.shoppingadvisor.presenters.DbConfig;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 public class PredictionsDbHandler extends DbHandler {
+
+    private static final int MILLIS_IN_DAY = 1000*3600*24;
 
     public PredictionsDbHandler(DbConfig dbConfig, Context context) {
         super(dbConfig, context);
@@ -29,7 +31,7 @@ public class PredictionsDbHandler extends DbHandler {
                 " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "="  + TABLE_ITEMS + "." + COLUMN_ID +
                 " LEFT JOIN " + TABLE_ARCHIVE +
                 " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "="  + TABLE_ARCHIVE + "." + COLUMN_ITEM_ID +
-                " WHERE " + TABLE_ARCHIVE + "." +COLUMN_ITEM_ID + " ISNULL" +
+                " WHERE " + TABLE_ARCHIVE + "." + COLUMN_ITEM_ID + " ISNULL" +
                 " GROUP BY " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID +
                 " ORDER BY " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_NEXT_EMPTY_ITEM_DATE;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -97,5 +99,31 @@ public class PredictionsDbHandler extends DbHandler {
             }
         }
         return newPrediction;
+    }
+
+    public List<EmptyItem> getPredictionsForWeek() {
+        List<EmptyItem> itemsList = getPredictions();
+        List<EmptyItem> weekItemsList = new ArrayList<>();
+        Calendar now = CalendarProvider.setNowCalendar();
+        for(EmptyItem item: itemsList){
+            int substraction = (int)(item.getPredictionDate() - now.getTimeInMillis())/MILLIS_IN_DAY;
+            if(substraction <= 7){
+                weekItemsList.add(item);
+            }
+        }
+        return weekItemsList;
+    }
+
+    public List<EmptyItem> getPredictionsForMonth() {
+        List<EmptyItem> itemsList = getPredictions();
+        List<EmptyItem> monthItemList = new ArrayList<>();
+        Calendar now = CalendarProvider.setNowCalendar();
+        for(EmptyItem item: itemsList){
+            int substraction = (int)(item.getPredictionDate() - now.getTimeInMillis())/MILLIS_IN_DAY;
+            if(substraction <= 30){
+                monthItemList.add(item);
+            }
+        }
+        return monthItemList;
     }
 }

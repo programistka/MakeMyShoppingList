@@ -38,4 +38,12 @@ public class ShowPredictionsInteractor {
             emptyItemsDbHandler.updatePredictionForItemInPredictionsTable(itemId);
         }
     }
+
+    public List<EmptyItem> getPredictionsForWeek() {
+        return dbHandler.getPredictionsForWeek();
+    }
+
+    public List<EmptyItem> getPredictionsForMonth() {
+        return dbHandler.getPredictionsForMonth();
+    }
 }
