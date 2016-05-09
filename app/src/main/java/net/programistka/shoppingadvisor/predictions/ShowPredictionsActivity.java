@@ -88,6 +88,9 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     }
 
     public void markAsBought(MenuItem item) {
+        menu.getItem(0).setVisible(false);
+        menu.getItem(1).setVisible(false);
+        menu.getItem(2).setVisible(false);
         copySelectedItems.addAll(selectedItems);
         showPredictionsPresenter.markAsBought(selectedItems);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -121,6 +124,9 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     }
 
     public void markAsArchived(MenuItem item) {
+        menu.getItem(0).setVisible(false);
+        menu.getItem(1).setVisible(false);
+        menu.getItem(2).setVisible(false);
         final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
         presenter.markAsArchived(selectedItems);
         copySelectedItems.addAll(selectedItems);
