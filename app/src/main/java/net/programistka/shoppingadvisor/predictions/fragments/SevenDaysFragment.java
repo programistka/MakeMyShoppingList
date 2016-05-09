@@ -1,10 +1,10 @@
 package net.programistka.shoppingadvisor.predictions.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,15 +13,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.programistka.shoppingadvisor.R;
+import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemInteractor;
+import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemPresenter;
 import net.programistka.shoppingadvisor.predictions.PredictionsAdapter;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsInteractor;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsPresenter;
+import net.programistka.shoppingadvisor.predictions.ViewPagerAdapter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 public class SevenDaysFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     PredictionsAdapter adapter;
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeLayout;
+    private ViewPager viewPager;
+
 
     public SevenDaysFragment() {
     }
@@ -69,5 +74,11 @@ public class SevenDaysFragment extends Fragment implements SwipeRefreshLayout.On
         ShowPredictionsPresenter presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), getContext()));
         adapter = new PredictionsAdapter(presenter.getPredictions());
         recyclerView.setAdapter(adapter);
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        adapter.addFragment(new AllFragment(), "ALL");
+        adapter.addFragment(new SevenDaysFragment(), "7 DAYS");
+        adapter.addFragment(new ThirtyDaysFragment(), "30 DAYS");
+        viewPager.setAdapter(adapter);
     }
 }
