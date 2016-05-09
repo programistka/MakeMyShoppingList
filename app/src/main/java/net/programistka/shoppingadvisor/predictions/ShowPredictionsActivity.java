@@ -154,7 +154,6 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
     private void initToolbar(){
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @OnClick(R.id.plusButton)

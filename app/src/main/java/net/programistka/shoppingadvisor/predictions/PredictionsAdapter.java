@@ -78,16 +78,6 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         this.emptyItems = emptyItems;
     }
 
-    public void clear() {
-        emptyItems.clear();
-        notifyDataSetChanged();
-    }
-
-    public void addAll(List<EmptyItem> list) {
-        emptyItems.addAll(list);
-        notifyDataSetChanged();
-    }
-
     @Override
     public PredictionsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(
@@ -120,7 +110,6 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         holder.nameTextView.setText(currentEmptyItem.getName());
         SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy");
         if(currentEmptyItem.getPredictionDate() < Calendar.getInstance().getTimeInMillis()){
-            holder.nameTextView.setTextColor(Color.RED);
             holder.dateTextView.setTextColor(Color.RED);
         }
         holder.dateTextView.setText(sdf.format(currentEmptyItem.getPredictionDate()));
