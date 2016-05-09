@@ -47,7 +47,6 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     public static List<Long> copySelectedItems = new ArrayList<>();
 
     private ShowPredictionsPresenter showPredictionsPresenter;
-    PredictionsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
