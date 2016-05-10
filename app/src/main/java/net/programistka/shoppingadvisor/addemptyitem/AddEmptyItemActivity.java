@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -16,6 +17,10 @@ import android.widget.Toast;
 
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsActivity;
+import net.programistka.shoppingadvisor.predictions.ViewPagerAdapter;
+import net.programistka.shoppingadvisor.predictions.fragments.AllFragment;
+import net.programistka.shoppingadvisor.predictions.fragments.SevenDaysFragment;
+import net.programistka.shoppingadvisor.predictions.fragments.ThirtyDaysFragment;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsInteractor;
 import net.programistka.shoppingadvisor.selectallItems.SelectAllItemsPresenter;
@@ -81,6 +86,8 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
+                Intent intent = new Intent(getApplicationContext(), ShowPredictionsActivity.class);
+                startActivity(intent);
             }
         });
         AlertDialog dialog = alertDialogBuilder.create();

@@ -21,4 +21,12 @@ public class ArchivePresenter {
     public Boolean checkIfArchivedElement(long itemId) {
         return interactor.checkIfArchivedElement(itemId);
     }
+
+    public void undoMarkAsEmpty(List<Long> selectedItems) {
+        interactor.undoMarkAsEmpty(selectedItems);
+    }
+
+    public void markAsEmpty(List<Long> selectedItems) {
+        interactor.markAsEmpty(selectedItems);
+    }
 }

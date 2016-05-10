@@ -164,4 +164,17 @@ public class EmptyItemsDbHandler extends DbHandler {
         db.close();
         return emptyTimes;
     }
+
+    public void deleteExistingEmptyItem(Long itemId) {
+        String deleteQuery = "DELETE FROM " + TABLE_EMPTY_ITEMS_HISTORY +
+                              " WHERE " + COLUMN_ITEM_ID + "IN SELECT(" + COLUMN_ITEM_ID +
+                              " FROM " + TABLE_EMPTY_ITEMS_HISTORY +
+                              " WHERE " + COLUMN_ITEM_ID + " = " + itemId +
+                              " ORDER BY " + COLUMN_EMPTY_ITEM_DATE + "DESC";
+        System.out.println(deleteQuery);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.rawQuery(deleteQuery, null);
+        db.close();
+        updatePredictionForItemInPredictionsTable(itemId);
+    }
 }

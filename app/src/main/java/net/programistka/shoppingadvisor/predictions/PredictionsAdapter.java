@@ -51,11 +51,13 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
                 ShowPredictionsActivity.menu.getItem(0).setVisible(true);
                 ShowPredictionsActivity.menu.getItem(1).setVisible(true);
                 ShowPredictionsActivity.menu.getItem(2).setVisible(true);
+                ShowPredictionsActivity.menu.getItem(3).setVisible(true);
             }
             else {
                 ShowPredictionsActivity.menu.getItem(0).setVisible(false);
                 ShowPredictionsActivity.menu.getItem(1).setVisible(false);
                 ShowPredictionsActivity.menu.getItem(2).setVisible(false);
+                ShowPredictionsActivity.menu.getItem(3).setVisible(false);
             }
         }
 

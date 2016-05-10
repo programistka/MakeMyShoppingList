@@ -7,6 +7,13 @@
         android:visible="false"
         app:showAsAction="always" />
     <item
+        android:id="@+id/action_empty"
+        android:icon="@drawable/ic_sentiment_dissatisfied_white_24dp"
+        android:title="@string/done"
+        android:visible="false"
+        android:onClick="markAsEmpty"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_favorite"
         android:icon="@drawable/ic_shopping_cart_white_24dp"
         android:title="@string/done"
