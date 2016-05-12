@@ -1,5 +1,7 @@
 package net.programistka.shoppingadvisor.addemptyitem;
 
+import java.util.List;
+
 public class AddEmptyItemPresenter {
 
     private AddEmptyItemInteractor interactor;

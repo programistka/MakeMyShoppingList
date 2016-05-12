@@ -59,13 +59,13 @@ public class DbHandler extends SQLiteOpenHelper {
         long lessThanSevenDays = calendar.getTimeInMillis() - 3*1000*24*3600;
         long lessThanThirtyDays = calendar.getTimeInMillis() - 25*1000*24*3600;
 
-        initializeData(db, 1,  "szampon", calendar.getTimeInMillis());
-        initializeData(db, 2, "makaron", calendar.getTimeInMillis());
-        initializeData(db, 3, "ziemniaki", lessThanSevenDays);
-        initializeData(db, 4, "kasza", lessThanSevenDays);
-        initializeData(db, 5, "płyn do mycia naczyń", lessThanThirtyDays);
-        initializeData(db, 6, "odkurzacz", lessThanThirtyDays);
-        initializeData(db, 7, "ziemia do kwiatów", lessThanThirtyDays);
+//        initializeData(db, 1,  "szampon", calendar.getTimeInMillis());
+//        initializeData(db, 2, "makaron", calendar.getTimeInMillis());
+//        initializeData(db, 3, "ziemniaki", lessThanSevenDays);
+//        initializeData(db, 4, "kasza", lessThanSevenDays);
+//        initializeData(db, 5, "płyn do mycia naczyń", lessThanThirtyDays);
+//        initializeData(db, 6, "odkurzacz", lessThanThirtyDays);
+//        initializeData(db, 7, "ziemia do kwiatów", lessThanThirtyDays);
     }
 
     @Override

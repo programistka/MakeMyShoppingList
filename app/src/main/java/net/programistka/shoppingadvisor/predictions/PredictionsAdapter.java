@@ -41,7 +41,6 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
                                             initMenu();
                                         }
             });
-            ShowPredictionsActivity.selectedItems = selectedItems;
         }
 
         private void initMenu() {
@@ -66,11 +65,13 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
             if(toggle) {
                 imageView.setImageResource(R.drawable.ic_done_black_24dp);
                 selectedItems.add(id);
+                ShowPredictionsActivity.selectedItems = selectedItems;
                 counter++;
             }
             else {
                 imageView.setImageResource(R.drawable.ic_event_grey_24dp);
                 selectedItems.remove(id);
+                ShowPredictionsActivity.selectedItems = selectedItems;
                 counter--;
             }
         }

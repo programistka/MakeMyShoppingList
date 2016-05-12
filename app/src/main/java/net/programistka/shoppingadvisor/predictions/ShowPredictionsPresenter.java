@@ -36,4 +36,6 @@ public class ShowPredictionsPresenter {
     public List<EmptyItem> getPredictionsForMonth() {
         return interactor.getPredictionsForMonth();
     }
+
+
 }

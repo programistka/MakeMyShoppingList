@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import net.programistka.shoppingadvisor.CalendarProvider;
 import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.models.PredictionsHandler;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
@@ -166,14 +167,9 @@ public class EmptyItemsDbHandler extends DbHandler {
     }
 
     public void deleteExistingEmptyItem(Long itemId) {
-        String deleteQuery = "DELETE FROM " + TABLE_EMPTY_ITEMS_HISTORY +
-                              " WHERE " + COLUMN_ITEM_ID + "IN SELECT(" + COLUMN_ITEM_ID +
-                              " FROM " + TABLE_EMPTY_ITEMS_HISTORY +
-                              " WHERE " + COLUMN_ITEM_ID + " = " + itemId +
-                              " ORDER BY " + COLUMN_EMPTY_ITEM_DATE + "DESC";
-        System.out.println(deleteQuery);
+        Calendar c = CalendarProvider.setNowCalendar();
         SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery(deleteQuery, null);
+        db.delete(TABLE_EMPTY_ITEMS_HISTORY, COLUMN_EMPTY_ITEM_DATE + "=" + c.getTimeInMillis(), null);
         db.close();
         updatePredictionForItemInPredictionsTable(itemId);
     }
