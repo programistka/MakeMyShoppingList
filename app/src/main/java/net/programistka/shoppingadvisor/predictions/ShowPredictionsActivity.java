@@ -57,7 +57,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         initToolbar();
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager, 1);
+        setupViewPager(viewPager, 0);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
