@@ -92,7 +92,12 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         removeFragments(viewPager);
         setupViewPager(viewPager, currentFragment);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Items Bought.");
+        if(selectedItems.size() > 1){
+            alertDialogBuilder.setMessage("Items marked as bought.");
+        }
+        else {
+            alertDialogBuilder.setMessage("Item marked as nought.");
+        }
         alertDialogBuilder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
@@ -134,7 +139,11 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         removeFragments(viewPager);
         setupViewPager(viewPager, currentFragment);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Items archived.");
+        if(selectedItems.size() > 1) {
+            alertDialogBuilder.setMessage("Items archived."); }
+        else {
+            alertDialogBuilder.setMessage("Item archived.");
+        }
         alertDialogBuilder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
@@ -159,7 +168,12 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         removeFragments(viewPager);
         setupViewPager(viewPager, currentFragment);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Items marked as empty.");
+        if(selectedItems.size() > 1) {
+            alertDialogBuilder.setMessage("Items marked as empty.");
+        }
+        else {
+            alertDialogBuilder.setMessage("Item marked as empty.");
+        }
         alertDialogBuilder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
