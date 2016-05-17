@@ -368,7 +368,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         selectedItems.add((long)1);
 
         //When
-        archivePresenter.markAsEmpty(selectedItems);
+        archivePresenter.markAsEmpty(selectedItems, CalendarProvider.setNowCalendar().getTimeInMillis());
         List<EmptyItem> items;
         items = selectAllItemsPresenter.selectAllItemsFromEmptyItemsHistoryTable();
         assertEquals(3, items.size());
@@ -392,17 +392,17 @@ public class EmptyItemsTests extends AndroidTestCase {
         selectedItems.add((long)1);
 
         //When
-        archivePresenter.markAsEmpty(selectedItems);
+        Calendar c3 = CalendarProvider.setCalendar(11, 4, 2016);
+        archivePresenter.markAsEmpty(selectedItems, c3.getTimeInMillis());
 
         //Then
         Prediction prediction = showPredictionsPresenter.getPredictionForItem(1);
-        assertEquals(6, prediction.getDaysNumber());
-        Calendar c3 = Calendar.getInstance();
-        c3.setTimeInMillis(prediction.getTime());
-        assertEquals(6, prediction.getDaysNumber());
-        assertEquals(18, c3.get(Calendar.DAY_OF_MONTH));
-        assertEquals(4, c3.get(Calendar.MONTH));
-        assertEquals(2016, c3.get(Calendar.YEAR));
+        Calendar c4 = Calendar.getInstance();
+        c4.setTimeInMillis(prediction.getTime());
+        assertEquals(5, prediction.getDaysNumber());
+        assertEquals(16, c4.get(Calendar.DAY_OF_MONTH));
+        assertEquals(4, c4.get(Calendar.MONTH));
+        assertEquals(2016, c4.get(Calendar.YEAR));
     }
 
     public void testWhenMarkAsEmptyAndUndoThenHistoryStateIsRecovered(){
@@ -419,7 +419,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         selectedItems.add((long)1);
 
         //When
-        archivePresenter.markAsEmpty(selectedItems);
+        archivePresenter.markAsEmpty(selectedItems, CalendarProvider.setNowCalendar().getTimeInMillis());
         archivePresenter.undoMarkAsEmpty(selectedItems);
 
         //Then
@@ -442,7 +442,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         selectedItems.add((long)1);
 
         //When
-        archivePresenter.markAsEmpty(selectedItems);
+        archivePresenter.markAsEmpty(selectedItems, CalendarProvider.setNowCalendar().getTimeInMillis());
         archivePresenter.undoMarkAsEmpty(selectedItems);
 
         //Then

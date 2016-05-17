@@ -39,10 +39,9 @@ public class ArchiveInteractor {
         }
     }
 
-    public void markAsEmpty(List<Long> selectedItems) {
+    public void markAsEmpty(List<Long> selectedItems, long time) {
         for (Long itemId:selectedItems) {
-            Calendar c = CalendarProvider.setNowCalendar();
-            emptyItemsDbHandler.insertExistingEmptyItem(itemId, c.getTimeInMillis());
+            emptyItemsDbHandler.insertExistingEmptyItem(itemId, time);
         }
     }
 }

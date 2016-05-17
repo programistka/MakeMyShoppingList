@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import net.programistka.shoppingadvisor.CalendarProvider;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 import net.programistka.shoppingadvisor.archive.ArchiveInteractor;
@@ -151,7 +152,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     public void markAsEmpty(MenuItem item) {
         initMenu();
         final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
-        presenter.markAsEmpty(selectedItems);
+        presenter.markAsEmpty(selectedItems, CalendarProvider.setNowCalendar().getTimeInMillis());
         copySelectedItems.addAll(selectedItems);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         int currentFragment = viewPager.getCurrentItem();

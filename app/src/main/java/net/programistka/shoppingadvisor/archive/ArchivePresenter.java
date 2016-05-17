@@ -25,7 +25,7 @@ public class ArchivePresenter {
         interactor.undoMarkAsEmpty(selectedItems);
     }
 
-    public void markAsEmpty(List<Long> selectedItems) {
-        interactor.markAsEmpty(selectedItems);
+    public void markAsEmpty(List<Long> selectedItems, long time) {
+        interactor.markAsEmpty(selectedItems, time);
     }
 }
