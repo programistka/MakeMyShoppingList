@@ -4,14 +4,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
@@ -88,10 +83,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     }
 
     public void markAsBought(MenuItem item) {
-        menu.getItem(0).setVisible(false);
-        menu.getItem(1).setVisible(false);
-        menu.getItem(2).setVisible(false);
-        menu.getItem(3).setVisible(false);
+        initMenu();
         copySelectedItems.addAll(selectedItems);
         showPredictionsPresenter.markAsBought(selectedItems);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -124,11 +116,15 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
     }
 
-    public void markAsArchived(MenuItem item) {
+    private void initMenu() {
         menu.getItem(0).setVisible(false);
         menu.getItem(1).setVisible(false);
         menu.getItem(2).setVisible(false);
         menu.getItem(3).setVisible(false);
+    }
+
+    public void markAsArchived(MenuItem item) {
+        initMenu();
         final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
         presenter.markAsArchived(selectedItems);
         copySelectedItems.addAll(selectedItems);
@@ -148,26 +144,12 @@ public class ShowPredictionsActivity extends AppCompatActivity {
                 setupViewPager(viewPager, currentFragment);
             }
         });
-        final AlertDialog dialog = alertDialogBuilder.create();
-        WindowManager.LayoutParams wlmp = dialog.getWindow().getAttributes();
-        wlmp.gravity = Gravity.BOTTOM;
-        dialog.show();
-
-        final Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            public void run() {
-                dialog.dismiss();
-                timer.cancel();
-            }
-        }, 5000);
+        showDialogForUndo(alertDialogBuilder);
 
     }
 
     public void markAsEmpty(MenuItem item) {
-        menu.getItem(0).setVisible(false);
-        menu.getItem(1).setVisible(false);
-        menu.getItem(2).setVisible(false);
-        menu.getItem(3).setVisible(false);
+        initMenu();
         final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
         presenter.markAsEmpty(selectedItems);
         copySelectedItems.addAll(selectedItems);
@@ -187,6 +169,11 @@ public class ShowPredictionsActivity extends AppCompatActivity {
                 setupViewPager(viewPager, currentFragment);
             }
         });
+        showDialogForUndo(alertDialogBuilder);
+
+    }
+
+    private void showDialogForUndo(AlertDialog.Builder alertDialogBuilder) {
         final AlertDialog dialog = alertDialogBuilder.create();
         WindowManager.LayoutParams wlmp = dialog.getWindow().getAttributes();
         wlmp.gravity = Gravity.BOTTOM;
@@ -199,7 +186,6 @@ public class ShowPredictionsActivity extends AppCompatActivity {
                 timer.cancel();
             }
         }, 5000);
-
     }
 
     private void initToolbar(){

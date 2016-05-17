@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import net.programistka.shoppingadvisor.CalendarProvider;
 import net.programistka.shoppingadvisor.models.Prediction;
@@ -14,9 +13,7 @@ import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class EmptyItemsDbHandler extends DbHandler {
 

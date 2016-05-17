@@ -46,18 +46,27 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         private void initMenu() {
             if(counter > 0) {
                 CharSequence counterLabel = Integer.toString(counter);
-                ShowPredictionsActivity.menu.getItem(0).setTitle(counterLabel);
-                ShowPredictionsActivity.menu.getItem(0).setVisible(true);
-                ShowPredictionsActivity.menu.getItem(1).setVisible(true);
-                ShowPredictionsActivity.menu.getItem(2).setVisible(true);
-                ShowPredictionsActivity.menu.getItem(3).setVisible(true);
+                setupMenu(counterLabel);
             }
             else {
-                ShowPredictionsActivity.menu.getItem(0).setVisible(false);
-                ShowPredictionsActivity.menu.getItem(1).setVisible(false);
-                ShowPredictionsActivity.menu.getItem(2).setVisible(false);
-                ShowPredictionsActivity.menu.getItem(3).setVisible(false);
+                setupMenu();
             }
+        }
+
+        private void initIcons(boolean visible) {
+            ShowPredictionsActivity.menu.getItem(0).setVisible(visible);
+            ShowPredictionsActivity.menu.getItem(1).setVisible(visible);
+            ShowPredictionsActivity.menu.getItem(2).setVisible(visible);
+            ShowPredictionsActivity.menu.getItem(3).setVisible(visible);
+        }
+
+        private void setupMenu(CharSequence counterLabel) {
+            ShowPredictionsActivity.menu.getItem(0).setTitle(counterLabel);
+            initIcons(true);
+        }
+
+        private void setupMenu() {
+            initIcons(false);
         }
 
         private void initImageView(View v) {

@@ -11,7 +11,6 @@ public class ArchivePresenter {
     }
     public void markAsArchived(List<Long> selectedItems) {
         interactor.markAsArchived(selectedItems);
-
     }
 
     public void undoMarkAsArchived(List<Long> selectedItems) {

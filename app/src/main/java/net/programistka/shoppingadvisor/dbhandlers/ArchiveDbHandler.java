@@ -5,9 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import net.programistka.shoppingadvisor.dbhandlers.DbHandler;
-import net.programistka.shoppingadvisor.models.Prediction;
-import net.programistka.shoppingadvisor.models.PredictionsHandler;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.List;

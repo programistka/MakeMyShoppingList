@@ -2,13 +2,8 @@ package net.programistka.shoppingadvisor.addemptyitem;
 
 import android.content.Context;
 
-import net.programistka.shoppingadvisor.CalendarProvider;
 import net.programistka.shoppingadvisor.dbhandlers.EmptyItemsDbHandler;
-import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
-
-import java.util.Calendar;
-import java.util.List;
 
 public class AddEmptyItemInteractor {
 
@@ -25,6 +20,4 @@ public class AddEmptyItemInteractor {
     public void insertExistingEmptyItem(long id, long time) {
         dbHandler.insertExistingEmptyItem(id, time);
     }
-
-
 }
