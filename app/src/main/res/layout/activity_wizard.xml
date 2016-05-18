@@ -8,5 +8,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".wizard.WizardActivity">
-
+    <LinearLayout
+        android:id="@+id/myfragment"
+        android:layout_width="0px"
+        android:layout_weight="4"
+        android:layout_height="match_parent" />
 </RelativeLayout>

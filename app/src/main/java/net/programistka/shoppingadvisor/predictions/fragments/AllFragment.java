@@ -1,11 +1,12 @@
 package net.programistka.shoppingadvisor.predictions.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import net.programistka.shoppingadvisor.predictions.PredictionsAdapter;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsInteractor;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsPresenter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
+import net.programistka.shoppingadvisor.wizard.WizardActivity;
 
 public class AllFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     PredictionsAdapter adapter;

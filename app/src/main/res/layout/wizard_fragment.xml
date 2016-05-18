@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Please fill the following fields with names of the products which you bought in past seven days"
+        android:id="@+id/textView"
+        android:padding="10dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/productName1"
+        android:layout_margin="10dp"
+        android:hint="ex. Bread"
+        android:singleLine="false" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/productName2"
+        android:layout_margin="10dp"
+        android:hint="ex. Butter" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/productName3"
+        android:layout_margin="10dp"
+        android:hint="ex. Milk" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/productName4"
+        android:layout_margin="10dp"
+        android:hint="ex. Sugar" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/productName5"
+        android:layout_margin="10dp"
+        android:hint="ex. Flour" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Next step"
+        android:id="@+id/nextStep"
+        android:layout_margin="10dp" />
+</LinearLayout>
