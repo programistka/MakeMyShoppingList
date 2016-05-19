@@ -170,4 +170,13 @@ public class EmptyItemsDbHandler extends DbHandler {
         db.close();
         updatePredictionForItemInPredictionsTable(itemId);
     }
+
+    public void insertNewEmptyItemAndPrediction(String name, long time, int daysToRunOut) {
+        insertNewEmptyItemIntoItemsTable(name);
+        long id = getLastInsertedId();
+        Prediction prediction = new Prediction();
+        prediction.setDaysNumber(daysToRunOut);
+        prediction.setTime(time + daysToRunOut*1000*3600*24);
+        insertPredictionForItemIntoPredictionsTable(id, prediction);
+    }
 }

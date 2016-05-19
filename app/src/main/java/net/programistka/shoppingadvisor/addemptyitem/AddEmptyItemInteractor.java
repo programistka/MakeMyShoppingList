@@ -20,4 +20,8 @@ public class AddEmptyItemInteractor {
     public void insertExistingEmptyItem(long id, long time) {
         dbHandler.insertExistingEmptyItem(id, time);
     }
+
+    public void insertNewEmptyItemAndPrediction(String name, long time, int daysToRunOut) {
+        dbHandler.insertNewEmptyItemAndPrediction(name, time, daysToRunOut);
+    }
 }

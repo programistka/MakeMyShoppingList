@@ -9,6 +9,7 @@ import android.os.Bundle;
 import net.programistka.shoppingadvisor.R;
 
 public class WizardActivity extends Activity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
