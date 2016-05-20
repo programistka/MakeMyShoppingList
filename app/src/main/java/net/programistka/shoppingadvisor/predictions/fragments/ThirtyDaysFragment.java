@@ -1,11 +1,8 @@
 package net.programistka.shoppingadvisor.predictions.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,10 +15,9 @@ import net.programistka.shoppingadvisor.predictions.ShowPredictionsInteractor;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsPresenter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
-public class ThirtyDaysFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class ThirtyDaysFragment extends Fragment{
     PredictionsAdapter adapter;
     RecyclerView recyclerView;
-    SwipeRefreshLayout swipeLayout;
 
     public ThirtyDaysFragment() {
     }
@@ -35,19 +31,7 @@ public class ThirtyDaysFragment extends Fragment implements SwipeRefreshLayout.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment, container, false);
-        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
-        swipeLayout.setOnRefreshListener(this);
         return view;
-    }
-
-    @Override
-    public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override public void run() {
-                swipeLayout.setRefreshing(false);
-                initData();
-            }
-        }, 5000);
     }
 
     @Override
