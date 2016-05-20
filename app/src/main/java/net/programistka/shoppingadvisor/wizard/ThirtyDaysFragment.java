@@ -48,29 +48,47 @@ public class ThirtyDaysFragment extends Fragment {
                 EditText item4 = (EditText) getActivity().findViewById(R.id.productName4);
                 EditText item5 = (EditText) getActivity().findViewById(R.id.productName5);
 
-                List<String> items = new ArrayList<>();
+                List<String> thirtyDaysItems = new ArrayList<>();
 
-                if(item1.getText().toString().trim() != "") {
-                    items.add(item1.getText().toString().trim());
+                if(item1.getText().toString().trim().length() > 0) {
+                    thirtyDaysItems.add(item1.getText().toString().trim());
                 }
-                if(item2.getText().toString().trim() != "") {
-                    items.add(item1.getText().toString().trim());
+                if(item2.getText().toString().trim().length() > 0) {
+                    thirtyDaysItems.add(item2.getText().toString().trim());
                 }
-                if(item3.getText().toString().trim() != "") {
-                    items.add(item1.getText().toString().trim());
+                if(item3.getText().toString().trim().length() > 0) {
+                    thirtyDaysItems.add(item3.getText().toString().trim());
                 }
-                if(item4.getText().toString().trim() != "") {
-                    items.add(item1.getText().toString().trim());
+                if(item4.getText().toString().trim().length() > 0) {
+                    thirtyDaysItems.add(item4.getText().toString().trim());
                 }
-                if(item5.getText().toString().trim() != "") {
-                    items.add(item1.getText().toString().trim());
+                if(item5.getText().toString().trim().length() > 0) {
+                    thirtyDaysItems.add(item5.getText().toString().trim());
                 }
 
-                SaveSevenDaysItems(args);
-                SaveThirtyDaysItems(items);
+                List<String> sevenDaysItems = new ArrayList<>();
+                if(args.getString("item1")!= null && args.getString("item1").trim().length() > 0 ){
+                    sevenDaysItems.add(args.getString("item1"));
+                }
+                if(args.getString("item2")!= null && args.getString("item2").trim().length() > 0 ){
+                    sevenDaysItems.add(args.getString("item2"));
+                }
+                if(args.getString("item3")!= null && args.getString("item3").trim().length() > 0 ){
+                    sevenDaysItems.add(args.getString("item3"));
+                }
+                if(args.getString("item4")!= null && args.getString("item4").trim().length() > 0 ){
+                    sevenDaysItems.add(args.getString("item4"));
+                }
+                if(args.getString("item5")!= null && args.getString("item5").trim().length() > 0 ){
+                    sevenDaysItems.add(args.getString("item5"));
+                }
 
-                Intent intent = new Intent(getActivity(), ShowPredictionsActivity.class);
-                startActivity(intent);
+                SaveSevenDaysItems(sevenDaysItems);
+                SaveThirtyDaysItems(thirtyDaysItems);
+                if(item1.length() > 0) {
+                    Intent intent = new Intent(getActivity(), ShowPredictionsActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -78,15 +96,15 @@ public class ThirtyDaysFragment extends Fragment {
     private void SaveThirtyDaysItems(List<String> items) {
         for(String item : items) {
             AddEmptyItemInteractor interactor = new AddEmptyItemInteractor(new DbConfig(), getActivity());
-            interactor.insertNewEmptyItemAndPrediction(item, CalendarProvider.setNowCalendar().getTimeInMillis(), 7);
+            interactor.insertNewEmptyItemAndPrediction(item, CalendarProvider.setNowCalendar().getTimeInMillis(), 30);
         }
     }
 
-    private void SaveSevenDaysItems(Bundle args) {
-//        for(String item : args) {
-//            AddEmptyItemInteractor interactor = new AddEmptyItemInteractor(new DbConfig(), getActivity());
-//            interactor.insertNewEmptyItem(item, CalendarProvider.setNowCalendar().getTimeInMillis());
-//        }
+    private void SaveSevenDaysItems(List<String> items) {
+        for(String item : items) {
+            AddEmptyItemInteractor interactor = new AddEmptyItemInteractor(new DbConfig(), getActivity());
+            interactor.insertNewEmptyItemAndPrediction(item, CalendarProvider.setNowCalendar().getTimeInMillis(), 7);
+        }
     }
 
     @Override

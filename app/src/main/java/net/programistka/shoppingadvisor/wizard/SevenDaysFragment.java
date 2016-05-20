@@ -48,20 +48,20 @@ public class SevenDaysFragment extends Fragment {
 
                 Bundle args = new Bundle();
 
-                if(item1.getText().toString().trim() != "") {
+                if(item1.getText().toString().trim().length() > 0) {
                     args.putString("item1", item1.getText().toString().trim());
                 }
-                if(item2.getText().toString().trim() != "") {
-                    args.putString("item2", item1.getText().toString().trim());
+                if(item2.getText().toString().trim().length() > 0) {
+                    args.putString("item2", item2.getText().toString().trim());
                 }
-                if(item3.getText().toString().trim() != "") {
-                    args.putString("item3", item1.getText().toString().trim());
+                if(item3.getText().toString().trim().length() > 0) {
+                    args.putString("item3", item3.getText().toString().trim());
                 }
-                if(item4.getText().toString().trim() != "") {
-                    args.putString("item4", item1.getText().toString().trim());
+                if(item4.getText().toString().trim().length() > 0) {
+                    args.putString("item4", item4.getText().toString().trim());
                 }
-                if(item5.getText().toString().trim() != "") {
-                    args.putString("item5", item1.getText().toString().trim());
+                if(item5.getText().toString().trim().length() > 0) {
+                    args.putString("item5", item5.getText().toString().trim());
                 }
 
                 FragmentManager fragmentManager = getFragmentManager();
