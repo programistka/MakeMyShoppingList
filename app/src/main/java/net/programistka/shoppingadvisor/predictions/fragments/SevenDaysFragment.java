@@ -54,6 +54,11 @@ public class SevenDaysFragment extends Fragment {
         initData();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
     private void initData() {
         ShowPredictionsPresenter presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), getContext()));
         adapter = new PredictionsAdapter(presenter.getPredictionsForWeek());

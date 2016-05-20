@@ -33,6 +33,10 @@ public class ThirtyDaysFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_30days, container, false);
         return view;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
