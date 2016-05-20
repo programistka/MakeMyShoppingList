@@ -30,16 +30,20 @@ public class SevenDaysFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_7days, container, false);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        System.out.println("Seven days");
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        ShowPredictionsPresenter presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), getContext()));
-        adapter = new PredictionsAdapter(presenter.getPredictionsForWeek());
 
         recyclerView = (RecyclerView) getView().findViewById(R.id.fragmentItems);
         recyclerView.setHasFixedSize(true);
@@ -52,7 +56,7 @@ public class SevenDaysFragment extends Fragment {
 
     private void initData() {
         ShowPredictionsPresenter presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), getContext()));
-        adapter = new PredictionsAdapter(presenter.getPredictions());
+        adapter = new PredictionsAdapter(presenter.getPredictionsForWeek());
         recyclerView.setAdapter(adapter);
     }
 }

@@ -1,4 +1,4 @@
-package net.programistka.shoppingadvisor.wizard;
+package net.programistka.shoppingadvisor.wizard.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;

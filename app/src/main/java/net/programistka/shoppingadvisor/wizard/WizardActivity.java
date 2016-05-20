@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import net.programistka.shoppingadvisor.R;
+import net.programistka.shoppingadvisor.wizard.fragments.SevenDaysFragment;
 
 public class WizardActivity extends Activity {
 

@@ -15,7 +15,7 @@ import net.programistka.shoppingadvisor.predictions.ShowPredictionsInteractor;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsPresenter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
-public class ThirtyDaysFragment extends Fragment{
+public class ThirtyDaysFragment extends Fragment {
     PredictionsAdapter adapter;
     RecyclerView recyclerView;
 
@@ -30,8 +30,15 @@ public class ThirtyDaysFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_30days, container, false);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        System.out.println("Thirty days");
+
     }
 
     @Override
