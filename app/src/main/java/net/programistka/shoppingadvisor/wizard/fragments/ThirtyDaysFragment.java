@@ -96,14 +96,14 @@ public class ThirtyDaysFragment extends Fragment {
     private void SaveThirtyDaysItems(List<String> items) {
         for(String item : items) {
             AddEmptyItemInteractor interactor = new AddEmptyItemInteractor(new DbConfig(), getActivity());
-            interactor.insertNewEmptyItemAndPrediction(item, CalendarProvider.setNowCalendar().getTimeInMillis(), 30);
+            interactor.insertNewEmptyItemAndPrediction(item, CalendarProvider.setNowCalendar().getTimeInMillis() - 15*1000*3600*24, 30);
         }
     }
 
     private void SaveSevenDaysItems(List<String> items) {
         for(String item : items) {
             AddEmptyItemInteractor interactor = new AddEmptyItemInteractor(new DbConfig(), getActivity());
-            interactor.insertNewEmptyItemAndPrediction(item, CalendarProvider.setNowCalendar().getTimeInMillis(), 7);
+            interactor.insertNewEmptyItemAndPrediction(item, CalendarProvider.setNowCalendar().getTimeInMillis() - 3*1000*3600*24, 7);
         }
     }
 

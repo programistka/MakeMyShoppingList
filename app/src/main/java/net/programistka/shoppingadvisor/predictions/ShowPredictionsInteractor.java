@@ -2,12 +2,14 @@ package net.programistka.shoppingadvisor.predictions;
 
 import android.content.Context;
 
+import net.programistka.shoppingadvisor.CalendarProvider;
 import net.programistka.shoppingadvisor.dbhandlers.EmptyItemsDbHandler;
 import net.programistka.shoppingadvisor.dbhandlers.PredictionsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class ShowPredictionsInteractor {
