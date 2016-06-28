@@ -1,6 +1,7 @@
 package net.programistka.shoppingadvisor.predictions;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,12 +16,15 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import net.programistka.shoppingadvisor.R;
+import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import butterknife.OnClick;
 
 public class ShowPredictionsActivity extends AppCompatActivity {
 
@@ -199,8 +203,8 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //    }
 //
-//    @OnClick(R.id.plusButton)
-//    protected void attachFabAction() {
-//        startActivity(new Intent(ShowPredictionsActivity.this, AddEmptyItemActivity.class));
-//    }
+    @OnClick(R.id.plusButton)
+    protected void attachFabAction() {
+        startActivity(new Intent(ShowPredictionsActivity.this, AddEmptyItemActivity.class));
+    }
 }

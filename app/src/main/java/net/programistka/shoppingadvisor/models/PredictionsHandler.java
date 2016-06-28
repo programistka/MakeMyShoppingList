@@ -51,8 +51,10 @@ public class PredictionsHandler {
     }
 
     private static Prediction generatePredictionForTwoItems(long current, long next) {
+        System.out.println("current " + current + "next " + next + "in " + MILLIS_IN_DAY);
+        System.out.println("Daysav" + (next - current)/((long)MILLIS_IN_DAY));
         Prediction prediction = new Prediction();
-        int daysAverage = (int)(next - current)/ MILLIS_IN_DAY;
+        int daysAverage = (int)(next - current)/MILLIS_IN_DAY;
         prediction.setDaysNumber(daysAverage);
         prediction.setTime(next + daysAverage * MILLIS_IN_DAY);
         return prediction;
