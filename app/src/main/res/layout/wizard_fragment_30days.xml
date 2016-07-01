@@ -47,10 +47,21 @@
         android:layout_margin="10dp"
         android:hint="ex. Baking soda" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Finish and go to predictions"
-        android:id="@+id/finish"
-        android:layout_margin="10dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to previous"
+            android:id="@+id/backTo7DaysWizardFragment"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Finish and go to predictions"
+            android:id="@+id/finish"
+            android:layout_margin="10dp" />
+    </LinearLayout>
 </LinearLayout>

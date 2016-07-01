@@ -15,6 +15,7 @@ import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemInteractor;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemPresenter;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsActivity;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
+import net.programistka.shoppingadvisor.wizard.WizardActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,13 +36,24 @@ public class ThirtyDaysFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(final Bundle savedInstanceState) {
+
         super.onActivityCreated(savedInstanceState);
+
+        Button previousStep = (Button) getActivity().findViewById(R.id.backTo7DaysWizardFragment);
+        previousStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //getFragmentManager().popBackStack();
+            }
+        });
 
         Button nextStep = (Button) getActivity().findViewById(R.id.finish);
         nextStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //getFragmentManager().beginTransaction().addToBackStack("Test").commit();
+
                 EditText item1 = (EditText) getActivity().findViewById(R.id.productName1);
                 EditText item2 = (EditText) getActivity().findViewById(R.id.productName2);
                 EditText item3 = (EditText) getActivity().findViewById(R.id.productName3);
@@ -85,7 +97,7 @@ public class ThirtyDaysFragment extends Fragment {
 
                 SaveSevenDaysItems(sevenDaysItems);
                 SaveThirtyDaysItems(thirtyDaysItems);
-                if(item1.length() > 0) {
+                if(sevenDaysItems.size() > 0 && thirtyDaysItems.size() > 0) {
                     Intent intent = new Intent(getActivity(), ShowPredictionsActivity.class);
                     startActivity(intent);
                 }

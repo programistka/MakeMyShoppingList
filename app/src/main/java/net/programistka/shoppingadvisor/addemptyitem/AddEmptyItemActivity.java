@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -81,6 +82,8 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
+                View v = findViewById (R.id.showPredictions);
+                v.invalidate();
                 Intent intent = new Intent(getApplicationContext(), ShowPredictionsActivity.class);
                 startActivity(intent);
             }

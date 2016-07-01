@@ -22,6 +22,7 @@ public class ShowPredictionsInteractor {
     }
 
     public List<EmptyItem> getPredictions() {
+        System.out.println("Size " + dbHandler.getPredictions().size());
         return dbHandler.getPredictions();
     }
 
