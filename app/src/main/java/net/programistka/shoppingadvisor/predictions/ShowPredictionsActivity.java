@@ -17,6 +17,8 @@ import android.view.WindowManager;
 
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
+import net.programistka.shoppingadvisor.archive.ArchiveInteractor;
+import net.programistka.shoppingadvisor.archive.ArchivePresenter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
 
 import java.util.ArrayList;
@@ -81,11 +83,11 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*private void removeFragments(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+    private void removeFragments(ViewPager viewPager) {
+        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         adapter.removeAll();
         viewPager.setAdapter(adapter);
-    }*/
+    }
 
     public void markAsBought(MenuItem item) {
         initMenu();
@@ -125,32 +127,34 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     }
 
     public void markAsArchived(MenuItem item) {
-//        initMenu();
-//        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
-//        presenter.markAsArchived(selectedItems);
-//        copySelectedItems.addAll(selectedItems);
-//        viewPager = (ViewPager) findViewById(R.id.viewpager);
-//        int currentFragment = viewPager.getCurrentItem();
-//        removeFragments(viewPager);
-//        setupViewPager(viewPager, currentFragment);
-//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-//        if(selectedItems.size() > 1) {
-//            alertDialogBuilder.setMessage("Items archived."); }
-//        else {
-//            alertDialogBuilder.setMessage("Item archived.");
-//        }
-//        alertDialogBuilder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface arg0, int arg1) {
-//                presenter.undoMarkAsArchived(copySelectedItems);
-//                viewPager = (ViewPager) findViewById(R.id.viewpager);
-//                int currentFragment = viewPager.getCurrentItem();
-//                removeFragments(viewPager);
-//                setupViewPager(viewPager, currentFragment);
-//            }
-//        });
-//        showDialogForUndo(alertDialogBuilder);
-//
+        initMenu();
+        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
+        presenter.markAsArchived(selectedItems);
+        copySelectedItems.addAll(selectedItems);
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        int currentFragment = mViewPager.getCurrentItem();
+        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(adapter);
+        mViewPager.setCurrentItem(currentFragment);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        if(selectedItems.size() > 1) {
+            alertDialogBuilder.setMessage("Items archived."); }
+        else {
+            alertDialogBuilder.setMessage("Item archived.");
+        }
+        alertDialogBuilder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                presenter.undoMarkAsArchived(copySelectedItems);
+                mViewPager = (ViewPager) findViewById(R.id.container);
+                int currentFragment = mViewPager.getCurrentItem();
+                SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+                mViewPager.setAdapter(adapter);
+                mViewPager.setCurrentItem(currentFragment);
+            }
+        });
+        showDialogForUndo(alertDialogBuilder);
+
     }
 
     public void markAsEmpty(MenuItem item) {
