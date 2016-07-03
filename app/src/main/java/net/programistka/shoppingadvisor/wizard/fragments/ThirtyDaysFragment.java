@@ -44,7 +44,7 @@ public class ThirtyDaysFragment extends Fragment {
         previousStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //getFragmentManager().popBackStack();
+                getFragmentManager().popBackStack();
             }
         });
 

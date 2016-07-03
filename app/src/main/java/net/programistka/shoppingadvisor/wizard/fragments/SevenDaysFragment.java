@@ -71,6 +71,9 @@ public class SevenDaysFragment extends Fragment {
 
                 myFragment.setArguments(args);
                 fragmentTransaction.replace(R.id.myfragment, myFragment);
+
+                fragmentTransaction.addToBackStack(null);
+
                 fragmentTransaction.commit();
             }
         });
