@@ -1,0 +1,28 @@
+<resources>
+    <string name="action_settings">Ustawienia</string>
+    <string name="title_activity_add_running_out_of_event">Skończył/o mi się...</string>
+    <string name="add_item_which_you_run_out_of">Dodaj</string>
+    <string name="item_name">Nazwa produktu</string>
+    <string name="all">Wszystkie</string>
+    <string name="thisWeek">Tydzień</string>
+    <string name="thisMonth">Miesiąc</string>
+    <string name="undo">Cofnij</string>
+    <string name="itemsMarkedAsBought">Produkty oznaczone jako kupione</string>
+    <string name="itemMarkedAsBought">Produkt oznaczony jako kupiony</string>
+    <string name="itemsArchived">Produkty przeniesione do archiwum</string>
+    <string name="itemArchived">Produkt przeniesiony do archiwum</string>
+    <string name="pressBackAgainToExit">Naciśnij wstecz jeszcze raz aby wyjść</string>
+    <string name="please_fill_the_following_fields_with_names_of_the_products_which_you_bought_in_past_seven_days">Wpisz produkty, które zwykle kupujesz raz nie rzadziej niż raz na tydzień</string>
+    <string name="please_fill_the_following_fields_with_names_of_the_products_which_you_bought_in_past_thirty_days">Wpisz produkty, które zwykle kupujesz nie rzadziej niż raz na miesiąc</string>
+    <string name="ex_bread">np. chleb</string>
+    <string name="ex_butter">np. masło</string>
+    <string name="ex_milk">np. mleko</string>
+    <string name="ex_sugar">np. cukier</string>
+    <string name="ex_flour">np. mąka</string>
+    <string name="next_step">Dalej</string>
+    <string name="ex_soap">np. mydło</string>
+    <string name="ex_washing_up_liquid">np. płyn do mycia naczyń</string>
+    <string name="ex_washing_powder">np. proszek do prania</string>
+    <string name="ex_baking_paper">np. szampon</string>
+    <string name="ex_baking_soda">np. karma dla kota</string>
+</resources>

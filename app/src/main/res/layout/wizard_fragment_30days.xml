@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Please fill the following fields with names of the products which you bought in past thirty days"
+        android:text="@string/please_fill_the_following_fields_with_names_of_the_products_which_you_bought_in_past_thirty_days"
         android:id="@+id/textView"
         android:padding="10dp" />
 
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/productName1"
         android:layout_margin="10dp"
-        android:hint="ex. Soap"
+        android:hint="@string/ex_soap"
         android:singleLine="false" />
 
     <EditText
@@ -24,28 +24,28 @@
         android:layout_height="wrap_content"
         android:id="@+id/productName2"
         android:layout_margin="10dp"
-        android:hint="ex. Washing-up liquid" />
+        android:hint="@string/ex_washing_up_liquid" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/productName3"
         android:layout_margin="10dp"
-        android:hint="ex. Washing powder" />
+        android:hint="@string/ex_washing_powder" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/productName4"
         android:layout_margin="10dp"
-        android:hint="ex. Baking paper" />
+        android:hint="@string/ex_baking_paper" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/productName5"
         android:layout_margin="10dp"
-        android:hint="ex. Baking soda" />
+        android:hint="@string/ex_baking_soda" />
 
     <LinearLayout
         android:layout_width="match_parent"

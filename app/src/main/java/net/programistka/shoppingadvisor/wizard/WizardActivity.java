@@ -50,7 +50,7 @@ public class WizardActivity extends Activity {
             if (this.exit) {
                 ActivityCompat.finishAffinity(this);
             } else {
-                Toast.makeText(this, "Press Back again to Exit.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, this.getString(R.string.pressBackAgainToExit), Toast.LENGTH_SHORT).show();
                 this.exit = true;
                 new Handler().postDelayed(new Runnable() {
                     @Override
