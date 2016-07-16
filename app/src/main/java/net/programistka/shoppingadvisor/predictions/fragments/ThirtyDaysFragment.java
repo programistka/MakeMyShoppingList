@@ -19,8 +19,7 @@ public class ThirtyDaysFragment extends Fragment {
     PredictionsAdapter adapter;
     RecyclerView recyclerView;
 
-    public ThirtyDaysFragment() {
-    }
+    public ThirtyDaysFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,8 +40,6 @@ public class ThirtyDaysFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        System.out.println("Thirty days");
-
     }
 
     @Override
@@ -54,7 +51,6 @@ public class ThirtyDaysFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
-
         initData();
     }
 

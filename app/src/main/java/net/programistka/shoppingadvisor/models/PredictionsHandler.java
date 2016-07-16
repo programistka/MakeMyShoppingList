@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class PredictionsHandler {
-    private static final int MILLIS_IN_DAY = 1000*3600*24;
+    private static final longs MILLIS_IN_DAY = 1000*3600*24;
 
     public static Prediction generatePrediction(List<Long> shoppingTimes) {
         if(shoppingTimes.size() < 2) {

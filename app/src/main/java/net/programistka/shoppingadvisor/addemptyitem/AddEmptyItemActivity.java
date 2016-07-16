@@ -56,7 +56,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
 
     @Override
     public void showEmptyItemNameMessage() {
-        Toast toast = Toast.makeText(this, "Name is empty", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(this, R.string.nameIsEmpty, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP, 0, 500);
         toast.show();
     }
@@ -69,23 +69,21 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
     @Override
     public void showDialogToAddAnotherItem() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Item added. Do you want to add another item?");
-        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setMessage(getString(R.string.itemAdded));
+        alertDialogBuilder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 startActivity(new Intent(getApplicationContext(), AddEmptyItemActivity.class));
                 finish();
             }
         });
-
-        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
                 View v = findViewById (R.id.showPredictions);
                 v.invalidate();
-                Intent intent = new Intent(getApplicationContext(), ShowPredictionsActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(), ShowPredictionsActivity.class));
             }
         });
         AlertDialog dialog = alertDialogBuilder.create();
@@ -97,7 +95,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
 
     @Override
     public void showAddingErrorMessage() {
-        Toast toast = Toast.makeText(this, "Error occured when adding. Please try again", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(this, R.string.errorOccuredWhileAdding, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }

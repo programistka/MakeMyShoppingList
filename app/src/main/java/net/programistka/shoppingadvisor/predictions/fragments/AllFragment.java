@@ -19,8 +19,7 @@ public class AllFragment extends Fragment {
     PredictionsAdapter adapter;
     RecyclerView recyclerView;
 
-    public AllFragment() {
-    }
+    public AllFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,6 @@ public class AllFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all, container, false);
         return view;
-
     }
 
     @Override
@@ -43,7 +41,6 @@ public class AllFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        System.out.println("All days");
     }
 
     @Override
@@ -55,7 +52,6 @@ public class AllFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
-
         initData();
     }
 

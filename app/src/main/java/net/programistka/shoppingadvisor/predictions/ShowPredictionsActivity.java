@@ -1,12 +1,14 @@
 package net.programistka.shoppingadvisor.predictions;
 
 import android.app.Dialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +17,15 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 import net.programistka.shoppingadvisor.archive.ArchiveInteractor;
 import net.programistka.shoppingadvisor.archive.ArchivePresenter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
+import net.programistka.shoppingadvisor.wizard.fragments.SevenDaysFragment;
+import net.programistka.shoppingadvisor.wizard.fragments.ThirtyDaysFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +46,8 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     private ShowPredictionsPresenter showPredictionsPresenter;
 
     private ViewPager mViewPager;
+
+    private boolean exit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +89,6 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void removeFragments(ViewPager viewPager) {
-        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
-        adapter.removeAll();
-        viewPager.setAdapter(adapter);
     }
 
     public void markAsBought(MenuItem item) {
@@ -138,7 +139,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(currentFragment);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);//, R.style.CustomDialogTheme);
         if(selectedItems.size() > 1) {
             alertDialogBuilder.setMessage(this.getString(R.string.itemsArchived));
         } else {
@@ -194,6 +195,10 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         final AlertDialog dialog = alertDialogBuilder.create();
         WindowManager.LayoutParams wlmp = dialog.getWindow().getAttributes();
         wlmp.gravity = Gravity.BOTTOM;
+        wlmp.width = WindowManager.LayoutParams.MATCH_PARENT;
+
+        dialog.getWindow().setAttributes(wlmp);
+
         dialog.show();
 
         final Timer timer = new Timer();
@@ -204,11 +209,23 @@ public class ShowPredictionsActivity extends AppCompatActivity {
             }
         }, 5000);
     }
-//
-//    private void initToolbar(){
-//        setSupportActionBar(toolbar);
-//    }
-//
+
+    @Override
+    public void onBackPressed() {
+        if (this.exit) {
+            ActivityCompat.finishAffinity(this);
+        } else {
+            Toast.makeText(this, this.getString(R.string.pressBackAgainToExit), Toast.LENGTH_SHORT).show();
+            this.exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ShowPredictionsActivity.this.exit = false;
+                }
+            }, 3 * 1000);
+        }
+    }
+
     @OnClick(R.id.plusButton)
     protected void attachFabAction() {
         startActivity(new Intent(ShowPredictionsActivity.this, AddEmptyItemActivity.class));

@@ -86,7 +86,6 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         }
     }
 
-
     public PredictionsAdapter(List<EmptyItem> emptyItems) {
         this.emptyItems = emptyItems;
     }

@@ -21,10 +21,6 @@ public class AddEmptyItemInteractor {
         dbHandler.insertExistingEmptyItem(id, time);
     }
 
-    public void insertNewEmptyItemAndPrediction(String name, long time, int daysToRunOut) {
-        dbHandler.insertNewEmptyItemAndPrediction(name, time, daysToRunOut);
-    }
-
     public void insertNewEmptyItemWithHistoryAndPrediction(String name, long time1, long time2, int daysToRunOut) {
         dbHandler.insertNewEmptyItemWithHistoryAndPrediction(name, time1, time2, daysToRunOut);
     }

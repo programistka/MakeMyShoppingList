@@ -18,6 +18,13 @@
         <item name="android:layout_gravity">top</item>
     </style>
 
+    <style name="CustomDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowMinWidthMinor">100%</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:background">#fffeca</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
     <style name="WizardTheme" parent="AppTheme">
         <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>

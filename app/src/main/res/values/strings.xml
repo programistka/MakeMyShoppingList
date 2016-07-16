@@ -32,4 +32,9 @@
     <string name="ex_washing_powder">ex. Washing powder</string>
     <string name="ex_baking_paper">ex. Baking paper</string>
     <string name="ex_baking_soda">ex. Baking soda</string>
+    <string name="nameIsEmpty">Name is empty</string>
+    <string name="itemAdded">Item added. Do you want to add another item?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="errorOccuredWhileAdding">Error occured when adding. Please try again</string>
 </resources>

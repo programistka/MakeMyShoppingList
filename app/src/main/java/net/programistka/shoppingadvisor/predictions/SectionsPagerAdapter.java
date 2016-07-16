@@ -49,7 +49,4 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         }
         return null;
     }
-
-    public void removeAll() {
-    }
 }

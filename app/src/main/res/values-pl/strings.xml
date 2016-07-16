@@ -25,4 +25,9 @@
     <string name="ex_washing_powder">np. proszek do prania</string>
     <string name="ex_baking_paper">np. szampon</string>
     <string name="ex_baking_soda">np. karma dla kota</string>
+    <string name="nameIsEmpty">Nie wpisano nazwy produktu</string>
+    <string name="itemAdded">Dodano produkt. Chcesz dodać kolejny?</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+    <string name="errorOccuredWhileAdding">Wystąpił błąd podczas dodawania produktu. Spróbuj ponownie.</string>
 </resources>

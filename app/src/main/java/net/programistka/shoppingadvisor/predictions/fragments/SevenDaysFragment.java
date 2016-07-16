@@ -19,8 +19,7 @@ public class SevenDaysFragment extends Fragment {
     PredictionsAdapter adapter;
     RecyclerView recyclerView;
 
-    public SevenDaysFragment() {
-    }
+    public SevenDaysFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,8 +36,6 @@ public class SevenDaysFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        System.out.println("Seven days");
-
     }
 
     @Override
@@ -50,7 +47,6 @@ public class SevenDaysFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
-
         initData();
     }
 

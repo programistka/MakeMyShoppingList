@@ -48,10 +48,13 @@ public class ThirtyDaysFragment extends Fragment {
             }
         });
 
-        Button nextStep = (Button) getActivity().findViewById(R.id.finish);
+        final Button nextStep = (Button) getActivity().findViewById(R.id.finish);
         nextStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                nextStep.setEnabled(false);
+                nextStep.setClickable(false);
                 //getFragmentManager().beginTransaction().addToBackStack("Test").commit();
 
                 EditText item1 = (EditText) getActivity().findViewById(R.id.productName1);
