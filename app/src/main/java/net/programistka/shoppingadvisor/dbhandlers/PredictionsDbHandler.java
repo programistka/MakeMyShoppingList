@@ -17,7 +17,7 @@ import java.util.List;
 
 public class PredictionsDbHandler extends DbHandler {
 
-    private static final int MILLIS_IN_DAY = 1000*3600*24;
+    private static final long MILLIS_IN_DAY = 1000*3600*24;
 
     public PredictionsDbHandler(DbConfig dbConfig, Context context) {
         super(dbConfig, context);
@@ -106,7 +106,7 @@ public class PredictionsDbHandler extends DbHandler {
         List<EmptyItem> weekItemsList = new ArrayList<>();
         Calendar now = CalendarProvider.setNowCalendar();
         for(EmptyItem item: itemsList){
-            int substraction = (int)(item.getPredictionDate() - now.getTimeInMillis())/MILLIS_IN_DAY;
+            long substraction = (item.getPredictionDate() - now.getTimeInMillis())/MILLIS_IN_DAY;
             if(substraction <= 7){
                 weekItemsList.add(item);
             }
@@ -119,8 +119,8 @@ public class PredictionsDbHandler extends DbHandler {
         List<EmptyItem> monthItemList = new ArrayList<>();
         Calendar now = CalendarProvider.setNowCalendar();
         for(EmptyItem item: itemsList){
-            int substraction = (int)(item.getPredictionDate() - now.getTimeInMillis())/MILLIS_IN_DAY;
-            if(substraction <= 30){
+            long substraction = (item.getPredictionDate() - now.getTimeInMillis())/MILLIS_IN_DAY;
+            if(substraction > 7 && substraction <= 30){
                 monthItemList.add(item);
             }
         }

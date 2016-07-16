@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class PredictionsHandler {
-    private static final int MILLIS_IN_DAY = 1000*3600*24;
+    private static final longs MILLIS_IN_DAY = 1000*3600*24;
 
     public static Prediction generatePrediction(List<Long> shoppingTimes) {
         if(shoppingTimes.size() < 2) {
@@ -51,8 +51,10 @@ public class PredictionsHandler {
     }
 
     private static Prediction generatePredictionForTwoItems(long current, long next) {
+        System.out.println("current " + current + "next " + next + "in " + MILLIS_IN_DAY);
+        System.out.println("Daysav" + (next - current)/((long)MILLIS_IN_DAY));
         Prediction prediction = new Prediction();
-        int daysAverage = (int)(next - current)/ MILLIS_IN_DAY;
+        int daysAverage = (int)(next - current)/MILLIS_IN_DAY;
         prediction.setDaysNumber(daysAverage);
         prediction.setTime(next + daysAverage * MILLIS_IN_DAY);
         return prediction;

@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
 
 import net.programistka.shoppingadvisor.CalendarProvider;
 import net.programistka.shoppingadvisor.models.Prediction;
@@ -130,7 +129,8 @@ public class EmptyItemsDbHandler extends DbHandler {
         db.delete(TABLE_EMPTY_ITEMS_PREDICTIONS, COLUMN_ITEM_ID + "=" + itemId, null);
         db.delete(TABLE_ARCHIVE, COLUMN_ITEM_ID + "=" + itemId, null);
         db.close();
-        insertPredictionForItemIntoPredictionsTable(itemId, calculatePredictionForItem(itemId));
+        Prediction pred = calculatePredictionForItem(itemId);
+        insertPredictionForItemIntoPredictionsTable(itemId, pred);
     }
 
     public Prediction calculatePredictionForItem(long itemId) {
@@ -142,7 +142,6 @@ public class EmptyItemsDbHandler extends DbHandler {
         return null;
     }
 
-    @NonNull
     private List<Long> getEmptyTimes(long itemId) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -176,7 +175,20 @@ public class EmptyItemsDbHandler extends DbHandler {
         long id = getLastInsertedId();
         Prediction prediction = new Prediction();
         prediction.setDaysNumber(daysToRunOut);
-        prediction.setTime(time + daysToRunOut*1000*3600*24);
+        prediction.setTime(time + (long)daysToRunOut*1000*3600*24);
+        insertNewEmptyItemIntoHistoryTable(id, time);
+        insertPredictionForItemIntoPredictionsTable(id, prediction);
+    }
+
+    public void insertNewEmptyItemWithHistoryAndPrediction(String name, long time1, long time2, int daysToRunOut) {
+        insertNewEmptyItemIntoItemsTable(name);
+        long id = getLastInsertedId();
+        insertNewEmptyItemIntoHistoryTable(id, time1);
+        insertNewEmptyItemIntoHistoryTable(id, time2);
+        Prediction prediction = new Prediction();
+        prediction.setDaysNumber(daysToRunOut);
+        long today = CalendarProvider.setNowCalendar().getTimeInMillis();
+        prediction.setTime(today + (long)daysToRunOut*1000*3600*24);
         insertPredictionForItemIntoPredictionsTable(id, prediction);
     }
 }
