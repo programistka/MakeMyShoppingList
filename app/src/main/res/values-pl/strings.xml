@@ -30,4 +30,5 @@
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="errorOccuredWhileAdding">Wystąpił błąd podczas dodawania produktu. Spróbuj ponownie.</string>
+    <string name="fillAnyFields">Uzupełnij produkty by efektywniej korzystać z aplikacji i uzyskać prognozy zakupowe</string>
 </resources>

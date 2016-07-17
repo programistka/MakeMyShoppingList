@@ -1,13 +1,17 @@
 package net.programistka.shoppingadvisor.wizard.fragments;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import net.programistka.shoppingadvisor.CalendarProvider;
 import net.programistka.shoppingadvisor.R;
@@ -50,6 +54,7 @@ public class ThirtyDaysFragment extends Fragment {
 
         final Button nextStep = (Button) getActivity().findViewById(R.id.finish);
         nextStep.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
 
@@ -103,6 +108,11 @@ public class ThirtyDaysFragment extends Fragment {
                 if(sevenDaysItems.size() > 0 && thirtyDaysItems.size() > 0) {
                     Intent intent = new Intent(getActivity(), ShowPredictionsActivity.class);
                     startActivity(intent);
+                }
+                else {
+                    Toast toast = Toast.makeText(getContext(), R.string.fillAnyFields, Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
             }
         });
