@@ -2,7 +2,7 @@ package net.programistka.shoppingadvisor.models;
 
 public class Prediction {
     private long time;
-    private int daysNumber;
+    private long daysNumber;
 
     public long getTime() {
         return time;
@@ -12,11 +12,11 @@ public class Prediction {
         this.time = time;
     }
 
-    public int getDaysNumber() {
+    public long getDaysNumber() {
         return daysNumber;
     }
 
-    public void setDaysNumber(int daysNumber) {
+    public void setDaysNumber(long daysNumber) {
         this.daysNumber = daysNumber;
     }
 }

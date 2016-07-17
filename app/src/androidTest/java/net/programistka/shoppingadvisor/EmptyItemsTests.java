@@ -12,6 +12,7 @@ import net.programistka.shoppingadvisor.dbhandlers.EmptyItemsDbHandler;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.models.Prediction;
 import net.programistka.shoppingadvisor.models.PredictionsHandler;
+import net.programistka.shoppingadvisor.predictions.ShowPredictionsActivity;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsInteractor;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsPresenter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
@@ -453,5 +454,76 @@ public class EmptyItemsTests extends AndroidTestCase {
         assertEquals(15, c3.get(Calendar.DAY_OF_MONTH));
         assertEquals(4, c3.get(Calendar.MONTH));
         assertEquals(2016, c3.get(Calendar.YEAR));
+    }
+
+    public void testWhenOpenTabWithAllPredictionThenAllPredictionsAreShown(){
+        //Given
+        AddEmptyItemView view = mock(AddEmptyItemView.class);
+        AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
+        ShowPredictionsPresenter showPredictionsPresenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig("shopping_advisor_test.db"), mContext));
+        Calendar c = CalendarProvider.setNowCalendar();
+        c.add(Calendar.DATE, -1);
+        Calendar c1 = CalendarProvider.setNowCalendar();
+        c1.add(Calendar.DATE, -3);
+        addEmptyItemPresenter.insertNewEmptyItemWithHistoryAndPrediction("Kasza", c.getTimeInMillis(), c1.getTimeInMillis(), 2);
+        Calendar c2 = CalendarProvider.setNowCalendar();
+        c2.add(Calendar.DATE, -15);
+        Calendar c3 = CalendarProvider.setNowCalendar();
+        c3.add(Calendar.DATE, -19);
+        addEmptyItemPresenter.insertNewEmptyItemWithHistoryAndPrediction("Makaron", c2.getTimeInMillis(), c3.getTimeInMillis(), 15);
+
+        //When
+        List<EmptyItem> allPredictions = showPredictionsPresenter.getPredictions();
+
+        //Then
+        assertEquals(2, allPredictions.size());
+    }
+
+    public void testWhenOpenTabWithWeeklyPredictionThenWeeklyPredictionsAreShown(){
+        //Given
+        AddEmptyItemView view = mock(AddEmptyItemView.class);
+        AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
+        ShowPredictionsPresenter showPredictionsPresenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig("shopping_advisor_test.db"), mContext));
+        Calendar c = CalendarProvider.setNowCalendar();
+        c.add(Calendar.DATE, -1);
+        Calendar c1 = CalendarProvider.setNowCalendar();
+        c1.add(Calendar.DATE, -3);
+        addEmptyItemPresenter.insertNewEmptyItemWithHistoryAndPrediction("Kasza", c.getTimeInMillis(), c1.getTimeInMillis(), 2);
+        Calendar c2 = CalendarProvider.setNowCalendar();
+        c2.add(Calendar.DATE, -15);
+        Calendar c3 = CalendarProvider.setNowCalendar();
+        c3.add(Calendar.DATE, -19);
+        addEmptyItemPresenter.insertNewEmptyItemWithHistoryAndPrediction("Makaron", c2.getTimeInMillis(), c3.getTimeInMillis(), 15);
+
+        //When
+        List<EmptyItem> allPredictions = showPredictionsPresenter.getPredictionsForWeek();
+
+        //Then
+        assertEquals(1, allPredictions.size());
+        assertEquals("Kasza", allPredictions.get(0).getName());
+    }
+
+    public void testWhenOpenTabWithMonthlyPredictionThenMonthlyPredictionsAreShown(){
+        //Given
+        AddEmptyItemView view = mock(AddEmptyItemView.class);
+        AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
+        ShowPredictionsPresenter showPredictionsPresenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig("shopping_advisor_test.db"), mContext));
+        Calendar c = CalendarProvider.setNowCalendar();
+        c.add(Calendar.DATE, -1);
+        Calendar c1 = CalendarProvider.setNowCalendar();
+        c1.add(Calendar.DATE, -3);
+        addEmptyItemPresenter.insertNewEmptyItemWithHistoryAndPrediction("Kasza", c.getTimeInMillis(), c1.getTimeInMillis(), 2);
+        Calendar c2 = CalendarProvider.setNowCalendar();
+        c2.add(Calendar.DATE, -15);
+        Calendar c3 = CalendarProvider.setNowCalendar();
+        c3.add(Calendar.DATE, -19);
+        addEmptyItemPresenter.insertNewEmptyItemWithHistoryAndPrediction("Makaron", c2.getTimeInMillis(), c3.getTimeInMillis(), 15);
+
+        //When
+        List<EmptyItem> allPredictions = showPredictionsPresenter.getPredictionsForMonth();
+
+        //Then
+        assertEquals(1, allPredictions.size());
+        assertEquals("Makaron", allPredictions.get(0).getName());
     }
 }

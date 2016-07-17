@@ -1,5 +1,7 @@
 package net.programistka.shoppingadvisor.addemptyitem;
 
+import net.programistka.shoppingadvisor.CalendarProvider;
+
 public class AddEmptyItemPresenter {
 
     private AddEmptyItemInteractor interactor;
@@ -16,6 +18,10 @@ public class AddEmptyItemPresenter {
 
     public void insertExistingEmptyItem(long id, long time) {
         interactor.insertExistingEmptyItem(id, time);
+    }
+
+    public void insertNewEmptyItemWithHistoryAndPrediction(String name, long time1, long time2, int daysToRunOut) {
+        interactor.insertNewEmptyItemWithHistoryAndPrediction(name, time1, time2, daysToRunOut);
     }
 
     public void addNewEmptyItem(String name, long time) {

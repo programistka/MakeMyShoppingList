@@ -1,8 +1,6 @@
 package net.programistka.shoppingadvisor.predictions;
 
 import android.app.Dialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +22,6 @@ import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 import net.programistka.shoppingadvisor.archive.ArchiveInteractor;
 import net.programistka.shoppingadvisor.archive.ArchivePresenter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
-import net.programistka.shoppingadvisor.wizard.fragments.SevenDaysFragment;
-import net.programistka.shoppingadvisor.wizard.fragments.ThirtyDaysFragment;
 
 import java.util.ArrayList;
 import java.util.List;
