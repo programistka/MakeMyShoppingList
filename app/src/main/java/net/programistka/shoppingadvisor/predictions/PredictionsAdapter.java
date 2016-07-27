@@ -12,10 +12,12 @@ import android.widget.TextView;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.models.EmptyItem;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.ViewHolder> {
     private List<EmptyItem> emptyItems;
@@ -120,11 +122,11 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
 
     private void setViewHolder(ViewHolder holder, EmptyItem currentEmptyItem) {
         holder.nameTextView.setText(currentEmptyItem.getName());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy");
+        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
         if(currentEmptyItem.getPredictionDate() < Calendar.getInstance().getTimeInMillis()){
             holder.dateTextView.setTextColor(Color.RED);
         }
-        holder.dateTextView.setText(sdf.format(currentEmptyItem.getPredictionDate()));
+        holder.dateTextView.setText(df.format(currentEmptyItem.getPredictionDate()));
         holder.id = currentEmptyItem.getId();
         holder.iconView.setImageResource(R.drawable.ic_event_grey_24dp);
     }

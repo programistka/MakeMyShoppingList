@@ -58,7 +58,7 @@ public class DbHandler extends SQLiteOpenHelper {
         long lessThanSevenDays = calendar.getTimeInMillis() - 3*1000*24*3600;
         long lessThanThirtyDays = calendar.getTimeInMillis() - 25*1000*24*3600;
 
-//        initializeData(db, 1,  "szampon", calendar.getTimeInMillis());
+        initializeData(db, 1,  "ziemniaki", 1469829600000L);
 //        initializeData(db, 2, "makaron", calendar.getTimeInMillis());
 //        initializeData(db, 3, "ziemniaki", lessThanSevenDays);
 //        initializeData(db, 4, "kasza", lessThanSevenDays);
@@ -76,12 +76,12 @@ public class DbHandler extends SQLiteOpenHelper {
     public void initializeData(SQLiteDatabase db, long id, String name, long nextEmptyDate) {
         String INSERT_PRODUCTS = "INSERT INTO items VALUES(" + id +", '" + name + "')";
         db.execSQL(INSERT_PRODUCTS);
-        String INSERT_HISTORY1 = "INSERT INTO empty_items_history VALUES(" + id + ", 1458428400000)";
-        String INSERT_HISTORY2 = "INSERT INTO empty_items_history VALUES(" + id + ", 1458687600000)";
-        String INSERT_HISTORY3 = "INSERT INTO empty_items_history VALUES(" + id + ", 1458946800000)";
+        String INSERT_HISTORY1 = "INSERT INTO empty_items_history VALUES(" + id + ", 1468792800000)";
+        String INSERT_HISTORY2 = "INSERT INTO empty_items_history VALUES(" + id + ", 1469311200000)";
+        //String INSERT_HISTORY3 = "INSERT INTO empty_items_history VALUES(" + id + ", 1469311200000 )";
         db.execSQL(INSERT_HISTORY1);
         db.execSQL(INSERT_HISTORY2);
-        db.execSQL(INSERT_HISTORY3);
+        //db.execSQL(INSERT_HISTORY3);
         String INSERT_PREDICTIONS = "INSERT INTO empty_items_predictions VALUES(" + id + ", " + nextEmptyDate + ", 3)";
         db.execSQL(INSERT_PREDICTIONS);
     }

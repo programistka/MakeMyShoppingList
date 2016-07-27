@@ -38,4 +38,6 @@
     <string name="no">No</string>
     <string name="errorOccuredWhileAdding">Error occured when adding. Please try again</string>
     <string name="fillAnyFields">Please fill any fields to be able to use the application and get the predictions</string>
+    <string name="itemsMarkedAsEmpty">Items marked as empty.</string>
+    <string name="itemMarkedAsEmpty">Item marked as empty.</string>
 </resources>

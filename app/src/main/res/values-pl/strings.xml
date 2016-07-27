@@ -31,4 +31,6 @@
     <string name="no">Nie</string>
     <string name="errorOccuredWhileAdding">Wystąpił błąd podczas dodawania produktu. Spróbuj ponownie.</string>
     <string name="fillAnyFields">Uzupełnij produkty by efektywniej korzystać z aplikacji i uzyskać prognozy zakupowe</string>
+    <string name="itemsMarkedAsEmpty">Produkty oznaczone jako skończone.</string>
+    <string name="itemMarkedAsEmpty">Produkt oznaczony jako skończony.</string>
 </resources>

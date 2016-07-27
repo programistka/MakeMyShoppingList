@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import net.programistka.shoppingadvisor.CalendarProvider;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 import net.programistka.shoppingadvisor.archive.ArchiveInteractor;
@@ -158,33 +159,35 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     }
 
     public void markAsEmpty(MenuItem item) {
-//        initMenu();
-//        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
-//        presenter.markAsEmpty(selectedItems, CalendarProvider.setNowCalendar().getTimeInMillis());
-//        copySelectedItems.addAll(selectedItems);
-//        viewPager = (ViewPager) findViewById(R.id.viewpager);
-//        int currentFragment = viewPager.getCurrentItem();
-//        removeFragments(viewPager);
-//        setupViewPager(viewPager, currentFragment);
-//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-//        if(selectedItems.size() > 1) {
-//            alertDialogBuilder.setMessage("Items marked as empty.");
-//        }
-//        else {
-//            alertDialogBuilder.setMessage("Item marked as empty.");
-//        }
-//        alertDialogBuilder.setPositiveButton("Undo", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface arg0, int arg1) {
-//                presenter.undoMarkAsEmpty(copySelectedItems);
-//                viewPager = (ViewPager) findViewById(R.id.viewpager);
-//                int currentFragment = viewPager.getCurrentItem();
-//                removeFragments(viewPager);
-//                setupViewPager(viewPager, currentFragment);
-//            }
-//        });
-//        showDialogForUndo(alertDialogBuilder);
-
+        initMenu();
+        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
+        presenter.markAsEmpty(selectedItems, CalendarProvider.setNowCalendar().getTimeInMillis());
+        copySelectedItems.addAll(selectedItems);
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        int currentFragment = mViewPager.getCurrentItem();
+        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
+        mViewPager.setAdapter(adapter);
+        mViewPager.setCurrentItem(currentFragment);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        if(selectedItems.size() > 1) {
+            alertDialogBuilder.setMessage(getString(R.string.itemsMarkedAsEmpty));
+        }
+        else {
+            alertDialogBuilder.setMessage(getString(R.string.itemMarkedAsEmpty));
+        }
+        alertDialogBuilder.setPositiveButton(this.getString(R.string.undo), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                presenter.undoMarkAsEmpty(copySelectedItems);
+                mViewPager = (ViewPager) findViewById(R.id.container);
+                int currentFragment = mViewPager.getCurrentItem();
+                Dialog dialog = (Dialog)arg0;
+                SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), dialog.getContext());
+                mViewPager.setAdapter(adapter);
+                mViewPager.setCurrentItem(currentFragment);
+            }
+        });
+        showDialogForUndo(alertDialogBuilder);
     }
 
     private void showDialogForUndo(AlertDialog.Builder alertDialogBuilder) {
