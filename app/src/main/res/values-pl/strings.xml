@@ -36,4 +36,5 @@
     <string name="startFragmentTitle">Witaj w Shopping4Cast</string>
     <string name="startFragmentMessage">Użyj proszę przewodnika aby wprowadzić produkty, które regularnie kupujesz</string>
     <string name="startFragmentButton">Dalej</string>
+    <string name="all_items_have_been_archived_use_add_button_below_to_add_new_items">Wszystkie produkty w tej sekcji zostały zarchiwizowane - użyj przycisku dodawania poniżej, aby dodać nowe produkty.</string>
 </resources>

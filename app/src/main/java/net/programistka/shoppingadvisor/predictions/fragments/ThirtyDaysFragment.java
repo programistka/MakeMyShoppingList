@@ -8,12 +8,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import net.programistka.shoppingadvisor.R;
+import net.programistka.shoppingadvisor.models.EmptyItem;
 import net.programistka.shoppingadvisor.predictions.PredictionsAdapter;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsInteractor;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsPresenter;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
+
+import java.util.List;
 
 public class ThirtyDaysFragment extends Fragment {
     PredictionsAdapter adapter;
@@ -56,7 +60,17 @@ public class ThirtyDaysFragment extends Fragment {
 
     private void initData() {
         ShowPredictionsPresenter presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), getContext()));
-        adapter = new PredictionsAdapter(presenter.getPredictionsForMonth());
+        List<EmptyItem> predictions = presenter.getPredictionsForMonth();
+        if(predictions.size() == 0)
+        {
+            RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.fragmentItems);
+            recyclerView.setVisibility(View.INVISIBLE);
+            TextView textView = (TextView) getView().findViewById(R.id.allItemsArchived);
+            textView.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        adapter = new PredictionsAdapter(predictions);
         recyclerView.setAdapter(adapter);
     }
 }
