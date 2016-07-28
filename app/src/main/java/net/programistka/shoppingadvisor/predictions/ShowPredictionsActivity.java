@@ -90,6 +90,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
     public void markAsBought(MenuItem item) {
         initMenu();
+        copySelectedItems = new ArrayList<>();
         copySelectedItems.addAll(selectedItems);
         showPredictionsPresenter.markAsBought(selectedItems);
         mViewPager = (ViewPager) findViewById(R.id.container);
