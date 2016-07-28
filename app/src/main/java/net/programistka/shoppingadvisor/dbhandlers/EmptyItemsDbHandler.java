@@ -187,8 +187,7 @@ public class EmptyItemsDbHandler extends DbHandler {
         insertNewEmptyItemIntoHistoryTable(id, time2);
         Prediction prediction = new Prediction();
         prediction.setDaysNumber(daysToRunOut);
-        long today = CalendarProvider.setNowCalendar().getTimeInMillis();
-        prediction.setTime(today + (long)daysToRunOut*1000*3600*24);
+        prediction.setTime(time2 + (long)daysToRunOut*1000*3600*24);
         insertPredictionForItemIntoPredictionsTable(id, prediction);
     }
 }

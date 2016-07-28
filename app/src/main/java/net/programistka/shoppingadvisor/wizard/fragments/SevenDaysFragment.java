@@ -18,13 +18,11 @@ import java.util.List;
 import butterknife.ButterKnife;
 
 public class SevenDaysFragment extends Fragment {
-    public static List<String> sevenDaysItems = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(getActivity());
-        getActivity().setTitle("Wizard - Step 1");
     }
 
     @Override

@@ -4,20 +4,17 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
 import net.programistka.shoppingadvisor.R;
-import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
-import net.programistka.shoppingadvisor.predictions.ShowPredictionsActivity;
 import net.programistka.shoppingadvisor.wizard.fragments.SevenDaysFragment;
+import net.programistka.shoppingadvisor.wizard.fragments.StartFragment;
 import net.programistka.shoppingadvisor.wizard.fragments.ThirtyDaysFragment;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class WizardActivity extends Activity {
 
@@ -33,7 +30,7 @@ public class WizardActivity extends Activity {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        Fragment myFragment = new SevenDaysFragment();
+        Fragment myFragment = new StartFragment();
         fragmentTransaction.replace(R.id.myfragment, myFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -43,10 +40,10 @@ public class WizardActivity extends Activity {
     public void onBackPressed() {
         FragmentManager fragmentManager = getFragmentManager();
         Fragment current = fragmentManager.findFragmentById(R.id.myfragment);
-        if(current instanceof ThirtyDaysFragment) {
+        if(current instanceof ThirtyDaysFragment || current instanceof SevenDaysFragment) {
             super.onBackPressed();
         }
-        else if(current instanceof SevenDaysFragment) {
+        else if(current instanceof StartFragment) {
             if (this.exit) {
                 ActivityCompat.finishAffinity(this);
             } else {

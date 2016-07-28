@@ -29,7 +29,6 @@ public class ThirtyDaysFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("Wizard - Step 2");
     }
 
     @Override

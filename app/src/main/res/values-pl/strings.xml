@@ -33,4 +33,7 @@
     <string name="fillAnyFields">Uzupełnij produkty by efektywniej korzystać z aplikacji i uzyskać prognozy zakupowe</string>
     <string name="itemsMarkedAsEmpty">Produkty oznaczone jako skończone.</string>
     <string name="itemMarkedAsEmpty">Produkt oznaczony jako skończony.</string>
+    <string name="startFragmentTitle">Witaj w Shopping4Cast</string>
+    <string name="startFragmentMessage">Użyj proszę przewodnika aby wprowadzić produkty, które regularnie kupujesz</string>
+    <string name="startFragmentButton">Dalej</string>
 </resources>

@@ -40,4 +40,7 @@
     <string name="fillAnyFields">Please fill any fields to be able to use the application and get the predictions</string>
     <string name="itemsMarkedAsEmpty">Items marked as empty.</string>
     <string name="itemMarkedAsEmpty">Item marked as empty.</string>
+    <string name="startFragmentTitle">Welcome in Shopping4Cast</string>
+    <string name="startFragmentMessage">Please use the following wizard to provide the items you regularly buy</string>
+    <string name="startFragmentButton">Next</string>
 </resources>
