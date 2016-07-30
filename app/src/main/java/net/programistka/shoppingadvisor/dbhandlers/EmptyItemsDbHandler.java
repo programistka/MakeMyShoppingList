@@ -165,7 +165,7 @@ public class EmptyItemsDbHandler extends DbHandler {
     public void deleteExistingEmptyItem(Long itemId) {
         Calendar c = CalendarProvider.setNowCalendar();
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_EMPTY_ITEMS_HISTORY, COLUMN_EMPTY_ITEM_DATE + "=" + c.getTimeInMillis(), null);
+        db.delete(TABLE_EMPTY_ITEMS_HISTORY, COLUMN_EMPTY_ITEM_DATE + "=" + c.getTimeInMillis() + " and " + COLUMN_ITEM_ID + "=" + itemId , null);
         db.close();
         updatePredictionForItemInPredictionsTable(itemId);
     }
