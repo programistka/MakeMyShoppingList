@@ -1,10 +1,12 @@
 package net.programistka.shoppingadvisor.wizard.fragments;
 
 import android.annotation.TargetApi;
+import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +18,8 @@ import android.widget.Toast;
 import net.programistka.shoppingadvisor.CalendarProvider;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemInteractor;
-import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemPresenter;
 import net.programistka.shoppingadvisor.predictions.ShowPredictionsActivity;
 import net.programistka.shoppingadvisor.presenters.DbConfig;
-import net.programistka.shoppingadvisor.wizard.WizardActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +42,78 @@ public class ThirtyDaysFragment extends Fragment {
     public void onActivityCreated(final Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
+        loadSavedPreferences();
 
         Button previousStep = (Button) getActivity().findViewById(R.id.backTo7DaysWizardFragment);
         previousStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                savePreferences();
                 getFragmentManager().popBackStack();
             }
+
+            private void savePreferences() {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                EditText item1 = (EditText) getActivity().findViewById(R.id.productName1);
+                EditText item2 = (EditText) getActivity().findViewById(R.id.productName2);
+                EditText item3 = (EditText) getActivity().findViewById(R.id.productName3);
+                EditText item4 = (EditText) getActivity().findViewById(R.id.productName4);
+                EditText item5 = (EditText) getActivity().findViewById(R.id.productName5);
+                String item1Text = item1.getText().toString().trim();
+                String item2Text = item2.getText().toString().trim();
+                String item3Text = item3.getText().toString().trim();
+                String item4Text = item4.getText().toString().trim();
+                String item5Text = item5.getText().toString().trim();
+                if(item1Text.length() > 0) {
+                    editor.putString("item1Text", item1Text);
+                }
+                if(item2Text.length() > 0) {
+                    editor.putString("item1Text", item1Text);
+                }
+                if(item3Text.length() > 0) {
+                    editor.putString("item1Text", item1Text);
+                }
+                if(item4Text.length() > 0) {
+                    editor.putString("item1Text", item1Text);
+                }
+                if(item5Text.length() > 0) {
+                    editor.putString("item1Text", item1Text);
+                }
+                editor.commit();
+            }
+            private void saveSharedPreferences() {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                EditText item1 = (EditText) getActivity().findViewById(R.id.productName1);
+                EditText item2 = (EditText) getActivity().findViewById(R.id.productName2);
+                EditText item3 = (EditText) getActivity().findViewById(R.id.productName3);
+                EditText item4 = (EditText) getActivity().findViewById(R.id.productName4);
+                EditText item5 = (EditText) getActivity().findViewById(R.id.productName5);
+                String item1Text = item1.getText().toString().trim();
+                String item2Text = item2.getText().toString().trim();
+                String item3Text = item3.getText().toString().trim();
+                String item4Text = item4.getText().toString().trim();
+                String item5Text = item5.getText().toString().trim();
+                if(item1Text.length() > 0) {
+                    editor.putString("item1Text", item1Text);
+                }
+                if(item2Text.length() > 0) {
+                    editor.putString("item2Text", item1Text);
+                }
+                if(item3Text.length() > 0) {
+                    editor.putString("item3Text", item1Text);
+                }
+                if(item4Text.length() > 0) {
+                    editor.putString("item4Text", item1Text);
+                }
+                if(item5Text.length() > 0) {
+                    editor.putString("item5Text", item1Text);
+                }
+                editor.commit();
+            }
+
+
         });
 
         final Button nextStep = (Button) getActivity().findViewById(R.id.finish);
@@ -59,7 +124,6 @@ public class ThirtyDaysFragment extends Fragment {
 
                 nextStep.setEnabled(false);
                 nextStep.setClickable(false);
-                //getFragmentManager().beginTransaction().addToBackStack("Test").commit();
 
                 EditText item1 = (EditText) getActivity().findViewById(R.id.productName1);
                 EditText item2 = (EditText) getActivity().findViewById(R.id.productName2);
@@ -69,20 +133,26 @@ public class ThirtyDaysFragment extends Fragment {
 
                 List<String> thirtyDaysItems = new ArrayList<>();
 
-                if(item1.getText().toString().trim().length() > 0) {
-                    thirtyDaysItems.add(item1.getText().toString().trim());
+                String item1Text = item1.getText().toString().trim();
+                String item2Text = item2.getText().toString().trim();
+                String item3Text = item3.getText().toString().trim();
+                String item4Text = item4.getText().toString().trim();
+                String item5Text = item5.getText().toString().trim();
+
+                if(item1Text.length() > 0) {
+                    thirtyDaysItems.add(item1Text);
                 }
-                if(item2.getText().toString().trim().length() > 0) {
-                    thirtyDaysItems.add(item2.getText().toString().trim());
+                if(item2Text.length() > 0) {
+                    thirtyDaysItems.add(item2Text);
                 }
-                if(item3.getText().toString().trim().length() > 0) {
-                    thirtyDaysItems.add(item3.getText().toString().trim());
+                if(item3Text.length() > 0) {
+                    thirtyDaysItems.add(item3Text);
                 }
-                if(item4.getText().toString().trim().length() > 0) {
-                    thirtyDaysItems.add(item4.getText().toString().trim());
+                if(item4Text.length() > 0) {
+                    thirtyDaysItems.add(item4Text);
                 }
-                if(item5.getText().toString().trim().length() > 0) {
-                    thirtyDaysItems.add(item5.getText().toString().trim());
+                if(item5Text.length() > 0) {
+                    thirtyDaysItems.add(item5Text);
                 }
 
                 List<String> sevenDaysItems = new ArrayList<>();
@@ -104,7 +174,7 @@ public class ThirtyDaysFragment extends Fragment {
 
                 SaveSevenDaysItems(sevenDaysItems);
                 SaveThirtyDaysItems(thirtyDaysItems);
-                if(sevenDaysItems.size() > 0 && thirtyDaysItems.size() > 0) {
+                if(sevenDaysItems.size() > 0 || thirtyDaysItems.size() > 0) {
                     Intent intent = new Intent(getActivity(), ShowPredictionsActivity.class);
                     startActivity(intent);
                 }
@@ -115,6 +185,21 @@ public class ThirtyDaysFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void loadSavedPreferences() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        EditText item1 = (EditText) getActivity().findViewById(R.id.productName1);
+        EditText item2 = (EditText) getActivity().findViewById(R.id.productName2);
+        EditText item3 = (EditText) getActivity().findViewById(R.id.productName3);
+        EditText item4 = (EditText) getActivity().findViewById(R.id.productName4);
+        EditText item5 = (EditText) getActivity().findViewById(R.id.productName5);
+        item1.setText(sharedPreferences.getString("item1Text",""));
+        item2.setText(sharedPreferences.getString("item2Text",""));
+        item3.setText(sharedPreferences.getString("item3Text",""));
+        item4.setText(sharedPreferences.getString("item4Text",""));
+        item5.setText(sharedPreferences.getString("item5Text",""));
+
     }
 
     private void SaveThirtyDaysItems(List<String> items) {
