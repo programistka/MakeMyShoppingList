@@ -68,29 +68,33 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
 
     @Override
     public void showDialogToAddAnotherItem() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage(getString(R.string.itemAdded));
-        alertDialogBuilder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                startActivity(new Intent(getApplicationContext(), AddEmptyItemActivity.class));
-                finish();
-            }
-        });
-        alertDialogBuilder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-                View v = findViewById (R.id.showPredictions);
-                v.invalidate();
-                startActivity(new Intent(getApplicationContext(), ShowPredictionsActivity.class));
-            }
-        });
-        AlertDialog dialog = alertDialogBuilder.create();
-        WindowManager.LayoutParams wlmp = dialog.getWindow().getAttributes();
-        wlmp.gravity = Gravity.TOP;
-        wlmp.y = 100;
-        dialog.show();
+        try {
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage(getString(R.string.itemAdded));
+            alertDialogBuilder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    startActivity(new Intent(getApplicationContext(), AddEmptyItemActivity.class));
+                    finish();
+                }
+            });
+            alertDialogBuilder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(getApplicationContext(), ShowPredictionsActivity.class));
+                }
+            });
+            AlertDialog dialog = alertDialogBuilder.create();
+            WindowManager.LayoutParams wlmp = dialog.getWindow().getAttributes();
+            wlmp.gravity = Gravity.TOP;
+            wlmp.y = 100;
+            dialog.show();
+        }
+        catch(Exception ex)
+        {
+
+        }
     }
 
     @Override

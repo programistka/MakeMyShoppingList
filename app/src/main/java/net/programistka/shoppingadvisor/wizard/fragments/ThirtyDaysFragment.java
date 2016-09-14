@@ -188,7 +188,7 @@ public class ThirtyDaysFragment extends Fragment {
     }
 
     private void loadSavedPreferences() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity().getApplicationContext());
         EditText item1 = (EditText) getActivity().findViewById(R.id.productName1);
         EditText item2 = (EditText) getActivity().findViewById(R.id.productName2);
         EditText item3 = (EditText) getActivity().findViewById(R.id.productName3);

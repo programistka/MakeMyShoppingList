@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import net.programistka.shoppingadvisor.CalendarProvider;
+import net.programistka.shoppingadvisor.HelpActivity;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 import net.programistka.shoppingadvisor.archive.ArchiveInteractor;
@@ -229,5 +230,9 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     @OnClick(R.id.plusButton)
     protected void attachFabAction() {
         startActivity(new Intent(ShowPredictionsActivity.this, AddEmptyItemActivity.class));
+    }
+
+    public void showHelp() {
+        startActivity(new Intent(ShowPredictionsActivity.this, HelpActivity.class));
     }
 }

@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Shopping4Cast</string>
+    <string name="app_name">Make My Shopping List!</string>
     <string name="action_settings">Settings</string>
+    <string name="help">Help</string>
     <string name="title_activity_add_running_out_of_event">Run out of item</string>
     <string name="add_item_which_you_run_out_of">Add</string>
     <string name="item_name">Item name</string>
@@ -40,8 +41,17 @@
     <string name="fillAnyFields">Please fill any fields to be able to use the application and get the predictions</string>
     <string name="itemsMarkedAsEmpty">Items marked as empty.</string>
     <string name="itemMarkedAsEmpty">Item marked as empty.</string>
-    <string name="startFragmentTitle">Welcome in Shopping4Cast</string>
+    <string name="startFragmentTitle">Welcome in Make My Shopping List!</string>
     <string name="startFragmentMessage">Please use the following wizard to provide the items you regularly buy</string>
     <string name="startFragmentButton">Next</string>
     <string name="all_items_have_been_archived_use_add_button_below_to_add_new_items">All items in this section have been archived - use add button below to add new items.</string>
+    <string name="whenAddedFirstTime">Prediction for the product will be calculated after adding it more than two times</string>
+    <string name="back">Back</string>
+    <string name="finish">Finish</string>
+    <string name="markItemAsEmpty">Mark item as empty</string>
+    <string name="markItemAsBought">Mark item as bought</string>
+    <string name="markItemAsArchived">Mark item as archived</string>
+    <string name="faq">Frequently Asked Questions</string>
+    <string name="q1_noitemadded">I have just add new empty item but it isn\'t shown on the predictions list.</string>
+    <string name="a1_noitemadded">The prediction will appear after the empty item will be added for the second time. This allows to avoid the situation when item which you have bought only once is shown on the predictions list.</string>
 </resources>

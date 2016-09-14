@@ -27,8 +27,9 @@
         android:visible="false"
         android:onClick="markAsArchived"
         app:showAsAction="always" />
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+
+    <!--<item android:id="@+id/action_settings"-->
+        <!--android:title="@string/help"-->
+        <!--android:onClick="showHelp"-->
+        <!--app:showAsAction="never" />-->
 </menu>
