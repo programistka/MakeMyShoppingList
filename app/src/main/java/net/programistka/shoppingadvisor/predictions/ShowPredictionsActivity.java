@@ -82,7 +82,8 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.help) {
+            startActivity(new Intent(ShowPredictionsActivity.this, HelpActivity.class));
             return true;
         }
 
@@ -230,9 +231,5 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     @OnClick(R.id.plusButton)
     protected void attachFabAction() {
         startActivity(new Intent(ShowPredictionsActivity.this, AddEmptyItemActivity.class));
-    }
-
-    public void showHelp() {
-        startActivity(new Intent(ShowPredictionsActivity.this, HelpActivity.class));
     }
 }

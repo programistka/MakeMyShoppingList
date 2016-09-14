@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Make My Shopping List!</string>
     <string name="action_settings">Ustawienia</string>
-    <string name="help">Help</string>
+    <string name="help">Pomoc</string>
     <string name="title_activity_add_running_out_of_event">Skończył/o mi się...</string>
     <string name="add_item_which_you_run_out_of">Dodaj</string>
     <string name="item_name">Nazwa produktu</string>
