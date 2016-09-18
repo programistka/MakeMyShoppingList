@@ -54,4 +54,12 @@
     <string name="faq">Najczęsciej zadawane pytania</string>
     <string name="q1_noitemadded">Dodałem produkt, który się skończył, ale nie pokazuje się na liście prognoz.</string>
     <string name="a1_noitemadded">Prognozy pojawiaja się, gdy przedmiot zostanie dodany przynajmniej dwa razy. Zapobiega to sytuacji, gdy przedmiot kupiony jedynie raz pojawi się na liście prognoz.</string>
+    <string name="login">Login</string>
+    <string name="sign_out">Sign out</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_text">Text</string>
+    <string name="loading">Loading</string>
+    <string name="signed_out">Signed out</string>
+    <string name="signed_in_fmt">Signed in as: %s</string>
 </resources>
