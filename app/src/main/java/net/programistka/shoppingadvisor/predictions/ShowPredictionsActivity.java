@@ -196,7 +196,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     private void showDialogForUndo(AlertDialog.Builder alertDialogBuilder) {
         final AlertDialog dialog = alertDialogBuilder.create();
         WindowManager.LayoutParams wlmp = dialog.getWindow().getAttributes();
-        wlmp.gravity = Gravity.BOTTOM;
+        wlmp.gravity = Gravity.CENTER;
         wlmp.width = WindowManager.LayoutParams.MATCH_PARENT;
 
         dialog.getWindow().setAttributes(wlmp);
