@@ -54,4 +54,6 @@
     <string name="faq">Frequently Asked Questions</string>
     <string name="q1_noitemadded">I have just add new empty item but it isn\'t shown on the predictions list.</string>
     <string name="a1_noitemadded">The prediction will appear after the empty item will be added for the second time. This allows to avoid the situation when item which you have bought only once is shown on the predictions list.</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login">Login</string>
 </resources>

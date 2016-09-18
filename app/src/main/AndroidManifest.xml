@@ -31,7 +31,11 @@
             android:label="Wizard"
             android:theme="@style/WizardTheme" />
         <activity android:name=".predictions.NoPredictions" />
-        <activity android:name=".HelpActivity"></activity>
+        <activity android:name=".HelpActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

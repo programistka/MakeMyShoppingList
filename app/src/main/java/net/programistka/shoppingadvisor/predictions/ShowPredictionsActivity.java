@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import net.programistka.shoppingadvisor.CalendarProvider;
 import net.programistka.shoppingadvisor.HelpActivity;
+import net.programistka.shoppingadvisor.LoginActivity;
 import net.programistka.shoppingadvisor.R;
 import net.programistka.shoppingadvisor.addemptyitem.AddEmptyItemActivity;
 import net.programistka.shoppingadvisor.archive.ArchiveInteractor;
@@ -84,6 +85,10 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.help) {
             startActivity(new Intent(ShowPredictionsActivity.this, HelpActivity.class));
+            return true;
+        }
+        if (id == R.id.login) {
+            startActivity(new Intent(ShowPredictionsActivity.this, LoginActivity.class));
             return true;
         }
 

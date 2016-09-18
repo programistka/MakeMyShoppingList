@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "713805827848",
+    "project_id": "make-my-shopping-list"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713805827848:android:aba8b6841e1d0130",
+        "android_client_info": {
+          "package_name": "net.programistka.shoppingadvisor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713805827848-s966729jqfs6ebqqs93bv17abige9bdf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.programistka.shoppingadvisor",
+            "certificate_hash": "85999391C8A3EF88A4D963153C68D3B533735222"
+          }
+        },
+        {
+          "client_id": "713805827848-a9t96rrhmi9jtnrhim2l1bju4mjlnumk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrXBz5f5IbuDnSemiN3Wwq17mKyN-EdOM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
