@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     packagingOptions {
@@ -14,7 +13,7 @@ android {
     }
 
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "net.programistka.shoppingadvisor"
@@ -32,26 +31,24 @@ android {
 
 }
 
-apply plugin: 'com.neenbedankt.android-apt'
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    androidTestCompile 'junit:junit:4.12'
-    testCompile 'org.assertj:assertj-core:2.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.0.1'
-    apt 'com.google.dagger:dagger-compiler:2.0.1'
-    provided 'javax.annotation:jsr250-api:1.0'
-    testCompile 'org.mockito:mockito-core:1.10.19'
-    androidTestCompile 'org.mockito:mockito-core:1.10.19'
-    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
-    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:cardview-v7:23.4.0'
-    compile 'com.jakewharton:butterknife:8.0.1'
-    compile 'com.google.dagger:dagger:2.0.1'
-    compile 'com.android.support:support-v4:23.4.0'
-    compile 'com.google.android.gms:play-services-auth:8.3.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'junit:junit:4.12'
+    testImplementation 'org.assertj:assertj-core:2.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.0.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.0.1'
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    androidTestImplementation 'org.mockito:mockito-core:1.10.19'
+    androidTestImplementation 'com.google.dexmaker:dexmaker:1.2'
+    androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.2'
+    implementation 'com.android.support:appcompat-v7:23.4.0'
+    implementation 'com.android.support:design:23.4.0'
+    implementation 'com.android.support:cardview-v7:23.4.0'
+    implementation 'com.jakewharton:butterknife:8.0.1'
+    implementation 'com.google.dagger:dagger:2.0.1'
+    implementation 'com.android.support:support-v4:23.4.0'
+    implementation 'com.google.android.gms:play-services-auth:8.3.0'
 
 }
