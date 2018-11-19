@@ -31,9 +31,12 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
     private AddEmptyItemPresenter addEmptyItemPresenter;
     private long time;
 
-    @BindView(R.id.emptyItemName) AutoCompleteTextView emptyItemName;
-    @BindView(R.id.addNewEmptyItem) Button addNewEmptyItem;
-    @BindView(R.id.cancel) Button cancel;
+    @BindView(R.id.emptyItemName)
+    AutoCompleteTextView emptyItemName;
+    @BindView(R.id.addNewEmptyItem)
+    Button addNewEmptyItem;
+    @BindView(R.id.cancel)
+    Button cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +92,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
             wlmp.gravity = Gravity.TOP;
             wlmp.y = 100;
             dialog.show();
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
 
         }
     }

@@ -61,10 +61,10 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
 
         List<EmptyItem> emptyItems = dbHandler.selectAllItemsFromEmptyItemsHistoryTableByItemId(1);
         List<Long> emptyItemsTimes = new ArrayList<>();
-        for (EmptyItem emptyItem:emptyItems){
+        for (EmptyItem emptyItem : emptyItems) {
             emptyItemsTimes.add(emptyItem.getCreationDate());
         }
-         
+
         Prediction prediction = PredictionsHandler.generatePrediction(emptyItemsTimes);
         assertEquals(2, prediction.getDaysNumber());
         Calendar c3 = Calendar.getInstance();
@@ -85,7 +85,7 @@ public class EmptyItemsDbHandlerTests extends AndroidTestCase {
 
         List<EmptyItem> emptyItems = dbHandler.selectAllItemsFromEmptyItemsHistoryTableByItemId(1);
         List<Long> emptyItemsTimes = new ArrayList<>();
-        for (EmptyItem emptyItem:emptyItems){
+        for (EmptyItem emptyItem : emptyItems) {
             emptyItemsTimes.add(emptyItem.getCreationDate());
         }
 

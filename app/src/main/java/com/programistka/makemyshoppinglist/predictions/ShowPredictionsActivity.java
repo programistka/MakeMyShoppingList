@@ -106,10 +106,9 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(currentFragment);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        if(selectedItems.size() > 1){
+        if (selectedItems.size() > 1) {
             alertDialogBuilder.setMessage(this.getString(R.string.itemsMarkedAsBought));
-        }
-        else {
+        } else {
             alertDialogBuilder.setMessage(this.getString(R.string.itemMarkedAsBought));
         }
         alertDialogBuilder.setPositiveButton(this.getString(R.string.undo), new DialogInterface.OnClickListener() {
@@ -118,7 +117,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
                 showPredictionsPresenter.undoMarkAsBought(copySelectedItems);
                 mViewPager = (ViewPager) findViewById(R.id.container);
                 final int currentFragment = mViewPager.getCurrentItem();
-                Dialog dialog = (Dialog)arg0;
+                Dialog dialog = (Dialog) arg0;
                 SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), dialog.getContext());
                 mViewPager.setAdapter(adapter);
                 mViewPager.setCurrentItem(currentFragment);
@@ -145,7 +144,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(currentFragment);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);//, R.style.CustomDialogTheme);
-        if(selectedItems.size() > 1) {
+        if (selectedItems.size() > 1) {
             alertDialogBuilder.setMessage(this.getString(R.string.itemsArchived));
         } else {
             alertDialogBuilder.setMessage(this.getString(R.string.itemArchived));
@@ -156,7 +155,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
                 presenter.undoMarkAsArchived(copySelectedItems);
                 mViewPager = (ViewPager) findViewById(R.id.container);
                 int currentFragment = mViewPager.getCurrentItem();
-                Dialog dialog = (Dialog)arg0;
+                Dialog dialog = (Dialog) arg0;
                 SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), dialog.getContext());
                 mViewPager.setAdapter(adapter);
                 mViewPager.setCurrentItem(currentFragment);
@@ -177,10 +176,9 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(currentFragment);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        if(selectedItems.size() > 1) {
+        if (selectedItems.size() > 1) {
             alertDialogBuilder.setMessage(getString(R.string.itemsMarkedAsEmpty));
-        }
-        else {
+        } else {
             alertDialogBuilder.setMessage(getString(R.string.itemMarkedAsEmpty));
         }
         alertDialogBuilder.setPositiveButton(this.getString(R.string.undo), new DialogInterface.OnClickListener() {
@@ -189,7 +187,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
                 presenter.undoMarkAsEmpty(copySelectedItems);
                 mViewPager = (ViewPager) findViewById(R.id.container);
                 int currentFragment = mViewPager.getCurrentItem();
-                Dialog dialog = (Dialog)arg0;
+                Dialog dialog = (Dialog) arg0;
                 SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), dialog.getContext());
                 mViewPager.setAdapter(adapter);
                 mViewPager.setCurrentItem(currentFragment);

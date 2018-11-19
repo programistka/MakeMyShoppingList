@@ -12,7 +12,7 @@ public class StartInteractor {
         dbHandler = new DbHandler(dbConfig, context);
     }
 
-    public Boolean ifAnyItemsExists(){
+    public Boolean ifAnyItemsExists() {
         return dbHandler.selectAllItemsFromItemsTable().size() > 0;
     }
 }

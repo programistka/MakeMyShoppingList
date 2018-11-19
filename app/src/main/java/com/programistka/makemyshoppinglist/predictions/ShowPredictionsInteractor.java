@@ -24,7 +24,7 @@ public class ShowPredictionsInteractor {
     }
 
     public void markAsBought(List<Long> selectedItems) {
-        for (Long itemId:selectedItems) {
+        for (Long itemId : selectedItems) {
             dbHandler.insertBoughtPredictionIntoPredictionsTable(itemId);
         }
     }
@@ -34,7 +34,7 @@ public class ShowPredictionsInteractor {
     }
 
     public void undoMarkAsBought(List<Long> selectedItems) {
-        for (Long itemId:selectedItems) {
+        for (Long itemId : selectedItems) {
             emptyItemsDbHandler.updatePredictionForItemInPredictionsTable(itemId);
         }
     }

@@ -23,7 +23,8 @@ public class SevenDaysFragment extends Fragment {
     PredictionsAdapter adapter;
     RecyclerView recyclerView;
 
-    public SevenDaysFragment() {}
+    public SevenDaysFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,8 +63,7 @@ public class SevenDaysFragment extends Fragment {
     private void initData() {
         ShowPredictionsPresenter presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), getContext()));
         List<EmptyItem> predictions = presenter.getPredictionsForWeek();
-        if(predictions.size() == 0)
-        {
+        if (predictions.size() == 0) {
             RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.fragmentItems);
             recyclerView.setVisibility(View.INVISIBLE);
             TextView textView = (TextView) getView().findViewById(R.id.allItemsArchived);

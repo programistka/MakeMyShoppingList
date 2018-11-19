@@ -40,10 +40,9 @@ public class WizardActivity extends Activity {
     public void onBackPressed() {
         FragmentManager fragmentManager = getFragmentManager();
         Fragment current = fragmentManager.findFragmentById(R.id.myfragment);
-        if(current instanceof ThirtyDaysFragment || current instanceof SevenDaysFragment) {
+        if (current instanceof ThirtyDaysFragment || current instanceof SevenDaysFragment) {
             super.onBackPressed();
-        }
-        else if(current instanceof StartFragment) {
+        } else if (current instanceof StartFragment) {
             if (this.exit) {
                 ActivityCompat.finishAffinity(this);
             } else {

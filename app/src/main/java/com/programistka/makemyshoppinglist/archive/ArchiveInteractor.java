@@ -18,7 +18,7 @@ public class ArchiveInteractor {
     }
 
     public void markAsArchived(List<Long> selectedItems) {
-        for (Long itemId:selectedItems) {
+        for (Long itemId : selectedItems) {
             dbHandler.insertItemToArchiveTable(itemId);
         }
     }
@@ -32,13 +32,13 @@ public class ArchiveInteractor {
     }
 
     public void undoMarkAsEmpty(List<Long> selectedItems) {
-        for (Long itemId:selectedItems) {
+        for (Long itemId : selectedItems) {
             emptyItemsDbHandler.deleteExistingEmptyItem(itemId);
         }
     }
 
     public void markAsEmpty(List<Long> selectedItems, long time) {
-        for (Long itemId:selectedItems) {
+        for (Long itemId : selectedItems) {
             emptyItemsDbHandler.insertExistingEmptyItem(itemId, time);
         }
     }

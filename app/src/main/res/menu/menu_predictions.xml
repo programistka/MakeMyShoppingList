@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".main.MainActivity" >
+    tools:context=".main.MainActivity">
     <item
         android:id="@+id/label_counter"
         android:visible="false"
@@ -28,11 +28,13 @@
         android:onClick="markAsArchived"
         app:showAsAction="always" />
 
-    <item android:id="@+id/help"
+    <item
+        android:id="@+id/help"
         android:title="@string/help"
         app:showAsAction="never" />
 
-    <item android:id="@+id/login"
+    <item
+        android:id="@+id/login"
         android:title="@string/login"
         app:showAsAction="never" />
 </menu>

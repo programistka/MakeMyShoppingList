@@ -89,7 +89,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         //Then
         List<EmptyItem> shoppingHistory = selectAllItemsPresenter.selectShoppingHistoryForItemFromItemsHistoryTable(1);
         List<Long> shoppingTimesHistory = new ArrayList<>();
-        for (EmptyItem item:shoppingHistory) {
+        for (EmptyItem item : shoppingHistory) {
             shoppingTimesHistory.add(item.getCreationDate());
         }
         Prediction prediction = PredictionsHandler.generatePrediction(shoppingTimesHistory);
@@ -112,7 +112,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         //Then
         List<EmptyItem> shoppingHistory = selectAllItemsPresenter.selectShoppingHistoryForItemFromItemsHistoryTable(1);
         List<Long> shoppingTimesHistory = new ArrayList<>();
-        for (EmptyItem item:shoppingHistory) {
+        for (EmptyItem item : shoppingHistory) {
             shoppingTimesHistory.add(item.getCreationDate());
         }
         Prediction prediction = PredictionsHandler.generatePrediction(shoppingTimesHistory);
@@ -140,7 +140,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         //Then
         List<EmptyItem> shoppingHistory = selectAllItemsPresenter.selectShoppingHistoryForItemFromItemsHistoryTable(1);
         List<Long> shoppingTimesHistory = new ArrayList<>();
-        for (EmptyItem item:shoppingHistory) {
+        for (EmptyItem item : shoppingHistory) {
             shoppingTimesHistory.add(item.getCreationDate());
         }
         Prediction prediction = PredictionsHandler.generatePrediction(shoppingTimesHistory);
@@ -168,7 +168,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         //Then
         List<EmptyItem> shoppingHistory = selectAllItemsPresenter.selectShoppingHistoryForItemFromItemsHistoryTable(1);
         List<Long> shoppingTimesHistory = new ArrayList<>();
-        for (EmptyItem item:shoppingHistory) {
+        for (EmptyItem item : shoppingHistory) {
             shoppingTimesHistory.add(item.getCreationDate());
         }
         Prediction prediction = PredictionsHandler.generatePrediction(shoppingTimesHistory);
@@ -199,7 +199,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         //Then
         List<EmptyItem> shoppingHistory = selectAllItemsPresenter.selectShoppingHistoryForItemFromItemsHistoryTable(1);
         List<Long> shoppingTimesHistory = new ArrayList<>();
-        for (EmptyItem item:shoppingHistory) {
+        for (EmptyItem item : shoppingHistory) {
             shoppingTimesHistory.add(item.getCreationDate());
         }
         Prediction prediction = PredictionsHandler.generatePrediction(shoppingTimesHistory);
@@ -228,7 +228,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         List<EmptyItem> allItems = selectAllItemsPresenter.selectAllItemsFromItemsTable();
         List<EmptyItem> historyItems = selectAllItemsPresenter.selectShoppingHistoryForItemFromItemsHistoryTable(1);
         Calendar c3 = Calendar.getInstance();
-        c3.setTimeInMillis(historyItems.get(historyItems.size()-1).getCreationDate());
+        c3.setTimeInMillis(historyItems.get(historyItems.size() - 1).getCreationDate());
         Prediction prediction = showPredictionsPresenter.getPredictionForItem(1);
         Calendar c4 = Calendar.getInstance();
         c4.setTimeInMillis(prediction.getTime());
@@ -255,7 +255,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         Calendar c2 = CalendarProvider.setCalendar(23, 3, 2016);
         addEmptyItemPresenter.insertExistingEmptyItem(1, c2.getTimeInMillis());
         List<Long> selectedItems = new ArrayList<>();
-        selectedItems.add((long)1);
+        selectedItems.add((long) 1);
 
         //When
         showPredictionsPresenter.markAsBought(selectedItems);
@@ -263,7 +263,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         //Then
         Prediction prediction = showPredictionsPresenter.getPredictionForItem(1);
         Calendar now = CalendarProvider.setNowCalendar();
-        assertEquals(now.getTimeInMillis() + 2 * 1000*24*3600, prediction.getTime());
+        assertEquals(now.getTimeInMillis() + 2 * 1000 * 24 * 3600, prediction.getTime());
     }
 
 //    public void testWhenMarkAsBoughtAndPredictionNotExpiredThenNewPredictionInPredictionsTable() {
@@ -291,7 +291,7 @@ public class EmptyItemsTests extends AndroidTestCase {
 //        assertEquals(2016, c3.get(Calendar.YEAR));
 //    }
 
-    public void testWhenMarkAsBoughtAndThenUndoThenThePreviousPredictionIsRestored(){
+    public void testWhenMarkAsBoughtAndThenUndoThenThePreviousPredictionIsRestored() {
         //Given
         AddEmptyItemView view = mock(AddEmptyItemView.class);
         AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
@@ -301,7 +301,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         Calendar c2 = CalendarProvider.setCalendar(20, 4, 2016);
         addEmptyItemPresenter.insertExistingEmptyItem(1, c2.getTimeInMillis());
         List<Long> selectedItems = new ArrayList<>();
-        selectedItems.add((long)1);
+        selectedItems.add((long) 1);
         Prediction predictionBeforeMarkAsArchived = showPredictionsPresenter.getPredictionForItem(1);
 
         //When
@@ -315,7 +315,7 @@ public class EmptyItemsTests extends AndroidTestCase {
 
     }
 
-    public void testWhenMarkAsArchivedThenTheItemIsAddedToArchiveTable(){
+    public void testWhenMarkAsArchivedThenTheItemIsAddedToArchiveTable() {
         //Given
         AddEmptyItemView view = mock(AddEmptyItemView.class);
         AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
@@ -325,7 +325,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         Calendar c2 = CalendarProvider.setCalendar(20, 4, 2016);
         addEmptyItemPresenter.insertExistingEmptyItem(1, c2.getTimeInMillis());
         List<Long> selectedItems = new ArrayList<>();
-        selectedItems.add((long)1);
+        selectedItems.add((long) 1);
 
         //When
         archivePresenter.markAsArchived(selectedItems);
@@ -334,7 +334,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         assertTrue(archivePresenter.checkIfArchivedElement(1));
     }
 
-    public void testWhenMarkAsArchivedAndUndoThenTheItemIsRemovedFromArchiveTable(){
+    public void testWhenMarkAsArchivedAndUndoThenTheItemIsRemovedFromArchiveTable() {
         //Given
         AddEmptyItemView view = mock(AddEmptyItemView.class);
         AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
@@ -344,7 +344,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         Calendar c2 = CalendarProvider.setCalendar(20, 4, 2016);
         addEmptyItemPresenter.insertExistingEmptyItem(1, c2.getTimeInMillis());
         List<Long> selectedItems = new ArrayList<>();
-        selectedItems.add((long)1);
+        selectedItems.add((long) 1);
 
         //When
         archivePresenter.markAsArchived(selectedItems);
@@ -354,7 +354,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         assertFalse(archivePresenter.checkIfArchivedElement(1));
     }
 
-    public void testWhenMarkAsEmptyThenCurrentDateAddedToTheHistoryTable(){
+    public void testWhenMarkAsEmptyThenCurrentDateAddedToTheHistoryTable() {
         //Given
         AddEmptyItemView view = mock(AddEmptyItemView.class);
         AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
@@ -365,7 +365,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         Calendar c2 = CalendarProvider.setCalendar(8, 4, 2016);
         addEmptyItemPresenter.insertExistingEmptyItem(1, c2.getTimeInMillis());
         List<Long> selectedItems = new ArrayList<>();
-        selectedItems.add((long)1);
+        selectedItems.add((long) 1);
 
         //When
         archivePresenter.markAsEmpty(selectedItems, CalendarProvider.setNowCalendar().getTimeInMillis());
@@ -378,7 +378,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         assertEquals(lastItem.getCreationDate(), c3.getTimeInMillis());
     }
 
-    public void testWhenMarkAsEmptyThenNewPredictionMade(){
+    public void testWhenMarkAsEmptyThenNewPredictionMade() {
         //Given
         AddEmptyItemView view = mock(AddEmptyItemView.class);
         AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
@@ -389,7 +389,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         Calendar c2 = CalendarProvider.setCalendar(8, 4, 2016);
         addEmptyItemPresenter.insertExistingEmptyItem(1, c2.getTimeInMillis());
         List<Long> selectedItems = new ArrayList<>();
-        selectedItems.add((long)1);
+        selectedItems.add((long) 1);
 
         //When
         Calendar c3 = CalendarProvider.setCalendar(11, 4, 2016);
@@ -405,7 +405,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         assertEquals(2016, c4.get(Calendar.YEAR));
     }
 
-    public void testWhenMarkAsEmptyAndUndoThenHistoryStateIsRecovered(){
+    public void testWhenMarkAsEmptyAndUndoThenHistoryStateIsRecovered() {
         //Given
         AddEmptyItemView view = mock(AddEmptyItemView.class);
         AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
@@ -416,7 +416,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         Calendar c2 = CalendarProvider.setCalendar(8, 4, 2016);
         addEmptyItemPresenter.insertExistingEmptyItem(1, c2.getTimeInMillis());
         List<Long> selectedItems = new ArrayList<>();
-        selectedItems.add((long)1);
+        selectedItems.add((long) 1);
 
         //When
         archivePresenter.markAsEmpty(selectedItems, CalendarProvider.setNowCalendar().getTimeInMillis());
@@ -428,7 +428,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         assertEquals(2, items.size());
     }
 
-    public void testWhenMarkAsEmptyAndUndoThenPredictionIsRecovered(){
+    public void testWhenMarkAsEmptyAndUndoThenPredictionIsRecovered() {
         //Given
         AddEmptyItemView view = mock(AddEmptyItemView.class);
         AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
@@ -439,7 +439,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         Calendar c2 = CalendarProvider.setCalendar(8, 4, 2016);
         addEmptyItemPresenter.insertExistingEmptyItem(1, c2.getTimeInMillis());
         List<Long> selectedItems = new ArrayList<>();
-        selectedItems.add((long)1);
+        selectedItems.add((long) 1);
 
         //When
         archivePresenter.markAsEmpty(selectedItems, CalendarProvider.setNowCalendar().getTimeInMillis());
@@ -455,7 +455,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         assertEquals(2016, c3.get(Calendar.YEAR));
     }
 
-    public void testWhenOpenTabWithAllPredictionThenAllPredictionsAreShown(){
+    public void testWhenOpenTabWithAllPredictionThenAllPredictionsAreShown() {
         //Given
         AddEmptyItemView view = mock(AddEmptyItemView.class);
         AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
@@ -478,7 +478,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         assertEquals(2, allPredictions.size());
     }
 
-    public void testWhenOpenTabWithWeeklyPredictionThenWeeklyPredictionsAreShown(){
+    public void testWhenOpenTabWithWeeklyPredictionThenWeeklyPredictionsAreShown() {
         //Given
         AddEmptyItemView view = mock(AddEmptyItemView.class);
         AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);
@@ -502,7 +502,7 @@ public class EmptyItemsTests extends AndroidTestCase {
         assertEquals("Kasza", allPredictions.get(0).getName());
     }
 
-    public void testWhenOpenTabWithMonthlyPredictionThenMonthlyPredictionsAreShown(){
+    public void testWhenOpenTabWithMonthlyPredictionThenMonthlyPredictionsAreShown() {
         //Given
         AddEmptyItemView view = mock(AddEmptyItemView.class);
         AddEmptyItemPresenter addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DbConfig("shopping_advisor_test.db"), mContext), view);

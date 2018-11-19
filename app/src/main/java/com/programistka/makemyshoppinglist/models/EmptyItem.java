@@ -31,7 +31,11 @@ public class EmptyItem {
         this.creationDate = creationDate;
     }
 
-    public long getPredictionDate() { return this.predictionDate; }
+    public long getPredictionDate() {
+        return this.predictionDate;
+    }
 
-    public void setPredictionDate(long predictionDate) { this.predictionDate = predictionDate; }
+    public void setPredictionDate(long predictionDate) {
+        this.predictionDate = predictionDate;
+    }
 }

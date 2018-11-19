@@ -9,6 +9,7 @@ public class ArchivePresenter {
     public ArchivePresenter(ArchiveInteractor interactor) {
         this.interactor = interactor;
     }
+
     public void markAsArchived(List<Long> selectedItems) {
         interactor.markAsArchived(selectedItems);
     }

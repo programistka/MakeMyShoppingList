@@ -55,14 +55,15 @@ public class SuggestionsAdapter extends ArrayAdapter<EmptyItem> {
     private Filter nameFilter = new Filter() {
         @Override
         public String convertResultToString(Object resultValue) {
-            return ((EmptyItem)(resultValue)).getName();
+            return ((EmptyItem) (resultValue)).getName();
         }
+
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            if(constraint != null) {
+            if (constraint != null) {
                 List<EmptyItem> suggestions = new ArrayList<>();
                 for (EmptyItem emptyItem : itemsAll) {
-                    if(emptyItem.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())){
+                    if (emptyItem.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())) {
                         suggestions.add(emptyItem);
                     }
                 }
@@ -74,10 +75,11 @@ public class SuggestionsAdapter extends ArrayAdapter<EmptyItem> {
                 return new FilterResults();
             }
         }
+
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             ArrayList<EmptyItem> filteredList = (ArrayList<EmptyItem>) results.values;
-            if(results.count > 0) {
+            if (results.count > 0) {
                 clear();
                 for (EmptyItem c : filteredList) {
                     add(c);

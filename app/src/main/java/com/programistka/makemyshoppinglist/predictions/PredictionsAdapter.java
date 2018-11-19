@@ -35,21 +35,20 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
             super(v);
             view = v;
             v.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            initImageView(v);
-                                            toggle = !toggle;
-                                            initMenu();
-                                        }
+                @Override
+                public void onClick(View v) {
+                    initImageView(v);
+                    toggle = !toggle;
+                    initMenu();
+                }
             });
         }
 
         private void initMenu() {
-            if(counter > 0) {
+            if (counter > 0) {
                 CharSequence counterLabel = Integer.toString(counter);
                 setupMenu(counterLabel);
-            }
-            else {
+            } else {
                 setupMenu();
             }
         }
@@ -72,13 +71,12 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
 
         private void initImageView(View v) {
             ImageView imageView = (ImageView) v.findViewById(R.id.icon_imageview);
-            if(toggle) {
+            if (toggle) {
                 imageView.setImageResource(R.drawable.ic_done_black_24dp);
                 selectedItems.add(id);
                 ShowPredictionsActivity.selectedItems = selectedItems;
                 counter++;
-            }
-            else {
+            } else {
                 imageView.setImageResource(R.drawable.ic_event_grey_24dp);
                 selectedItems.remove(id);
                 ShowPredictionsActivity.selectedItems = selectedItems;
@@ -113,16 +111,16 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
     @NonNull
     private ViewHolder initViewHolder(View v) {
         ViewHolder viewHolder = new ViewHolder(v);
-        viewHolder.nameTextView = (TextView)v.findViewById(R.id.name_textview);
-        viewHolder.dateTextView = (TextView)v.findViewById(R.id.date_textview);
-        viewHolder.iconView = (ImageView)v.findViewById(R.id.icon_imageview);
+        viewHolder.nameTextView = (TextView) v.findViewById(R.id.name_textview);
+        viewHolder.dateTextView = (TextView) v.findViewById(R.id.date_textview);
+        viewHolder.iconView = (ImageView) v.findViewById(R.id.icon_imageview);
         return viewHolder;
     }
 
     private void setViewHolder(ViewHolder holder, EmptyItem currentEmptyItem) {
         holder.nameTextView.setText(currentEmptyItem.getName());
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
-        if(currentEmptyItem.getPredictionDate() < Calendar.getInstance().getTimeInMillis()){
+        if (currentEmptyItem.getPredictionDate() < Calendar.getInstance().getTimeInMillis()) {
             holder.dateTextView.setTextColor(Color.RED);
         }
         holder.dateTextView.setText(df.format(currentEmptyItem.getPredictionDate()));

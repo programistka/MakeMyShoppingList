@@ -23,14 +23,12 @@ public class AddEmptyItemPresenter {
     }
 
     public void addNewEmptyItem(String name, long time) {
-        if(name.length() == 0) {
+        if (name.length() == 0) {
             view.showEmptyItemNameMessage();
-        }
-        else {
-            if(insertNewEmptyItem(name, time) > 0) {
+        } else {
+            if (insertNewEmptyItem(name, time) > 0) {
                 view.showDialogToAddAnotherItem();
-            }
-            else {
+            } else {
                 view.showAddingErrorMessage();
             }
         }

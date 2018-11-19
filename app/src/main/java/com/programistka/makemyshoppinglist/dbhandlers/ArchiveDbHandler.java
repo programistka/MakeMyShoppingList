@@ -26,7 +26,7 @@ public class ArchiveDbHandler extends DbHandler {
         String selectQuery = "SELECT * FROM " + TABLE_ARCHIVE + " WHERE " + COLUMN_ITEM_ID + "=" + itemId;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if(cursor.getCount() != 0) {
+        if (cursor.getCount() != 0) {
             return true;
         }
         return false;
@@ -34,7 +34,7 @@ public class ArchiveDbHandler extends DbHandler {
 
     public void undoMarkAsArchived(List<Long> selectedItems) {
         SQLiteDatabase db = this.getWritableDatabase();
-        for (Long itemId:selectedItems) {
+        for (Long itemId : selectedItems) {
             db.delete(TABLE_ARCHIVE, COLUMN_ITEM_ID + "=" + itemId, null);
         }
         db.close();

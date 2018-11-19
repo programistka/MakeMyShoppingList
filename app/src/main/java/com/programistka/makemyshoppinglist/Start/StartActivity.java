@@ -14,11 +14,10 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StartPresenter presenter = new StartPresenter(new StartInteractor(new DbConfig(), this));
-        if(presenter.ifAnyItemsExists()) {
+        if (presenter.ifAnyItemsExists()) {
             Intent intent = new Intent(getApplicationContext(), ShowPredictionsActivity.class);
             startActivity(intent);
-        }
-        else {
+        } else {
             Intent intent = new Intent(getApplicationContext(), WizardActivity.class);
             startActivity(intent);
         }

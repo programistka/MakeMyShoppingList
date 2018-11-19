@@ -23,7 +23,7 @@ public class EmptyItemsDbHandler extends DbHandler {
     public long insertNewEmptyItem(String newEmptyItemName, long time) {
         String trimmedName = newEmptyItemName.toLowerCase().trim();
         long itemId = checkIfElementAlreadyExistsInDatabase(trimmedName);
-        if(itemId > 0) {
+        if (itemId > 0) {
             insertExistingEmptyItem(itemId, time);
             return itemId;
         }
@@ -39,7 +39,7 @@ public class EmptyItemsDbHandler extends DbHandler {
     }
 
     public void insertExistingEmptyItem(long existingEmptyItemId, long time) {
-        if(checkIfItemExistsWithTheSameDate(existingEmptyItemId, time)) {
+        if (checkIfItemExistsWithTheSameDate(existingEmptyItemId, time)) {
             return;
         }
 
@@ -55,10 +55,10 @@ public class EmptyItemsDbHandler extends DbHandler {
     private boolean checkIfItemExistsWithTheSameDate(long existingEmptyItemId, long time) {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT " + COLUMN_ITEM_ID + " FROM " + TABLE_EMPTY_ITEMS_HISTORY +
-                             " WHERE " + COLUMN_ITEM_ID + " = " + existingEmptyItemId +
-                             " AND " + COLUMN_EMPTY_ITEM_DATE + " = " + time;
+                " WHERE " + COLUMN_ITEM_ID + " = " + existingEmptyItemId +
+                " AND " + COLUMN_EMPTY_ITEM_DATE + " = " + time;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             db.close();
             return true;
         }
@@ -81,9 +81,8 @@ public class EmptyItemsDbHandler extends DbHandler {
 
     private long checkIfElementAlreadyExistsInDatabase(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TABLE_ITEMS, new String[] { COLUMN_ID }, "" + COLUMN_ITEM_NAME + "= ?", new String[] { name }, null, null, null);
-        if(cursor.getCount() > 0 )
-        {
+        Cursor cursor = db.query(TABLE_ITEMS, new String[]{COLUMN_ID}, "" + COLUMN_ITEM_NAME + "= ?", new String[]{name}, null, null, null);
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
             cursor.close();
@@ -165,7 +164,7 @@ public class EmptyItemsDbHandler extends DbHandler {
     public void deleteExistingEmptyItem(Long itemId) {
         Calendar c = CalendarProvider.setNowCalendar();
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_EMPTY_ITEMS_HISTORY, COLUMN_EMPTY_ITEM_DATE + "=" + c.getTimeInMillis() + " and " + COLUMN_ITEM_ID + "=" + itemId , null);
+        db.delete(TABLE_EMPTY_ITEMS_HISTORY, COLUMN_EMPTY_ITEM_DATE + "=" + c.getTimeInMillis() + " and " + COLUMN_ITEM_ID + "=" + itemId, null);
         db.close();
         updatePredictionForItemInPredictionsTable(itemId);
     }
@@ -175,7 +174,7 @@ public class EmptyItemsDbHandler extends DbHandler {
         long id = getLastInsertedId();
         Prediction prediction = new Prediction();
         prediction.setDaysNumber(daysToRunOut);
-        prediction.setTime(time + (long)daysToRunOut*1000*3600*24);
+        prediction.setTime(time + (long) daysToRunOut * 1000 * 3600 * 24);
         insertNewEmptyItemIntoHistoryTable(id, time);
         insertPredictionForItemIntoPredictionsTable(id, prediction);
     }
@@ -187,7 +186,7 @@ public class EmptyItemsDbHandler extends DbHandler {
         insertNewEmptyItemIntoHistoryTable(id, time2);
         Prediction prediction = new Prediction();
         prediction.setDaysNumber(daysToRunOut);
-        prediction.setTime(time2 + (long)daysToRunOut*1000*3600*24);
+        prediction.setTime(time2 + (long) daysToRunOut * 1000 * 3600 * 24);
         insertPredictionForItemIntoPredictionsTable(id, prediction);
     }
 }

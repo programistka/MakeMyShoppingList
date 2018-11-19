@@ -17,7 +17,7 @@ import java.util.List;
 
 public class PredictionsDbHandler extends DbHandler {
 
-    private static final long MILLIS_IN_DAY = 1000*3600*24;
+    private static final long MILLIS_IN_DAY = 1000 * 3600 * 24;
 
     public PredictionsDbHandler(DbConfig dbConfig, Context context) {
         super(dbConfig, context);
@@ -28,16 +28,16 @@ public class PredictionsDbHandler extends DbHandler {
         String selectQuery = "SELECT DISTINCT(" + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "),*" +
                 " FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS +
                 " LEFT JOIN " + TABLE_ITEMS +
-                " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "="  + TABLE_ITEMS + "." + COLUMN_ID +
+                " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "=" + TABLE_ITEMS + "." + COLUMN_ID +
                 " LEFT JOIN " + TABLE_ARCHIVE +
-                " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "="  + TABLE_ARCHIVE + "." + COLUMN_ITEM_ID +
+                " ON " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID + "=" + TABLE_ARCHIVE + "." + COLUMN_ITEM_ID +
                 " WHERE " + TABLE_ARCHIVE + "." + COLUMN_ITEM_ID + " ISNULL" +
                 " GROUP BY " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_ITEM_ID +
                 " ORDER BY " + TABLE_EMPTY_ITEMS_PREDICTIONS + "." + COLUMN_NEXT_EMPTY_ITEM_DATE;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             do {
                 EmptyItem emptyItem = new EmptyItem();
                 emptyItem.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
@@ -57,11 +57,11 @@ public class PredictionsDbHandler extends DbHandler {
                 " WHERE " + COLUMN_ITEM_ID + " = " + id;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if(cursor.getCount() == 0) {
+        if (cursor.getCount() == 0) {
             return null;
         }
         Prediction prediction = new Prediction();
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             do {
                 prediction.setDaysNumber(cursor.getInt(cursor.getColumnIndex(COLUMN_DAYS_TO_RUN_OUT)));
                 prediction.setTime(cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE)));
@@ -87,14 +87,13 @@ public class PredictionsDbHandler extends DbHandler {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         Prediction newPrediction = new Prediction();
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             long nextEmptyItemDate = cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE));
             int daysToRunOut = cursor.getInt(cursor.getColumnIndex(COLUMN_DAYS_TO_RUN_OUT));
             Calendar c = Calendar.getInstance();
-            if(nextEmptyItemDate < c.getTimeInMillis()) {
+            if (nextEmptyItemDate < c.getTimeInMillis()) {
                 newPrediction = PredictionsHandler.generateExpiredBoughtPrediction(daysToRunOut);
-            }
-            else {
+            } else {
                 newPrediction = PredictionsHandler.generateBoughtPrediction(nextEmptyItemDate, daysToRunOut);
             }
         }
@@ -105,9 +104,9 @@ public class PredictionsDbHandler extends DbHandler {
         List<EmptyItem> itemsList = getPredictions();
         List<EmptyItem> weekItemsList = new ArrayList<>();
         Calendar now = CalendarProvider.setNowCalendar();
-        for(EmptyItem item: itemsList){
-            long substraction = (item.getPredictionDate() - now.getTimeInMillis())/MILLIS_IN_DAY;
-            if(substraction <= 7){
+        for (EmptyItem item : itemsList) {
+            long substraction = (item.getPredictionDate() - now.getTimeInMillis()) / MILLIS_IN_DAY;
+            if (substraction <= 7) {
                 weekItemsList.add(item);
             }
         }
@@ -118,9 +117,9 @@ public class PredictionsDbHandler extends DbHandler {
         List<EmptyItem> itemsList = getPredictions();
         List<EmptyItem> monthItemList = new ArrayList<>();
         Calendar now = CalendarProvider.setNowCalendar();
-        for(EmptyItem item: itemsList){
-            long substraction = (item.getPredictionDate() - now.getTimeInMillis())/MILLIS_IN_DAY;
-            if(substraction > 7 && substraction <= 30){
+        for (EmptyItem item : itemsList) {
+            long substraction = (item.getPredictionDate() - now.getTimeInMillis()) / MILLIS_IN_DAY;
+            if (substraction > 7 && substraction <= 30) {
                 monthItemList.add(item);
             }
         }

@@ -23,7 +23,8 @@ public class ThirtyDaysFragment extends Fragment {
     PredictionsAdapter adapter;
     RecyclerView recyclerView;
 
-    public ThirtyDaysFragment() {}
+    public ThirtyDaysFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class ThirtyDaysFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_30days, container, false);
         return view;
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -61,8 +63,7 @@ public class ThirtyDaysFragment extends Fragment {
     private void initData() {
         ShowPredictionsPresenter presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), getContext()));
         List<EmptyItem> predictions = presenter.getPredictionsForMonth();
-        if(predictions.size() == 0)
-        {
+        if (predictions.size() == 0) {
             RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.fragmentItems);
             recyclerView.setVisibility(View.INVISIBLE);
             TextView textView = (TextView) getView().findViewById(R.id.allItemsArchived);

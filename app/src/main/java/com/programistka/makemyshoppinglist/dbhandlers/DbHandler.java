@@ -55,8 +55,8 @@ public class DbHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_ARCHIVE_TABLE);
 
         Calendar calendar = CalendarProvider.setNowCalendar();
-        long lessThanSevenDays = calendar.getTimeInMillis() - 3*1000*24*3600;
-        long lessThanThirtyDays = calendar.getTimeInMillis() - 25*1000*24*3600;
+        long lessThanSevenDays = calendar.getTimeInMillis() - 3 * 1000 * 24 * 3600;
+        long lessThanThirtyDays = calendar.getTimeInMillis() - 25 * 1000 * 24 * 3600;
 
         //initializeData(db, 1,  "ziemniaki", 1469829600000L);
 //        initializeData(db, 2, "makaron", calendar.getTimeInMillis());
@@ -74,7 +74,7 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
     public void initializeData(SQLiteDatabase db, long id, String name, long nextEmptyDate) {
-        String INSERT_PRODUCTS = "INSERT INTO items VALUES(" + id +", '" + name + "')";
+        String INSERT_PRODUCTS = "INSERT INTO items VALUES(" + id + ", '" + name + "')";
         db.execSQL(INSERT_PRODUCTS);
         String INSERT_HISTORY1 = "INSERT INTO empty_items_history VALUES(" + id + ", 1468792800000)";
         String INSERT_HISTORY2 = "INSERT INTO empty_items_history VALUES(" + id + ", 1469311200000)";
@@ -86,12 +86,12 @@ public class DbHandler extends SQLiteOpenHelper {
         db.execSQL(INSERT_PREDICTIONS);
     }
 
-    public List<EmptyItem> selectAllItemsFromItemsTable () {
+    public List<EmptyItem> selectAllItemsFromItemsTable() {
         SQLiteDatabase db = this.getWritableDatabase();
         List<EmptyItem> itemsList = new ArrayList<>();
         String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME + " FROM " + TABLE_ITEMS;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             do {
                 itemsList.add(createItemInstance(cursor));
             } while (cursor.moveToNext());
@@ -104,12 +104,12 @@ public class DbHandler extends SQLiteOpenHelper {
     public List<EmptyItem> selectAllItemsFromEmptyItemsHistoryTable() {
         SQLiteDatabase db = this.getWritableDatabase();
         List<EmptyItem> itemsList = new ArrayList<>();
-        String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME  + ", " + COLUMN_EMPTY_ITEM_DATE +
-                             " FROM " + TABLE_ITEMS +
-                             " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
-                             " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID;
+        String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME + ", " + COLUMN_EMPTY_ITEM_DATE +
+                " FROM " + TABLE_ITEMS +
+                " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
+                " ON " + TABLE_ITEMS + "." + COLUMN_ID + "=" + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             do {
                 itemsList.add(createItemInstance(cursor));
             } while (cursor.moveToNext());
@@ -122,13 +122,13 @@ public class DbHandler extends SQLiteOpenHelper {
     public List<EmptyItem> selectAllItemsFromEmptyItemsHistoryTableByItemId(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         List<EmptyItem> itemsList = new ArrayList<>();
-        String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME  + ", " + COLUMN_EMPTY_ITEM_DATE +
+        String selectQuery = "SELECT " + COLUMN_ID + ", " + COLUMN_ITEM_NAME + ", " + COLUMN_EMPTY_ITEM_DATE +
                 " FROM " + TABLE_ITEMS +
                 " LEFT JOIN " + TABLE_EMPTY_ITEMS_HISTORY +
-                " ON " + TABLE_ITEMS + "." + COLUMN_ID + "="  + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID +
-                " WHERE " +  TABLE_ITEMS + "." + COLUMN_ID + "=" + id;
+                " ON " + TABLE_ITEMS + "." + COLUMN_ID + "=" + TABLE_EMPTY_ITEMS_HISTORY + "." + COLUMN_ITEM_ID +
+                " WHERE " + TABLE_ITEMS + "." + COLUMN_ID + "=" + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             do {
                 itemsList.add(createItemInstance(cursor));
             } while (cursor.moveToNext());
@@ -140,13 +140,13 @@ public class DbHandler extends SQLiteOpenHelper {
 
     private EmptyItem createItemInstance(Cursor cursor) {
         EmptyItem emptyItem = new EmptyItem();
-        if(cursor.getColumnIndex(COLUMN_ID) != -1) {
+        if (cursor.getColumnIndex(COLUMN_ID) != -1) {
             emptyItem.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
         }
-        if(cursor.getColumnIndex(COLUMN_ITEM_NAME) != -1) {
+        if (cursor.getColumnIndex(COLUMN_ITEM_NAME) != -1) {
             emptyItem.setName(cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)));
         }
-        if(cursor.getColumnIndex(COLUMN_EMPTY_ITEM_DATE) != -1) {
+        if (cursor.getColumnIndex(COLUMN_EMPTY_ITEM_DATE) != -1) {
             emptyItem.setCreationDate(cursor.getLong(cursor.getColumnIndex(COLUMN_EMPTY_ITEM_DATE)));
         }
         return emptyItem;
