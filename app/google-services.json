@@ -1,27 +1,29 @@
 {
   "project_info": {
     "project_number": "713805827848",
-    "project_id": "make-my-shopping-list"
+    "firebase_url": "https://make-my-shopping-list.firebaseio.com",
+    "project_id": "make-my-shopping-list",
+    "storage_bucket": "make-my-shopping-list.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:713805827848:android:aba8b6841e1d0130",
+        "mobilesdk_app_id": "1:713805827848:android:dbce2b60d42906ec",
         "android_client_info": {
-          "package_name": "net.programistka.shoppingadvisor"
+          "package_name": "com.programistka.makemyshoppinglist"
         }
       },
       "oauth_client": [
         {
-          "client_id": "713805827848-s966729jqfs6ebqqs93bv17abige9bdf.apps.googleusercontent.com",
+          "client_id": "713805827848-jukt63g8h49ij1b9rqtr4060mheoa0rp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "net.programistka.shoppingadvisor",
-            "certificate_hash": "85999391C8A3EF88A4D963153C68D3B533735222"
+            "package_name": "com.programistka.makemyshoppinglist",
+            "certificate_hash": "e608864b9239b7ddbc25f234d83e17d9b450ace2"
           }
         },
         {
-          "client_id": "713805827848-a9t96rrhmi9jtnrhim2l1bju4mjlnumk.apps.googleusercontent.com",
+          "client_id": "713805827848-0t6kq8o3m3h1q35ao4ca8r3eveutjvvr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -31,15 +33,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 1
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713805827848-0t6kq8o3m3h1q35ao4ca8r3eveutjvvr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -5,12 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.tabs.TabLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +21,7 @@ import com.programistka.makemyshoppinglist.CalendarProvider;
 import com.programistka.makemyshoppinglist.HelpActivity;
 import com.programistka.makemyshoppinglist.LoginActivity;
 import com.programistka.makemyshoppinglist.R;
+import com.programistka.makemyshoppinglist.ZZZActivity;
 import com.programistka.makemyshoppinglist.addemptyitem.AddEmptyItemActivity;
 import com.programistka.makemyshoppinglist.archive.ArchiveInteractor;
 import com.programistka.makemyshoppinglist.archive.ArchivePresenter;
@@ -89,6 +90,11 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         }
         if (id == R.id.login) {
             startActivity(new Intent(ShowPredictionsActivity.this, LoginActivity.class));
+            return true;
+        }
+
+        if (id == R.id.zzz) {
+            startActivity(new Intent(ShowPredictionsActivity.this, ZZZActivity.class));
             return true;
         }
 
