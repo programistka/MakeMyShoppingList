@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.programistka.makemyshoppinglist.R;
 import com.programistka.makemyshoppinglist.predictions.fragments.AllFragment;
+import com.programistka.makemyshoppinglist.predictions.fragments.AllFragmentNew;
 import com.programistka.makemyshoppinglist.predictions.fragments.SevenDaysFragment;
 import com.programistka.makemyshoppinglist.predictions.fragments.ThirtyDaysFragment;
 
@@ -23,10 +24,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new AllFragment();
+                return new AllFragmentNew();
             case 1:
-                return new SevenDaysFragment();
+                return new AllFragment();
             case 2:
+                return new SevenDaysFragment();
+            case 3:
                 return new ThirtyDaysFragment();
         }
         return new AllFragment();
@@ -34,17 +37,19 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return context.getString(R.string.all);
+                return "All-new";
             case 1:
-                return context.getString(R.string.thisWeek);
+                return context.getString(R.string.all);
             case 2:
+                return context.getString(R.string.thisWeek);
+            case 3:
                 return context.getString(R.string.thisMonth);
         }
         return null;
