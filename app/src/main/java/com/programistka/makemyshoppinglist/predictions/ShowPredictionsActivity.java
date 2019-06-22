@@ -55,15 +55,15 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_predictions);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
         showPredictionsPresenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), this));
@@ -106,7 +106,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         copySelectedItems = new ArrayList<>();
         copySelectedItems.addAll(selectedItems);
         showPredictionsPresenter.markAsBought(selectedItems);
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         final int currentFragment = mViewPager.getCurrentItem();
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(adapter);
@@ -121,7 +121,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 showPredictionsPresenter.undoMarkAsBought(copySelectedItems);
-                mViewPager = (ViewPager) findViewById(R.id.container);
+                mViewPager = findViewById(R.id.container);
                 final int currentFragment = mViewPager.getCurrentItem();
                 Dialog dialog = (Dialog) arg0;
                 SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), dialog.getContext());
@@ -144,7 +144,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
         presenter.markAsArchived(selectedItems);
         copySelectedItems.addAll(selectedItems);
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         int currentFragment = mViewPager.getCurrentItem();
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(adapter);
@@ -159,7 +159,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 presenter.undoMarkAsArchived(copySelectedItems);
-                mViewPager = (ViewPager) findViewById(R.id.container);
+                mViewPager = findViewById(R.id.container);
                 int currentFragment = mViewPager.getCurrentItem();
                 Dialog dialog = (Dialog) arg0;
                 SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), dialog.getContext());
@@ -176,7 +176,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
         presenter.markAsEmpty(selectedItems, CalendarProvider.setNowCalendar().getTimeInMillis());
         copySelectedItems.addAll(selectedItems);
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         int currentFragment = mViewPager.getCurrentItem();
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(adapter);
@@ -191,7 +191,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 presenter.undoMarkAsEmpty(copySelectedItems);
-                mViewPager = (ViewPager) findViewById(R.id.container);
+                mViewPager = findViewById(R.id.container);
                 int currentFragment = mViewPager.getCurrentItem();
                 Dialog dialog = (Dialog) arg0;
                 SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager(), dialog.getContext());
