@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.programistka.makemyshoppinglist.R;
 import com.programistka.makemyshoppinglist.models.EmptyItem;
 import com.programistka.makemyshoppinglist.predictions.PredictionsAdapter;
+import com.programistka.makemyshoppinglist.predictions.PredictionsAdapterNew;
 import com.programistka.makemyshoppinglist.predictions.ShowPredictionsInteractor;
 import com.programistka.makemyshoppinglist.predictions.ShowPredictionsPresenter;
 import com.programistka.makemyshoppinglist.presenters.DbConfig;
@@ -21,7 +22,7 @@ import com.programistka.makemyshoppinglist.presenters.DbConfig;
 import java.util.List;
 
 public class AllFragmentNew extends Fragment {
-    PredictionsAdapter adapter;
+    PredictionsAdapterNew adapter;
     RecyclerView recyclerView;
 
     public AllFragmentNew() {
@@ -72,7 +73,7 @@ public class AllFragmentNew extends Fragment {
             return;
         }
 
-        adapter = new PredictionsAdapter(predictions);
+        adapter = new PredictionsAdapterNew(predictions);
         recyclerView.setAdapter(adapter);
     }
 }
