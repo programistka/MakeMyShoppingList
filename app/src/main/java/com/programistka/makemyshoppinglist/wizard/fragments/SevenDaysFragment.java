@@ -31,15 +31,15 @@ public class SevenDaysFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Button nextStep = (Button) getActivity().findViewById(R.id.nextStep);
+        Button nextStep = getActivity().findViewById(R.id.nextStep);
         nextStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText item1 = (EditText) getActivity().findViewById(R.id.productName1);
-                EditText item2 = (EditText) getActivity().findViewById(R.id.productName2);
-                EditText item3 = (EditText) getActivity().findViewById(R.id.productName3);
-                EditText item4 = (EditText) getActivity().findViewById(R.id.productName4);
-                EditText item5 = (EditText) getActivity().findViewById(R.id.productName5);
+                EditText item1 = getActivity().findViewById(R.id.productName1);
+                EditText item2 = getActivity().findViewById(R.id.productName2);
+                EditText item3 = getActivity().findViewById(R.id.productName3);
+                EditText item4 = getActivity().findViewById(R.id.productName4);
+                EditText item5 = getActivity().findViewById(R.id.productName5);
 
                 Bundle args = new Bundle();
 
