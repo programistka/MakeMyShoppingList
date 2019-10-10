@@ -41,7 +41,7 @@ public class SuggestionsAdapter extends ArrayAdapter<EmptyItem> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.suggestion_row, parent, false);
         }
-        TextView tvItemName = (TextView) convertView.findViewById(R.id.emptyItemName);
+        TextView tvItemName = convertView.findViewById(R.id.emptyItemName);
         tvItemName.setText(emptyItem.getName());
 
         return convertView;

@@ -21,12 +21,12 @@ public class ShowPredictionsPresenter {
         return interactor.getPredictionForItem(id);
     }
 
-    public void markAsBought(List<Long> selectedItems) {
+    public void markAsBought(List<String> selectedItems) {
         interactor.markAsBought(selectedItems);
     }
 
-    public void undoMarkAsBought(List<Long> selectedItems) {
-        interactor.undoMarkAsBought(selectedItems);
+    public void undoMarkAsBought(List<String> selectedItems) {
+        // interactor.undoMarkAsBought(selectedItems);
     }
 
     public List<EmptyItem> getPredictionsForWeek() {

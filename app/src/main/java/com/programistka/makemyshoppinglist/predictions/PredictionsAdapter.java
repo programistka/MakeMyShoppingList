@@ -1,16 +1,17 @@
 package com.programistka.makemyshoppinglist.predictions;
 
 import android.graphics.Color;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.programistka.makemyshoppinglist.R;
-import com.programistka.makemyshoppinglist.models.EmptyItem;
+import com.programistka.makemyshoppinglist.models.NewItem;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.ViewHolder> {
-    private List<EmptyItem> emptyItems;
-    private List<Long> selectedItems = new ArrayList<>();
+    private List<NewItem> emptyItems;
+    private List<String> selectedItems = new ArrayList<>();
     private int counter = 0;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -29,7 +30,7 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         public TextView nameTextView;
         public TextView dateTextView;
         public ImageView iconView;
-        public long id;
+        public String id;
 
         public ViewHolder(View v) {
             super(v);
@@ -70,7 +71,7 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         }
 
         private void initImageView(View v) {
-            ImageView imageView = (ImageView) v.findViewById(R.id.icon_imageview);
+            ImageView imageView = v.findViewById(R.id.icon_imageview);
             if (toggle) {
                 imageView.setImageResource(R.drawable.ic_done_black_24dp);
                 selectedItems.add(id);
@@ -85,7 +86,7 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
         }
     }
 
-    public PredictionsAdapter(List<EmptyItem> emptyItems) {
+    public PredictionsAdapter(List<NewItem> emptyItems) {
         this.emptyItems = emptyItems;
     }
 
@@ -99,7 +100,7 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        EmptyItem emptyItem = emptyItems.get(position);
+        NewItem emptyItem = emptyItems.get(position);
         setViewHolder(holder, emptyItem);
     }
 
@@ -111,19 +112,19 @@ public class PredictionsAdapter extends RecyclerView.Adapter<PredictionsAdapter.
     @NonNull
     private ViewHolder initViewHolder(View v) {
         ViewHolder viewHolder = new ViewHolder(v);
-        viewHolder.nameTextView = (TextView) v.findViewById(R.id.name_textview);
-        viewHolder.dateTextView = (TextView) v.findViewById(R.id.date_textview);
-        viewHolder.iconView = (ImageView) v.findViewById(R.id.icon_imageview);
+        viewHolder.nameTextView = v.findViewById(R.id.name_textview);
+        viewHolder.dateTextView = v.findViewById(R.id.date_textview);
+        viewHolder.iconView = v.findViewById(R.id.icon_imageview);
         return viewHolder;
     }
 
-    private void setViewHolder(ViewHolder holder, EmptyItem currentEmptyItem) {
+    private void setViewHolder(ViewHolder holder, NewItem currentEmptyItem) {
         holder.nameTextView.setText(currentEmptyItem.getName());
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
-        if (currentEmptyItem.getPredictionDate() < Calendar.getInstance().getTimeInMillis()) {
+        if (currentEmptyItem.getNextEmptyItemDate() < Calendar.getInstance().getTimeInMillis()) {
             holder.dateTextView.setTextColor(Color.RED);
         }
-        holder.dateTextView.setText(df.format(currentEmptyItem.getPredictionDate()));
+        holder.dateTextView.setText(df.format(currentEmptyItem.getNextEmptyItemDate()));
         holder.id = currentEmptyItem.getId();
         holder.iconView.setImageResource(R.drawable.ic_event_grey_24dp);
     }

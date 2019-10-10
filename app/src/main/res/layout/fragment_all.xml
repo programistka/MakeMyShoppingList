@@ -18,10 +18,20 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:text="Test parmpamt"
+        android:layout_gravity="center_vertical"
+        android:visibility="invisible"
+        android:layout_margin="20dp"
+        android:textSize="@dimen/abc_text_size_medium_material" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="@string/all_items_have_been_archived_use_add_button_below_to_add_new_items"
         android:id="@+id/allItemsArchived"
         android:layout_gravity="center_vertical"
         android:visibility="invisible"
         android:layout_margin="20dp"
         android:textSize="@dimen/abc_text_size_medium_material" />
+
 </LinearLayout>

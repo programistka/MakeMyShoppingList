@@ -2,7 +2,7 @@ package com.programistka.makemyshoppinglist.models;
 
 public class Prediction {
     private long time;
-    private long daysNumber;
+    private long daysNumber; //why long?
 
     public long getTime() {
         return time;

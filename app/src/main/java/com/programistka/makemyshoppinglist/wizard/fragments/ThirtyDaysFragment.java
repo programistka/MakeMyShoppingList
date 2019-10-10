@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.programistka.makemyshoppinglist.CalendarProvider;
 import com.programistka.makemyshoppinglist.R;
 import com.programistka.makemyshoppinglist.addemptyitem.AddEmptyItemInteractor;
+//import com.programistka.makemyshoppinglist.addemptyitem.AddEmptyItemInteractorNew;
+import com.programistka.makemyshoppinglist.dbhandlers.FirebaseDbHandler;
 import com.programistka.makemyshoppinglist.predictions.ShowPredictionsActivity;
 import com.programistka.makemyshoppinglist.presenters.DbConfig;
 
@@ -26,10 +28,12 @@ import java.util.List;
 
 public class ThirtyDaysFragment extends Fragment {
     private Bundle args;
+    private FirebaseDbHandler firebaseDbHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firebaseDbHandler = new FirebaseDbHandler();
     }
 
     @Override
@@ -205,15 +209,22 @@ public class ThirtyDaysFragment extends Fragment {
 
     private void SaveThirtyDaysItems(List<String> items) {
         for (String item : items) {
-            AddEmptyItemInteractor interactor = new AddEmptyItemInteractor(new DbConfig(), getActivity());
-            interactor.insertNewEmptyItemWithHistoryAndPrediction(item, CalendarProvider.setNowCalendar().getTimeInMillis() - (long) 45 * 1000 * 3600 * 24, CalendarProvider.setNowCalendar().getTimeInMillis() - (long) 15 * 1000 * 3600 * 24, 30);
+            firebaseDbHandler.addEmptyItemOnWizard(item, CalendarProvider.setNowCalendar().getTimeInMillis() - (long) 45 * 1000 * 3600 * 24, CalendarProvider.setNowCalendar().getTimeInMillis() - (long) 15 * 1000 * 3600 * 24, 30);
+            //AddEmptyItemInteractor interactor = new AddEmptyItemInteractor(new DbConfig(), getActivity());
+//            AddEmptyItemInteractorNew interactorNew = new AddEmptyItemInteractorNew(new DbConfig(), getActivity());
+            //interactor.insertNewEmptyItemWithHistoryAndPrediction(item, CalendarProvider.setNowCalendar().getTimeInMillis() - (long) 45 * 1000 * 3600 * 24, CalendarProvider.setNowCalendar().getTimeInMillis() - (long) 15 * 1000 * 3600 * 24, 30);
+//            interactorNew.insertNewEmptyItem(item, CalendarProvider.setNowCalendar().getTimeInMillis());
+
         }
     }
 
     private void SaveSevenDaysItems(List<String> items) {
         for (String item : items) {
-            AddEmptyItemInteractor interactor = new AddEmptyItemInteractor(new DbConfig(), getActivity());
-            interactor.insertNewEmptyItemWithHistoryAndPrediction(item, CalendarProvider.setNowCalendar().getTimeInMillis() - (long) 10 * 1000 * 3600 * 24, CalendarProvider.setNowCalendar().getTimeInMillis() - (long) 3 * 1000 * 3600 * 24, 7);
+            //AddEmptyItemInteractor interactor = new AddEmptyItemInteractor(new DbConfig(), getActivity());
+            firebaseDbHandler.addEmptyItemOnWizard(item, CalendarProvider.setNowCalendar().getTimeInMillis() - (long) 10 * 1000 * 3600 * 24, CalendarProvider.setNowCalendar().getTimeInMillis() - (long) 3 * 1000 * 3600 * 24, 7);
+//            AddEmptyItemInteractorNew interactorNew = new AddEmptyItemInteractorNew(new DbConfig(), getActivity());
+            //interactor.insertNewEmptyItemWithHistoryAndPrediction(item, CalendarProvider.setNowCalendar().getTimeInMillis() - (long) 10 * 1000 * 3600 * 24, CalendarProvider.setNowCalendar().getTimeInMillis() - (long) 3 * 1000 * 3600 * 24, 7);
+//            interactorNew.insertNewEmptyItem(item, CalendarProvider.setNowCalendar().getTimeInMillis());
         }
     }
 

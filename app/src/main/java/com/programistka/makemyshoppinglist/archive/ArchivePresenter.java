@@ -10,23 +10,23 @@ public class ArchivePresenter {
         this.interactor = interactor;
     }
 
-    public void markAsArchived(List<Long> selectedItems) {
+    public void markAsArchived(List<String> selectedItems) {
         interactor.markAsArchived(selectedItems);
     }
 
-    public void undoMarkAsArchived(List<Long> selectedItems) {
-        interactor.undoMarkAsArchived(selectedItems);
+    public void undoMarkAsArchived(List<String> selectedItems) {
+        // interactor.undoMarkAsArchived(selectedItems);
     }
 
     public Boolean checkIfArchivedElement(long itemId) {
         return interactor.checkIfArchivedElement(itemId);
     }
 
-    public void undoMarkAsEmpty(List<Long> selectedItems) {
+    public void undoMarkAsEmpty(List<String> selectedItems) {
         interactor.undoMarkAsEmpty(selectedItems);
     }
 
-    public void markAsEmpty(List<Long> selectedItems, long time) {
+    public void markAsEmpty(List<String> selectedItems, long time) {
         interactor.markAsEmpty(selectedItems, time);
     }
 }

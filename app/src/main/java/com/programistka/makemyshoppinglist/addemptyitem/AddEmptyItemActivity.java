@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.programistka.makemyshoppinglist.CalendarProvider;
 import com.programistka.makemyshoppinglist.R;
+import com.programistka.makemyshoppinglist.dbhandlers.FirebaseDbHandler;
 import com.programistka.makemyshoppinglist.predictions.ShowPredictionsActivity;
 import com.programistka.makemyshoppinglist.presenters.DbConfig;
 import com.programistka.makemyshoppinglist.selectallItems.SelectAllItemsInteractor;
@@ -27,6 +28,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyItemView, AdapterView.OnItemClickListener {
+
+    private FirebaseDbHandler firebaseDbHandler = new FirebaseDbHandler();
+    private AddEmptyItemView view;
 
     private AddEmptyItemPresenter addEmptyItemPresenter;
     private long time;
@@ -65,7 +69,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
 
     @OnClick(R.id.addNewEmptyItem)
     public void addNewEmptyItem() {
-        addEmptyItemPresenter.addNewEmptyItem(emptyItemName.getText().toString(), CalendarProvider.setNowCalendar().getTimeInMillis());
+        firebaseDbHandler.addEmptyItem(this, emptyItemName.getText().toString(), CalendarProvider.setNowCalendar().getTimeInMillis());
     }
 
     @Override

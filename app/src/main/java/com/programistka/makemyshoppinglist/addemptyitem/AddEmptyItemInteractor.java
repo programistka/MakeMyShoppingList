@@ -13,15 +13,15 @@ public class AddEmptyItemInteractor {
         dbHandler = new EmptyItemsDbHandler(dbConfig, context);
     }
 
-    public long insertNewEmptyItem(String name, long time) {
+    long insertNewEmptyItem(String name, long time) {
         return dbHandler.insertNewEmptyItem(name, time);
     }
 
-    public void insertExistingEmptyItem(long id, long time) {
+    void insertExistingEmptyItem(long id, long time) {
         dbHandler.insertExistingEmptyItem(id, time);
     }
 
-    public void insertNewEmptyItemWithHistoryAndPrediction(String name, long time1, long time2, int daysToRunOut) {
+    void insertNewEmptyItemWithHistoryAndPrediction(String name, long time1, long time2, int daysToRunOut) {
         dbHandler.insertNewEmptyItemWithHistoryAndPrediction(name, time1, time2, daysToRunOut);
     }
 }

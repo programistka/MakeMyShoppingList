@@ -5,18 +5,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import com.google.android.material.tabs.TabLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 import com.programistka.makemyshoppinglist.CalendarProvider;
 import com.programistka.makemyshoppinglist.HelpActivity;
 import com.programistka.makemyshoppinglist.LoginActivity;
@@ -38,8 +39,8 @@ import butterknife.OnClick;
 public class ShowPredictionsActivity extends AppCompatActivity {
 
     public static Menu menu;
-    public static List<Long> selectedItems = new ArrayList<>();
-    public static List<Long> copySelectedItems = new ArrayList<>();
+    public static List<String> selectedItems = new ArrayList<>();
+    public static List<String> copySelectedItems = new ArrayList<>();
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -72,7 +73,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_predictions, menu);
-        this.menu = menu;
+        ShowPredictionsActivity.menu = menu;
         return true;
     }
 

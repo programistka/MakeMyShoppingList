@@ -47,7 +47,7 @@ public class SevenDaysFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        recyclerView = (RecyclerView) getView().findViewById(R.id.fragmentItems);
+        recyclerView = getView().findViewById(R.id.fragmentItems);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -64,14 +64,14 @@ public class SevenDaysFragment extends Fragment {
         ShowPredictionsPresenter presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), getContext()));
         List<EmptyItem> predictions = presenter.getPredictionsForWeek();
         if (predictions.size() == 0) {
-            RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.fragmentItems);
+            RecyclerView recyclerView = getView().findViewById(R.id.fragmentItems);
             recyclerView.setVisibility(View.INVISIBLE);
-            TextView textView = (TextView) getView().findViewById(R.id.allItemsArchived);
+            TextView textView = getView().findViewById(R.id.allItemsArchived);
             textView.setVisibility(View.VISIBLE);
             return;
         }
 
-        adapter = new PredictionsAdapter(predictions);
-        recyclerView.setAdapter(adapter);
+//        adapter = new PredictionsAdapter(predictions);
+//        recyclerView.setAdapter(adapter);
     }
 }

@@ -3,6 +3,7 @@ package com.programistka.makemyshoppinglist.predictions;
 import android.content.Context;
 
 import com.programistka.makemyshoppinglist.dbhandlers.EmptyItemsDbHandler;
+import com.programistka.makemyshoppinglist.dbhandlers.FirebaseDbHandler;
 import com.programistka.makemyshoppinglist.dbhandlers.PredictionsDbHandler;
 import com.programistka.makemyshoppinglist.models.EmptyItem;
 import com.programistka.makemyshoppinglist.models.Prediction;
@@ -13,6 +14,7 @@ import java.util.List;
 public class ShowPredictionsInteractor {
     private PredictionsDbHandler dbHandler;
     private EmptyItemsDbHandler emptyItemsDbHandler;
+    private FirebaseDbHandler firebaseDbHandler = new FirebaseDbHandler();
 
     public ShowPredictionsInteractor(DbConfig dbConfig, Context context) {
         dbHandler = new PredictionsDbHandler(dbConfig, context);
@@ -23,9 +25,10 @@ public class ShowPredictionsInteractor {
         return dbHandler.getPredictions();
     }
 
-    public void markAsBought(List<Long> selectedItems) {
-        for (Long itemId : selectedItems) {
-            dbHandler.insertBoughtPredictionIntoPredictionsTable(itemId);
+    public void markAsBought(List<String> selectedItems) {
+        for (String itemId : selectedItems) {
+            // dbHandler.insertBoughtPredictionIntoPredictionsTable(itemId);
+            firebaseDbHandler.addBoughtItem(itemId);
         }
     }
 
@@ -33,9 +36,9 @@ public class ShowPredictionsInteractor {
         return dbHandler.getPredictionForItem(id);
     }
 
-    public void undoMarkAsBought(List<Long> selectedItems) {
-        for (Long itemId : selectedItems) {
-            emptyItemsDbHandler.updatePredictionForItemInPredictionsTable(itemId);
+    public void undoMarkAsBought(List<String> selectedItems) {
+        for (String itemId : selectedItems) {
+            // emptyItemsDbHandler.updatePredictionForItemInPredictionsTable(itemId);
         }
     }
 
