@@ -6,5 +6,6 @@ public interface AddEmptyItemView {
 
     void showDialogToAddAnotherItem();
 
+    //TODO: needed?
     void showAddingErrorMessage();
 }

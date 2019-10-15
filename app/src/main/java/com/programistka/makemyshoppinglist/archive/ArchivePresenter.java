@@ -19,11 +19,12 @@ public class ArchivePresenter {
     }
 
     public Boolean checkIfArchivedElement(long itemId) {
-        return interactor.checkIfArchivedElement(itemId);
+        return false;
+        // return interactor.checkIfArchivedElement(itemId);
     }
 
     public void undoMarkAsEmpty(List<String> selectedItems) {
-        interactor.undoMarkAsEmpty(selectedItems);
+        // interactor.undoMarkAsEmpty(selectedItems);
     }
 
     public void markAsEmpty(List<String> selectedItems, long time) {

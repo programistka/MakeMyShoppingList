@@ -195,7 +195,7 @@ public class FirebaseDbHandler {
         });
     }
 
-    public void moveItemToArchive(final String itemId) {
+    public void markAsArchived(final String itemId) {
         itemsStorageReference.child(itemId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

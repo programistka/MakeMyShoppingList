@@ -2,7 +2,6 @@ package com.programistka.makemyshoppinglist.predictions;
 
 import android.content.Context;
 
-import com.programistka.makemyshoppinglist.dbhandlers.EmptyItemsDbHandler;
 import com.programistka.makemyshoppinglist.dbhandlers.FirebaseDbHandler;
 import com.programistka.makemyshoppinglist.dbhandlers.PredictionsDbHandler;
 import com.programistka.makemyshoppinglist.models.EmptyItem;
@@ -13,12 +12,10 @@ import java.util.List;
 
 public class ShowPredictionsInteractor {
     private PredictionsDbHandler dbHandler;
-    private EmptyItemsDbHandler emptyItemsDbHandler;
     private FirebaseDbHandler firebaseDbHandler = new FirebaseDbHandler();
 
     public ShowPredictionsInteractor(DbConfig dbConfig, Context context) {
         dbHandler = new PredictionsDbHandler(dbConfig, context);
-        emptyItemsDbHandler = new EmptyItemsDbHandler(dbConfig, context);
     }
 
     public List<EmptyItem> getPredictions() {

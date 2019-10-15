@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SuggestionsAdapter extends ArrayAdapter<EmptyItem> {
+    //TODO: make it work again
     private List<EmptyItem> emptyItems = new ArrayList<>();
     private List<EmptyItem> itemsAll = new ArrayList<>();
 

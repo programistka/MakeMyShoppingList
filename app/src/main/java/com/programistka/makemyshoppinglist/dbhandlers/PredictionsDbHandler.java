@@ -72,34 +72,6 @@ public class PredictionsDbHandler extends DbHandler {
         return prediction;
     }
 
-    public void insertBoughtPredictionIntoPredictionsTable(long itemId) {
-        Prediction prediction = getBoughtPredictionForEmptyItem(itemId);
-        ContentValues itemValues = new ContentValues();
-        itemValues.put(COLUMN_ITEM_ID, itemId);
-        itemValues.put(COLUMN_NEXT_EMPTY_ITEM_DATE, prediction.getTime());
-        itemValues.put(COLUMN_DAYS_TO_RUN_OUT, prediction.getDaysNumber());
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(TABLE_EMPTY_ITEMS_PREDICTIONS, null, itemValues);
-    }
-
-    public Prediction getBoughtPredictionForEmptyItem(long itemId) {
-        String selectQuery = "SELECT * FROM " + TABLE_EMPTY_ITEMS_PREDICTIONS + " WHERE " + COLUMN_ITEM_ID + "=" + itemId;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        Prediction newPrediction = new Prediction();
-        if (cursor.moveToFirst()) {
-            long nextEmptyItemDate = cursor.getLong(cursor.getColumnIndex(COLUMN_NEXT_EMPTY_ITEM_DATE));
-            int daysToRunOut = cursor.getInt(cursor.getColumnIndex(COLUMN_DAYS_TO_RUN_OUT));
-            Calendar c = Calendar.getInstance();
-            if (nextEmptyItemDate < c.getTimeInMillis()) {
-                newPrediction = PredictionsHandler.generateExpiredBoughtPrediction(daysToRunOut);
-            } else {
-                newPrediction = PredictionsHandler.generateBoughtPrediction(nextEmptyItemDate, daysToRunOut);
-            }
-        }
-        return newPrediction;
-    }
-
     public List<EmptyItem> getPredictionsForWeek() {
         List<EmptyItem> itemsList = getPredictions();
         List<EmptyItem> weekItemsList = new ArrayList<>();

@@ -3,7 +3,6 @@ package com.programistka.makemyshoppinglist.selectallItems;
 import android.content.Context;
 
 import com.programistka.makemyshoppinglist.dbhandlers.DbHandler;
-import com.programistka.makemyshoppinglist.dbhandlers.EmptyItemsDbHandler;
 import com.programistka.makemyshoppinglist.models.EmptyItem;
 import com.programistka.makemyshoppinglist.presenters.DbConfig;
 
@@ -14,7 +13,7 @@ public class SelectAllItemsInteractor {
     private DbHandler dbHandler;
 
     public SelectAllItemsInteractor(DbConfig dbConfig, Context context) {
-        dbHandler = new EmptyItemsDbHandler(dbConfig, context);
+        dbHandler = new DbHandler(dbConfig, context);
     }
 
     public List<EmptyItem> selectAllItemsFromEmptyItemsHistoryTable() {

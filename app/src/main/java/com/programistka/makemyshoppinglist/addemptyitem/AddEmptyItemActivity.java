@@ -3,8 +3,6 @@ package com.programistka.makemyshoppinglist.addemptyitem;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,24 +11,21 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.programistka.makemyshoppinglist.CalendarProvider;
 import com.programistka.makemyshoppinglist.R;
-import com.programistka.makemyshoppinglist.dbhandlers.FirebaseDbHandler;
 import com.programistka.makemyshoppinglist.predictions.ShowPredictionsActivity;
 import com.programistka.makemyshoppinglist.presenters.DbConfig;
 import com.programistka.makemyshoppinglist.selectallItems.SelectAllItemsInteractor;
 import com.programistka.makemyshoppinglist.selectallItems.SelectAllItemsPresenter;
-
-import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyItemView, AdapterView.OnItemClickListener {
-
-    private FirebaseDbHandler firebaseDbHandler = new FirebaseDbHandler();
-    private AddEmptyItemView view;
 
     private AddEmptyItemPresenter addEmptyItemPresenter;
     private long time;
@@ -69,7 +64,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
 
     @OnClick(R.id.addNewEmptyItem)
     public void addNewEmptyItem() {
-        firebaseDbHandler.addEmptyItem(this, emptyItemName.getText().toString(), CalendarProvider.setNowCalendar().getTimeInMillis());
+        addEmptyItemPresenter.addEmptyItem(this, emptyItemName.getText().toString(), CalendarProvider.setNowCalendar().getTimeInMillis());
     }
 
     @Override
@@ -115,13 +110,14 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, final long l) {
-        time = Calendar.getInstance().getTimeInMillis();
-        addNewEmptyItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addEmptyItemPresenter.insertExistingEmptyItem(l, time);
-                showDialogToAddAnotherItem();
-            }
-        });
+        //TODO: Click on suggestion
+//        time = Calendar.getInstance().getTimeInMillis();
+//        addNewEmptyItem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                addEmptyItemPresenter.insertExistingEmptyItem(l, time);
+//                showDialogToAddAnotherItem();
+//            }
+//        });
     }
 }

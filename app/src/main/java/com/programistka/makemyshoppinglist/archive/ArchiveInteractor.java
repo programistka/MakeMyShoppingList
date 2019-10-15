@@ -2,26 +2,20 @@ package com.programistka.makemyshoppinglist.archive;
 
 import android.content.Context;
 
-import com.programistka.makemyshoppinglist.dbhandlers.ArchiveDbHandler;
-import com.programistka.makemyshoppinglist.dbhandlers.EmptyItemsDbHandler;
 import com.programistka.makemyshoppinglist.dbhandlers.FirebaseDbHandler;
 import com.programistka.makemyshoppinglist.presenters.DbConfig;
 
 import java.util.List;
 
 public class ArchiveInteractor {
-    private ArchiveDbHandler dbHandler;
-    EmptyItemsDbHandler emptyItemsDbHandler;
     FirebaseDbHandler firebaseDbHandler = new FirebaseDbHandler();
 
     public ArchiveInteractor(DbConfig dbConfig, Context context) {
-        dbHandler = new ArchiveDbHandler(dbConfig, context);
-        emptyItemsDbHandler = new EmptyItemsDbHandler(dbConfig, context);
     }
 
     public void markAsArchived(List<String> selectedItems) {
         for (String itemId : selectedItems) {
-            firebaseDbHandler.moveItemToArchive(itemId);
+            firebaseDbHandler.markAsArchived(itemId);
         }
     }
 
@@ -30,7 +24,8 @@ public class ArchiveInteractor {
     }
 
     public Boolean checkIfArchivedElement(long itemId) {
-        return dbHandler.checkIfArchivedElement(itemId);
+        //return dbHandler.checkIfArchivedElement(itemId);
+        return false;
     }
 
     public void undoMarkAsEmpty(List<String> selectedItems) {
