@@ -1,25 +1,24 @@
 package com.programistka.makemyshoppinglist.predictions;
 
-import android.content.Context;
-
+import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfig;
 import com.programistka.makemyshoppinglist.dbhandlers.FirebaseDbHandler;
-import com.programistka.makemyshoppinglist.dbhandlers.PredictionsDbHandler;
 import com.programistka.makemyshoppinglist.models.EmptyItem;
 import com.programistka.makemyshoppinglist.models.Prediction;
-import com.programistka.makemyshoppinglist.presenters.DbConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShowPredictionsInteractor {
-    private PredictionsDbHandler dbHandler;
-    private FirebaseDbHandler firebaseDbHandler = new FirebaseDbHandler();
+    private FirebaseDbHandler firebaseDbHandler;
 
-    public ShowPredictionsInteractor(DbConfig dbConfig, Context context) {
-        dbHandler = new PredictionsDbHandler(dbConfig, context);
+    public ShowPredictionsInteractor(DatabaseConfig databaseConfig) {
+        firebaseDbHandler = new FirebaseDbHandler(databaseConfig);
+        // dbHandler = new PredictionsDbHandler(dbConfig, context);
     }
 
     public List<EmptyItem> getPredictions() {
-        return dbHandler.getPredictions();
+        return new ArrayList<>();
+        // return dbHandler.getPredictions();
     }
 
     public void markAsBought(List<String> selectedItems) {
@@ -30,7 +29,8 @@ public class ShowPredictionsInteractor {
     }
 
     public Prediction getPredictionForItem(long id) {
-        return dbHandler.getPredictionForItem(id);
+        return null;
+        //return dbHandler.getPredictionForItem(id);
     }
 
     public void undoMarkAsBought(List<String> selectedItems) {
@@ -40,10 +40,12 @@ public class ShowPredictionsInteractor {
     }
 
     public List<EmptyItem> getPredictionsForWeek() {
-        return dbHandler.getPredictionsForWeek();
+        return new ArrayList<>();
+        //return dbHandler.getPredictionsForWeek();
     }
 
     public List<EmptyItem> getPredictionsForMonth() {
-        return dbHandler.getPredictionsForMonth();
+        return new ArrayList<>();
+        //return dbHandler.getPredictionsForMonth();
     }
 }

@@ -26,7 +26,7 @@ import com.programistka.makemyshoppinglist.ZZZActivity;
 import com.programistka.makemyshoppinglist.addemptyitem.AddEmptyItemActivity;
 import com.programistka.makemyshoppinglist.archive.ArchiveInteractor;
 import com.programistka.makemyshoppinglist.archive.ArchivePresenter;
-import com.programistka.makemyshoppinglist.presenters.DbConfig;
+import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +67,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        showPredictionsPresenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DbConfig(), this));
+        showPredictionsPresenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DatabaseConfig()));
     }
 
     @Override
@@ -142,7 +142,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
     public void markAsArchived(MenuItem item) {
         initMenu();
-        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
+        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DatabaseConfig()));
         presenter.markAsArchived(selectedItems);
         copySelectedItems.addAll(selectedItems);
         mViewPager = findViewById(R.id.container);
@@ -174,7 +174,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
     public void markAsEmpty(MenuItem item) {
         initMenu();
-        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DbConfig(), this));
+        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DatabaseConfig()));
         presenter.markAsEmpty(selectedItems, CalendarProvider.setNowCalendar().getTimeInMillis());
         copySelectedItems.addAll(selectedItems);
         mViewPager = findViewById(R.id.container);

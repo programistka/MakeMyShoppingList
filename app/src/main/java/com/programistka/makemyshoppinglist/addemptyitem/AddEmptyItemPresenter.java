@@ -4,7 +4,7 @@ public class AddEmptyItemPresenter {
 
     private AddEmptyItemInteractor interactor;
 
-    public AddEmptyItemPresenter(AddEmptyItemInteractor interactor, AddEmptyItemView view) {
+    public AddEmptyItemPresenter(AddEmptyItemInteractor interactor) {
         this.interactor = interactor;
     }
 

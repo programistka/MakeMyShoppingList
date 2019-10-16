@@ -21,10 +21,16 @@ import java.util.List;
 
 public class FirebaseDbHandler {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference itemsStorageReference = firebaseDatabase.getReference().child("items");
-    private DatabaseReference emptyItemsHistoryStorageReference = firebaseDatabase.getReference().child("emptyItemsHistory");
-    private DatabaseReference emptyItemsPredictionsStorageReference = firebaseDatabase.getReference().child("emptyItemsPredictions");
-    private DatabaseReference emptyItemsArchiveStorageReference = firebaseDatabase.getReference().child("emptyItemsArchive");
+    //TODO make configuration special for production and for testing
+    private DatabaseReference itemsStorageReference;
+    private DatabaseReference emptyItemsHistoryStorageReference;
+    private DatabaseReference emptyItemsPredictionsStorageReference;
+
+    public FirebaseDbHandler(DatabaseConfig config) {
+        itemsStorageReference = firebaseDatabase.getReference().child(config.getItems());
+        emptyItemsHistoryStorageReference = firebaseDatabase.getReference().child(config.getHistory());
+        emptyItemsPredictionsStorageReference = firebaseDatabase.getReference().child(config.getPredictions());
+    }
 
     public void addEmptyItem(final AddEmptyItemView view, String name, final long time) {
         if (name.length() == 0) {

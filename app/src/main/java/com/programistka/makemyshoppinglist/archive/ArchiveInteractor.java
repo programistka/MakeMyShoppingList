@@ -1,16 +1,15 @@
 package com.programistka.makemyshoppinglist.archive;
 
-import android.content.Context;
-
+import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfig;
 import com.programistka.makemyshoppinglist.dbhandlers.FirebaseDbHandler;
-import com.programistka.makemyshoppinglist.presenters.DbConfig;
 
 import java.util.List;
 
 public class ArchiveInteractor {
-    FirebaseDbHandler firebaseDbHandler = new FirebaseDbHandler();
+    FirebaseDbHandler firebaseDbHandler;
 
-    public ArchiveInteractor(DbConfig dbConfig, Context context) {
+    public ArchiveInteractor(DatabaseConfig databaseConfig) {
+        firebaseDbHandler = new FirebaseDbHandler(databaseConfig);
     }
 
     public void markAsArchived(List<String> selectedItems) {
