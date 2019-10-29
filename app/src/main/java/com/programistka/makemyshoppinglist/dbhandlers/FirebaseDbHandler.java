@@ -1,11 +1,12 @@
 package com.programistka.makemyshoppinglist.dbhandlers;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.programistka.makemyshoppinglist.addemptyitem.AddEmptyItemView;
 import com.programistka.makemyshoppinglist.models.EmptyItemHistoryEntry;
@@ -20,16 +21,14 @@ import java.util.Calendar;
 import java.util.List;
 
 public class FirebaseDbHandler {
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    //TODO make configuration special for production and for testing
     private DatabaseReference itemsStorageReference;
     private DatabaseReference emptyItemsHistoryStorageReference;
     private DatabaseReference emptyItemsPredictionsStorageReference;
 
     public FirebaseDbHandler(DatabaseConfig config) {
-        itemsStorageReference = firebaseDatabase.getReference().child(config.getItems());
-        emptyItemsHistoryStorageReference = firebaseDatabase.getReference().child(config.getHistory());
-        emptyItemsPredictionsStorageReference = firebaseDatabase.getReference().child(config.getPredictions());
+        itemsStorageReference = config.getItems();
+        emptyItemsHistoryStorageReference = config.getHistory();
+        emptyItemsPredictionsStorageReference = config.getPredictions();
     }
 
     public void addEmptyItem(final AddEmptyItemView view, String name, final long time) {
@@ -129,6 +128,7 @@ public class FirebaseDbHandler {
                     emptyItemsPredictionsStorageReference.orderByChild("id").equalTo(itemId).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Log.d("DEBUGING", String.valueOf(dataSnapshot.getChildrenCount()));
                             if (dataSnapshot.getChildrenCount() > 0) {
                                 for (DataSnapshot prediction : dataSnapshot.getChildren()) {
                                     EmptyItemPredictionEntry entry = prediction.getValue(EmptyItemPredictionEntry.class);

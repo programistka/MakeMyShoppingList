@@ -1,6 +1,6 @@
 package com.programistka.makemyshoppinglist.archive;
 
-import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfig;
+import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfigApp;
 import com.programistka.makemyshoppinglist.dbhandlers.FirebaseDbHandler;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class ArchiveInteractor {
     FirebaseDbHandler firebaseDbHandler;
 
-    public ArchiveInteractor(DatabaseConfig databaseConfig) {
+    public ArchiveInteractor(DatabaseConfigApp databaseConfig) {
         firebaseDbHandler = new FirebaseDbHandler(databaseConfig);
     }
 

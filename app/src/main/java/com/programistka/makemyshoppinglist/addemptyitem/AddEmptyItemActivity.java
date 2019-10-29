@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.programistka.makemyshoppinglist.CalendarProvider;
 import com.programistka.makemyshoppinglist.R;
-import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfig;
+import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfigApp;
 import com.programistka.makemyshoppinglist.predictions.ShowPredictionsActivity;
 import com.programistka.makemyshoppinglist.presenters.DbConfig;
 import com.programistka.makemyshoppinglist.selectallItems.SelectAllItemsInteractor;
@@ -44,7 +44,7 @@ public class AddEmptyItemActivity extends AppCompatActivity implements AddEmptyI
         setContentView(R.layout.activity_add_empty_item);
         ButterKnife.bind(this);
 
-        addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DatabaseConfig()));
+        addEmptyItemPresenter = new AddEmptyItemPresenter(new AddEmptyItemInteractor(new DatabaseConfigApp()));
         SelectAllItemsPresenter selectAllItemsPresenter = new SelectAllItemsPresenter(new SelectAllItemsInteractor(new DbConfig(), getApplicationContext()));
 
         SuggestionsAdapter adapter = new SuggestionsAdapter(this, selectAllItemsPresenter.selectAllItemsFromItemsTable());

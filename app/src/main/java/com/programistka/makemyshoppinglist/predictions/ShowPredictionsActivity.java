@@ -26,7 +26,7 @@ import com.programistka.makemyshoppinglist.ZZZActivity;
 import com.programistka.makemyshoppinglist.addemptyitem.AddEmptyItemActivity;
 import com.programistka.makemyshoppinglist.archive.ArchiveInteractor;
 import com.programistka.makemyshoppinglist.archive.ArchivePresenter;
-import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfig;
+import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfigApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +67,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        showPredictionsPresenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DatabaseConfig()));
+        showPredictionsPresenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DatabaseConfigApp()));
     }
 
     @Override
@@ -142,7 +142,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
     public void markAsArchived(MenuItem item) {
         initMenu();
-        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DatabaseConfig()));
+        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DatabaseConfigApp()));
         presenter.markAsArchived(selectedItems);
         copySelectedItems.addAll(selectedItems);
         mViewPager = findViewById(R.id.container);
@@ -174,7 +174,7 @@ public class ShowPredictionsActivity extends AppCompatActivity {
 
     public void markAsEmpty(MenuItem item) {
         initMenu();
-        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DatabaseConfig()));
+        final ArchivePresenter presenter = new ArchivePresenter(new ArchiveInteractor(new DatabaseConfigApp()));
         presenter.markAsEmpty(selectedItems, CalendarProvider.setNowCalendar().getTimeInMillis());
         copySelectedItems.addAll(selectedItems);
         mViewPager = findViewById(R.id.container);

@@ -1,25 +1,12 @@
 package com.programistka.makemyshoppinglist.dbhandlers;
 
-public class DatabaseConfig {
-    private String items;
-    private String history;
-    private String predictions;
+import com.google.firebase.database.DatabaseReference;
 
-    public DatabaseConfig() {
-        items = "items";
-        history = "history";
-        predictions = "predictions";
-    }
+public interface DatabaseConfig {
 
-    public String getItems() {
-        return items;
-    }
+    public DatabaseReference getItems();
 
-    public String getHistory() {
-        return history;
-    }
+    public DatabaseReference getHistory();
 
-    public String getPredictions() {
-        return predictions;
-    }
+    public DatabaseReference getPredictions();
 }

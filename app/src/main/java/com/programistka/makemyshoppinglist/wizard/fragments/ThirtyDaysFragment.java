@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.programistka.makemyshoppinglist.CalendarProvider;
 import com.programistka.makemyshoppinglist.R;
-import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfig;
+import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfigApp;
 import com.programistka.makemyshoppinglist.dbhandlers.FirebaseDbHandler;
 import com.programistka.makemyshoppinglist.predictions.ShowPredictionsActivity;
 
@@ -33,7 +33,7 @@ public class ThirtyDaysFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        firebaseDbHandler = new FirebaseDbHandler(new DatabaseConfig());
+        firebaseDbHandler = new FirebaseDbHandler(new DatabaseConfigApp());
     }
 
     @Override

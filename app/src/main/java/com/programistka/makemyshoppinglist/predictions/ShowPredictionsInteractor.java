@@ -1,6 +1,6 @@
 package com.programistka.makemyshoppinglist.predictions;
 
-import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfig;
+import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfigApp;
 import com.programistka.makemyshoppinglist.dbhandlers.FirebaseDbHandler;
 import com.programistka.makemyshoppinglist.models.EmptyItem;
 import com.programistka.makemyshoppinglist.models.Prediction;
@@ -11,7 +11,7 @@ import java.util.List;
 public class ShowPredictionsInteractor {
     private FirebaseDbHandler firebaseDbHandler;
 
-    public ShowPredictionsInteractor(DatabaseConfig databaseConfig) {
+    public ShowPredictionsInteractor(DatabaseConfigApp databaseConfig) {
         firebaseDbHandler = new FirebaseDbHandler(databaseConfig);
         // dbHandler = new PredictionsDbHandler(dbConfig, context);
     }

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.programistka.makemyshoppinglist.R;
-import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfig;
+import com.programistka.makemyshoppinglist.dbhandlers.DatabaseConfigApp;
 import com.programistka.makemyshoppinglist.models.EmptyItem;
 import com.programistka.makemyshoppinglist.predictions.PredictionsAdapter;
 import com.programistka.makemyshoppinglist.predictions.ShowPredictionsInteractor;
@@ -62,7 +62,7 @@ public class ThirtyDaysFragment extends Fragment {
     }
 
     private void initData() {
-        ShowPredictionsPresenter presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DatabaseConfig()));
+        ShowPredictionsPresenter presenter = new ShowPredictionsPresenter(new ShowPredictionsInteractor(new DatabaseConfigApp()));
         List<EmptyItem> predictions = presenter.getPredictionsForMonth();
         if (predictions.size() == 0) {
             RecyclerView recyclerView = getView().findViewById(R.id.fragmentItems);
