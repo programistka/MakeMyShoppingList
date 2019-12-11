@@ -11,12 +11,17 @@ android {
         exclude 'AUTHORS'
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "com.programistka.makemyshoppinglist"
-        minSdkVersion 16
+        minSdkVersion 28
         targetSdkVersion 28
         versionCode 3
         versionName "1.0.2"
@@ -35,6 +40,9 @@ android {
         unitTests {
             includeAndroidResources = true
         }
+    }
+    compileOptions {
+        targetCompatibility = 1.8
     }
 
 }

@@ -8,10 +8,10 @@ public class AddEmptyItemInteractor {
     private FirebaseDbHandler firebaseDbHandler;
 
     public AddEmptyItemInteractor(DatabaseConfigApp databaseConfig) {
-        firebaseDbHandler = new FirebaseDbHandler(databaseConfig);
+        firebaseDbHandler = FirebaseDbHandler.init(databaseConfig);
     }
 
     void addEmptyItem(AddEmptyItemActivity addEmptyItemActivity, String toString, long timeInMillis) {
-        firebaseDbHandler.addEmptyItem(addEmptyItemActivity, toString, timeInMillis);
+        firebaseDbHandler.addEmptyItem2(addEmptyItemActivity, toString, timeInMillis);
     }
 }

@@ -12,7 +12,7 @@ public class ShowPredictionsInteractor {
     private FirebaseDbHandler firebaseDbHandler;
 
     public ShowPredictionsInteractor(DatabaseConfigApp databaseConfig) {
-        firebaseDbHandler = new FirebaseDbHandler(databaseConfig);
+        firebaseDbHandler = FirebaseDbHandler.init(databaseConfig);
         // dbHandler = new PredictionsDbHandler(dbConfig, context);
     }
 

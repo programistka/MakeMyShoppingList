@@ -3,6 +3,7 @@ package com.programistka.makemyshoppinglist.models;
 public class EmptyItemPredictionEntry {
 
     private String id;
+    private String key;
     private long nextEmptyItemDate;
     private long daysToRunOut;
 
@@ -36,5 +37,13 @@ public class EmptyItemPredictionEntry {
 
     public void setDaysToRunOut(long daysToRunOut) {
         this.daysToRunOut = daysToRunOut;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

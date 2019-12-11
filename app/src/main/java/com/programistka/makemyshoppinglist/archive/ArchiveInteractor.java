@@ -9,7 +9,7 @@ public class ArchiveInteractor {
     FirebaseDbHandler firebaseDbHandler;
 
     public ArchiveInteractor(DatabaseConfigApp databaseConfig) {
-        firebaseDbHandler = new FirebaseDbHandler(databaseConfig);
+        firebaseDbHandler = FirebaseDbHandler.init(databaseConfig);
     }
 
     public void markAsArchived(List<String> selectedItems) {
@@ -35,7 +35,7 @@ public class ArchiveInteractor {
 
     public void markAsEmpty(List<String> selectedItems, long time) {
         for (String itemId : selectedItems) {
-            firebaseDbHandler.addEmptyExistingItem(itemId, time);
+            firebaseDbHandler.addEmptyExistingItem2(itemId, time);
         }
     }
 }
